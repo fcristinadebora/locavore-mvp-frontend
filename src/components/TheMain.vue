@@ -18,3 +18,9 @@
     </div>
   </main>
 </template>
+
+<style lang="scss">
+main {
+  min-height: calc(100vh - 160px) !important;
+}
+</style>

@@ -1,0 +1,25 @@
+.button-primary {
+  border-color: $color-brand-primary;
+  border-radius: 20px;
+  color: $color-white;
+  background-color: $color-brand-primary;
+  
+  &--light {
+    color: $color-brand-primary;
+    border-color: $color-brand-primary;
+    background-color: $color-white;
+  }
+}
+
+.button-secondary {
+  border-color: $color-brand-secondary;
+  border-radius: 20px;
+  color: $color-brand-secondary;
+  background-color: $color-brand-secondary
+  
+  &--light {
+    color: $color-white;
+    border-color: $color-brand-secondary;
+    background-color: $color-white;
+  }
+}

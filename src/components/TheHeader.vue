@@ -6,19 +6,37 @@ export default {
 
 <template>
   <header>
-    <nav class="navbar navbar-dark fixed-top bg-dark">
-      <div class="container-fluid justify-content-start">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarCollapse"
-          aria-controls="navbarCollapse"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+    <nav class="navbar navbar-white fixed-top bg-white color-primary">
+      <div class="container justify-content-between">
+        <div
+          class="menu-content-left d-flex justify-content-start align-content-center"
         >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+          <button
+            class="menu-toggler bg-transparent"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="bi bi-list"></i>
+          </button>
+          <a
+            class="navbar-brand menu-logo p-0 ms-2 d-flex align-items-center"
+            href="#"
+          >
+            <img src="public/img/logo_green.png" alt="" />
+          </a>
+        </div>
+        <div class="menu-content-left d-flex justify-content-end">
+          <a
+            href=""
+            class="btn btn-md button-primary button-primary--light me-2"
+            >Entrar</a
+          >
+          <a href="" class="btn btn-md button-primary">Cadastrar</a>
+        </div>
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
@@ -49,7 +67,6 @@ export default {
             </button>
           </form>
         </div>
-        <a class="navbar-brand" href="#">Fixed navbar</a>
       </div>
     </nav>
   </header>
@@ -119,3 +136,26 @@ export default {
     </div>
   </header>
 </template>
+
+<style lang="scss">
+@import "@/assets/scss/_colors";
+
+.menu-logo {
+  img {
+    height: 42px;
+  }
+}
+
+.menu-toggler {
+  border: none;
+  &:focus {
+    background-color: transparent;
+  }
+
+  i {
+    font-size: 36px;
+    font-weight: bold;
+    color: $color-brand-primary;
+  }
+}
+</style>
