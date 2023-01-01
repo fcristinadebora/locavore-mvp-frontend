@@ -1,9 +1,13 @@
-<script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+<script>
+import TheLayout from "../layouts/TheLayout.vue";
+
+export default {
+  components: {
+    TheLayout,
+  },
+};
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <TheLayout />
 </template>
