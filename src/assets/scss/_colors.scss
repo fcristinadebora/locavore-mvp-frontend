@@ -1,12 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
-$color-brand-primary: #1D183D;
-$color-brand-primary-light: #3B3B3B;
-$color-brand-secondary: #9CD90D;
-$color-brand-secondary-light: #CDF277;
-$color-gray-light: #8C899C;
-$color-white: #FFFFFF;
-
 .bg-custom-white {
   background-color: $color-white;
 }
@@ -18,6 +11,9 @@ $color-white: #FFFFFF;
   color: $color-brand-secondary
 }
 
+.bg-custom-primary {
+  background-color: $color-brand-primary;
+}
 .bg-custom-secondary {
   background-color: $color-brand-secondary;
 }

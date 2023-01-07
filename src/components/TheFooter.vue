@@ -35,16 +35,38 @@
     </div>
     <div class="footer_copyright bg-custom-secondary py-2">
       <div class="container text-center">
-        <span class="color-white"
-          >Ⓒ 2022 - Locavore - Todos os direitos reservados</span
-        >
+        <span class="color-primary">
+          Ⓒ {{ currentYear }} - Locavore - Todos os direitos reservados
+        </span>
       </div>
     </div>
   </footer>
 </template>
 
+<script>
+export default {
+  data () {
+    return {
+      currentYear: this.getCurrentYear()
+    }
+  },
+
+  methods: {
+    getCurrentYear () {
+      return new Date().getFullYear();
+    }
+  }
+    
+}
+</script>
+
 <style lang="scss">
-@import "@/assets/scss/_colors";
+@import "@/assets/scss/_variables";
+
+.footer {
+  font-size: $size-text-secondary;
+}
+
 .footer_detail{
   text-align: center;
 }
