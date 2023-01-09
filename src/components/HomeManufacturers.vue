@@ -43,42 +43,42 @@ export default {
       manufacturers: [
         {
           name: 'Mistureba Vegana',
-          img: 'src/assets/img/manufacturers/mistureba.png',
+          img: 'img/manufacturers/mistureba.png',
           category: 'Veganos'
         },
         {
           name: 'Cauana Minusculi Confeiraria Gourmet',
-          img: 'src/assets/img/manufacturers/cau.png',
+          img: 'img/manufacturers/cau.png',
           category: 'Artesanais'
         },
         {
           name: 'Sitio Pema',
-          img: 'src/assets/img/manufacturers/pema.png',
+          img: 'img/manufacturers/pema.png',
           category: 'Orgânicos'
         },
         {
           name: 'Mistureba Vegana',
-          img: 'src/assets/img/manufacturers/mistureba.png',
+          img: 'img/manufacturers/mistureba.png',
           category: 'Veganos'
         },
         {
           name: 'Cauana Minusculi Confeiraria Gourmet',
-          img: 'src/assets/img/manufacturers/cau.png',
+          img: 'img/manufacturers/cau.png',
           category: 'Artesanais'
         },
         {
           name: 'Sitio Pema',
-          img: 'src/assets/img/manufacturers/pema.png',
+          img: 'img/manufacturers/pema.png',
           category: 'Orgânicos'
         },
         {
           name: 'Cauana Minusculi Confeiraria Gourmet',
-          img: 'src/assets/img/manufacturers/cau.png',
+          img: 'img/manufacturers/cau.png',
           category: 'Artesanais'
         },
         {
           name: 'Sitio Pema',
-          img: 'src/assets/img/manufacturers/pema.png',
+          img: 'img/manufacturers/pema.png',
           category: 'Orgânicos'
         }
       ],
