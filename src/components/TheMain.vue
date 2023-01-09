@@ -1,8 +1,6 @@
 <template>
   <main class="flex-shrink-0">
-    <div class="container">
-      <slot></slot>
-    </div>
+    <slot></slot>
   </main>
 </template>
 

@@ -3,11 +3,13 @@
       id="hero"
       class="hero d-flex flex-column justify-content-center text-center py-4"
       >
-      <h1 class="text-xl">Bem-vindo ao Locavore</h1>
-      <p>A plataforma para conexão de produtores e consumidores locais</p>
-      <button class="btn button-secondary hero_btn-start px-4">
-        Iniciar
-      </button>
+      <div class="container">
+        <h1 class="text-xl">Bem-vindo ao Locavore</h1>
+        <p>A plataforma para conexão de produtores e consumidores locais</p>
+        <button class="btn button-secondary hero_btn-start px-4">
+          Iniciar
+        </button>
+      </div>
     </section>
 </template>
 

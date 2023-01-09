@@ -3,7 +3,7 @@
     <div class="container footer_detail d-flex flex-row flex-sm-row justify-content-between py-3">
       <div class="d-flex flex-column align-items-center col-5 col-sm-auto" id="footer-left">
         <img
-          src="public/img/logo_blue.png"
+          src="@/assets/img/logo_blue.png"
           class="footer_detail_logo mb-2"
           alt="Logo"
         />

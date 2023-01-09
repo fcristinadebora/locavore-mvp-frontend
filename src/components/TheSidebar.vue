@@ -9,7 +9,7 @@
                 aria-expanded="false"
                 aria-label="Close navigation">
                 <i class="bi bi-arrow-return-left"></i>Fechar menu</a>
-                <img src="img/icon-outline-white.png" alt="White outline icon" class="sidebar-menu_logo">
+                <img src="@/assets/img/icon-outline-white.png" alt="White outline icon" class="sidebar-menu_logo">
           </li>
           <li>
               <a href="#"><i class="bi bi-house"></i>Home</a>

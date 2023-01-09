@@ -3,7 +3,7 @@
 }
 .button-primary {
   border-color: $color-brand-primary;
-  border-radius: 20px;
+  border-radius: $border-radius;
   color: $color-white;
   background-color: $color-brand-primary;
   &:hover {
@@ -28,7 +28,7 @@
 
 .button-secondary {
   border-color: $color-brand-secondary;
-  border-radius: 20px;
+  border-radius: $border-radius;
   color: $color-white;
   background-color: $color-brand-secondary;
   &:hover {

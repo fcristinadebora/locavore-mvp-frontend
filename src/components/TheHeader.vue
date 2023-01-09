@@ -26,7 +26,7 @@ export default {
             class="navbar-brand menu-logo p-0 ms-2 d-flex align-items-center"
             href="#"
           >
-            <img src="public/img/logo_green.png" alt="" />
+            <img src="@/assets/img/logo_green.png" alt="" />
           </a>
         </div>
         <div class="menu-content-left justify-content-end">

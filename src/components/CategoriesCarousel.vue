@@ -1,15 +1,17 @@
 <template>
   <section id="categories-carousel" class="mb-3">
-    <carousel :breakpoints="breakpoints" :snap-align="'start'">
-      <slide v-for="category,index in categories" :key="index" >
-        <button class="btn button-secondary button-secondary--light categories-carousel__category">{{ category }}</button>
-      </slide>
-
-      <template #addons>
-        <navigation />
-        <pagination />
-      </template>
-    </carousel>
+    <div class="container">
+      <carousel :breakpoints="breakpoints" :snap-align="'start'">
+        <slide v-for="category,index in categories" :key="index" >
+          <button class="btn button-secondary button-secondary--light categories-carousel__category">{{ category }}</button>
+        </slide>
+  
+        <template #addons>
+          <navigation />
+          <pagination />
+        </template>
+      </carousel>
+    </div>
   </section>
 </template>
 
@@ -17,6 +19,13 @@
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
 export default {
+  components: {
+    Carousel,
+    Slide,
+    Pagination,
+    Navigation,
+  },
+  
   data () {
     return {
       categories: [
@@ -60,23 +69,11 @@ export default {
         },
       },
     }
-  },
-
-  components: {
-    Carousel,
-    Slide,
-    Pagination,
-    Navigation,
   }
 }
 </script>
 
 <style lang="scss">
-.carousel__pagination-button::after{
-  border-radius: 50%!important;
-  height: 10px!important;
-  width: 10px!important;
-}
 .categories-carousel__category {
   width: 150px;
 }
