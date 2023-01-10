@@ -3,8 +3,17 @@
     <div class="container">
       <h2 class="text-center text-bold font-size-lg color-primary manufacturers__title mb-3">Produtores Populares</h2>
     
-        <carousel :breakpoints="breakpoints" :snap-align="'start'" class="col-12 pt-3">
-          <slide v-for="manufacturer,index in manufacturers" :key="index" class="manufacturers__slide pb-3">
+    
+        <carousel
+          :breakpoints="breakpoints"
+          :snap-align="'start'"
+          @slide-start="handleSlideStart"
+          @slide-end="handleSlideEnd"
+          id="manufacturers-carousel"
+          class="pt-3">
+          <slide v-for="manufacturer,index in manufacturers" :key="index"
+            class="manufacturers__slide pb-3"
+            style="padding-right: 0.5rem">
             <article class="manufacturers__item
                 border-radius
                 bg-white
@@ -19,11 +28,13 @@
           </slide>
     
           <template #addons>
-            <navigation />
-            <pagination />
+            <div class="d-flex mt-3 justify-content-center align-items-center">
+              <navigation />
+              <pagination />
+            </div>
           </template>
         </carousel>
-    </div>
+      </div>
   </section>
 </template>
 
@@ -91,16 +102,57 @@ export default {
     }
   },
 
+  mounted () {
+    this.listenWindowResize()
+  },
+
   methods: {
     getBreakPoints() {
       var breakpoints = []
-      for(var i = 100; i < 3000; i += 50) {
+      for(var i = 0; i < 3000; i += 20) {
+        var itemsToShow = i/250
         breakpoints[i] = {
-          itemsToShow: Math.floor((i - 100)/200)
+          itemsToShow: Math.floor(itemsToShow)
         }
       }
 
       return Object.assign({}, breakpoints)
+    },
+
+    listenWindowResize() {
+      window.addEventListener('resize', this.manageSlideSpacing)
+    },
+
+    handleSlideEnd () {
+      this.manageSlideSpacing('remove')
+    },
+
+    handleSlideStart () {
+      this.manageSlideSpacing('add')
+    },
+
+    // Todo create abstraction for slide component
+    manageSlideSpacing (paddingApply = 'both') {
+      const carouselWrapper = document.getElementById('manufacturers-carousel')
+      const visibleSlides = carouselWrapper.querySelectorAll('.carousel__slide--visible')
+      if (visibleSlides.length == 0) {
+        return
+      }
+
+      var isLastElement = false
+      var element = null
+      for (let i = 0; i < visibleSlides.length; i++) {
+        element = visibleSlides[i]
+        isLastElement = (i == visibleSlides.length - 1)
+        if (!isLastElement && paddingApply != 'remove') {
+          element.style.paddingRight = '0.5rem'
+          continue
+        }
+        
+        if (paddingApply != 'add') {
+          element.style.paddingRight = '0'
+        }
+      }
     }
   }
 }
@@ -110,10 +162,9 @@ export default {
 .manufacturers__slide {
   flex-shrink: 1;
   flex-direction: column;
-  margin-left: 1rem !important;
 }
 .manufacturers__item {
-  width: 180px;
+  width: 100%;
   flex: 1;
 
   &__img{

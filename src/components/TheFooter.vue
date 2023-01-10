@@ -1,37 +1,38 @@
 <template>
-  <footer class="footer mt-auto w-100">
-    <div class="container footer_detail d-flex flex-row flex-sm-row justify-content-between py-3">
-      <div class="d-flex flex-column align-items-center col-5 col-sm-auto" id="footer-left">
+  <footer class="footer mt-auto col-12">
+    <div class="row py-4">
+      <div class="col-12 col-md-6 d-inline-flex flex-column align-items-center text-center">
         <img
           src="@/assets/img/logo_blue.png"
           class="footer_detail_logo mb-2"
           alt="Logo"
         />
         <span class="text mb-2">Conectando produtores e consumidores locais</span>
-        <nav class="social-icons">
-            <ul class="navbar-nav flex-row footer_detail_nav">
+        <nav class="social-icons mb-2">
+            <ul class="navbar-nav flex-row footer_detail_nav text-lg">
               <li class="me-2"><a href=""><i class="bi bi-instagram"></i></a></li>
               <li><a href=""><i class="bi bi-twitter"></i></a></li>
             </ul>
         </nav>
       </div>
-      <nav id="footer_right" class="col-8 col-sm-auto">
-        <ul class="navbar-nav color-secondary footer_detail_nav justify-content-between">
-          <li>
-            <a href="">Sobre nós</a>
-          </li>
-          <li>
-            <a href="">Contato</a>
-          </li>
-          <li>
-            <a href="">Perguntas frequentes</a>
-          </li>
-          <li>
-            <a href="">Política de privacidade</a>
-          </li>
-        </ul>
-
-      </nav>
+      <div class="col-12 col-md-6 d-inline-flex flex-column align-items-center text-center">
+        <nav>
+          <ul class="color-secondary footer_detail_nav justify-content-between">
+            <li class="d-inline-flex d-md-block px-3">
+              <a href="">Sobre nós</a>
+            </li>
+            <li class="d-inline-flex d-md-block px-3">
+              <a href="">Contato</a>
+            </li>
+            <li class="d-inline-flex d-md-block px-3">
+              <a href="">Perguntas frequentes</a>
+            </li>
+            <li class="d-inline-flex d-md-block px-3">
+              <a href="">Política de privacidade</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
     <div class="footer_copyright bg-custom-secondary py-2">
       <div class="container text-center">
