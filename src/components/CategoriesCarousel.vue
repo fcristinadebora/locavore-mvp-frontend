@@ -1,18 +1,16 @@
 <template>
   <section id="categories-list" class="mb-3">
-    <div class="container">
+    <div class="container px-2">
       <carousel
         :breakpoints="breakpoints"
         :snap-align="'start'"
-        @init="handleSlideChange"
-        @slide-end="handleSlideChange"
         id="categories-carousel">
-        <slide v-for="category,index in categories" :key="index" class="categories-carousel__slide">
+        <slide v-for="category,index in categories" :key="index" class="categories-carousel__slide px-1">
           <button class="btn button-secondary button-secondary--light categories-carousel__category">{{ category }}</button>
         </slide>
 
         <template #addons>
-          <div class="d-flex mt-3 justify-content-center align-items-center">
+          <div class="d-flex mt-3 px-1 justify-content-center align-items-center">
             <navigation />
             <pagination />
           </div>
@@ -65,28 +63,6 @@ export default {
 
       return Object.assign({}, breakpoints)
     },
-
-    // Todo create abstraction for slide component
-    handleSlideChange () {
-      const carouselWrapper = document.getElementById('categories-carousel')
-      const visibleSlides = carouselWrapper.querySelectorAll('.carousel__slide--visible')
-      if (visibleSlides.length == 0) {
-        return
-      }
-
-      var isLastElement = false
-      var element = null
-      for (let i = 0; i < visibleSlides.length; i++) {
-        element = visibleSlides[i]
-        isLastElement = (i == visibleSlides.length - 1)
-        if (!isLastElement) {
-          element.style.paddingRight = '0.5rem'
-          continue
-        }
-
-        element.style.paddingRight = '0'
-      }
-    }
   }
 }
 </script>

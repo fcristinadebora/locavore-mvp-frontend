@@ -1,6 +1,6 @@
 <template>
   <footer class="footer mt-auto col-12">
-    <div class="row py-4">
+    <div class="w-100 py-4">
       <div class="col-12 col-md-6 d-inline-flex flex-column align-items-center text-center">
         <img
           src="@/assets/img/logo_blue.png"

@@ -1,19 +1,15 @@
 <template>
   <section id="manufacturers" class="py-5 my-5 bg-custom-secondary">
-    <div class="container">
+    <div class="container px-2">
       <h2 class="text-center text-bold font-size-lg color-primary manufacturers__title mb-3">Produtores Populares</h2>
     
-    
-        <carousel
+      <carousel
           :breakpoints="breakpoints"
           :snap-align="'start'"
-          @slide-start="handleSlideStart"
-          @slide-end="handleSlideEnd"
           id="manufacturers-carousel"
           class="pt-3">
           <slide v-for="manufacturer,index in manufacturers" :key="index"
-            class="manufacturers__slide pb-3"
-            style="padding-right: 0.5rem">
+            class="manufacturers__slide pb-3 px-1">
             <article class="manufacturers__item
                 border-radius
                 bg-white
@@ -28,7 +24,7 @@
           </slide>
     
           <template #addons>
-            <div class="d-flex mt-3 justify-content-center align-items-center">
+            <div class="d-flex mt-3 justify-content-center align-items-center px-1">
               <navigation />
               <pagination />
             </div>
@@ -102,10 +98,6 @@ export default {
     }
   },
 
-  mounted () {
-    this.listenWindowResize()
-  },
-
   methods: {
     getBreakPoints() {
       var breakpoints = []
@@ -117,42 +109,6 @@ export default {
       }
 
       return Object.assign({}, breakpoints)
-    },
-
-    listenWindowResize() {
-      window.addEventListener('resize', this.manageSlideSpacing)
-    },
-
-    handleSlideEnd () {
-      this.manageSlideSpacing('remove')
-    },
-
-    handleSlideStart () {
-      this.manageSlideSpacing('add')
-    },
-
-    // Todo create abstraction for slide component
-    manageSlideSpacing (paddingApply = 'both') {
-      const carouselWrapper = document.getElementById('manufacturers-carousel')
-      const visibleSlides = carouselWrapper.querySelectorAll('.carousel__slide--visible')
-      if (visibleSlides.length == 0) {
-        return
-      }
-
-      var isLastElement = false
-      var element = null
-      for (let i = 0; i < visibleSlides.length; i++) {
-        element = visibleSlides[i]
-        isLastElement = (i == visibleSlides.length - 1)
-        if (!isLastElement && paddingApply != 'remove') {
-          element.style.paddingRight = '0.5rem'
-          continue
-        }
-        
-        if (paddingApply != 'add') {
-          element.style.paddingRight = '0'
-        }
-      }
     }
   }
 }
