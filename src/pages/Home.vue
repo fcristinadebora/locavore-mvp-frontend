@@ -3,7 +3,10 @@
     <HomeHero />
     <HomeSearch />
     <CategoriesCarousel />
-    <HomeManufacturersVue />
+    <HomeManufacturers />
+    <HomeProducts />
+    <HomeTestimonials />
+    <HomeNewsletter />
   </TheLayout>
 </template>
 
@@ -12,7 +15,10 @@ import TheLayout from "../layouts/TheLayout.vue";
 import HomeHero from "../components/HomeHero.vue";
 import HomeSearch from "../components/HomeSearch.vue";
 import CategoriesCarousel from "../components/CategoriesCarousel.vue"
-import HomeManufacturersVue from "../components/HomeManufacturers.vue";
+import HomeManufacturers from "../components/HomeManufacturers.vue";
+import HomeProducts from "../components/HomeProducts.vue";
+import HomeTestimonials from "../components/HomeTestimonials.vue";
+import HomeNewsletter from "../components/HomeNewsletter.vue";
 
 export default {
   components: {
@@ -20,7 +26,10 @@ export default {
     HomeHero,
     HomeSearch,
     CategoriesCarousel,
-    HomeManufacturersVue
+    HomeManufacturers,
+    HomeProducts,
+    HomeTestimonials,
+    HomeNewsletter,
   },
 };
 </script>

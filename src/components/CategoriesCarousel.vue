@@ -1,5 +1,5 @@
 <template>
-  <section id="categories-list" class="mb-3">
+  <section id="categories-list" class="mb-5">
     <div class="container px-2">
       <carousel
         :breakpoints="breakpoints"

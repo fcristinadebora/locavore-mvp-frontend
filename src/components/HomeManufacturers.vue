@@ -1,5 +1,5 @@
 <template>
-  <section id="manufacturers" class="py-5 my-5 bg-custom-secondary">
+  <section id="manufacturers" class="py-5 bg-custom-secondary">
     <div class="container px-2">
       <h2 class="text-center text-bold font-size-lg color-primary manufacturers__title mb-3">Produtores Populares</h2>
     
@@ -30,6 +30,10 @@
             </div>
           </template>
         </carousel>
+
+        <div class="px-1 mt-3">
+          <a href="#" class="btn button-primary col-12">Ver mais produtores</a>
+        </div>
       </div>
   </section>
 </template>

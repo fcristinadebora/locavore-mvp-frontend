@@ -1,7 +1,7 @@
 <template>
   <footer class="footer mt-auto col-12">
-    <div class="w-100 py-4">
-      <div class="col-12 col-md-6 d-inline-flex flex-column align-items-center text-center">
+    <div class="w-100 pt-5 pb-3">
+      <div class="col-12 col-md-6 d-inline-flex flex-column align-items-center text-center align-middle">
         <img
           src="@/assets/img/logo_blue.png"
           class="footer_detail_logo mb-2"
@@ -15,7 +15,7 @@
             </ul>
         </nav>
       </div>
-      <div class="col-12 col-md-6 d-inline-flex flex-column align-items-center text-center">
+      <div class="col-12 col-md-6 d-inline-flex flex-column align-items-center text-center align-middle">
         <nav>
           <ul class="color-secondary footer_detail_nav justify-content-between">
             <li class="d-inline-flex d-md-block px-3">
