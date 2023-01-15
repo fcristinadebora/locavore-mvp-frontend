@@ -18,7 +18,7 @@
                 align-items-center
                 p-2">
                 <div class="testimonials__item__content bg-white border-radius pb-2">
-                  <img class="testimonials__item__img border-radius mb-2" :src="testimonial.img" alt="">
+                  <span class="testimonials__item__img border-radius mb-2 d-inline-block" :style="{ 'background-image': 'url(' + testimonial.img + ')' }" alt=""></span>
                   <h3 class="text-normal text-center color-primary text-bold">{{ testimonial.name }}</h3>
                   <p class="text-sm">{{ testimonial.category }}</p>
                   <p>{{ testimonial.testimonial }}</p>
@@ -80,7 +80,9 @@ export default {
 
   &__img{
     height: 100px;
+    width: 100px;
     margin-top: -50px;
+    background-size: cover;
   }
 
   &__content {

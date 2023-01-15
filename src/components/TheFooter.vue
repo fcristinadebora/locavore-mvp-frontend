@@ -17,7 +17,7 @@
       </div>
       <div class="col-12 col-md-6 d-inline-flex flex-column align-items-center text-center align-middle">
         <nav>
-          <ul class="color-secondary footer_detail_nav justify-content-between">
+          <ul class="color-secondary footer_detail_nav justify-content-between p-0">
             <li class="d-inline-flex d-md-block px-3">
               <a href="">Sobre nós</a>
             </li>
