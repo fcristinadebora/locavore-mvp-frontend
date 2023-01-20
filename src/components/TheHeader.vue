@@ -17,7 +17,6 @@ export default {
             data-bs-toggle="offcanvas"
             data-bs-target="#sidebar_menu"
             aria-controls="sidebar_menu"
-            aria-expanded="false"
             aria-label="Toggle navigation"
           >
             <i class="bi bi-list"></i>
@@ -30,11 +29,9 @@ export default {
           </a>
         </div>
         <div class="menu-content-left justify-content-end">
-          <a
-            href=""
-            class="btn btn-md button-primary button-primary--light me-2"
-            >Entrar</a
-          >
+          <router-link to="/login" class="btn btn-md button-primary button-primary--light me-2">
+            Entrar
+          </router-link>
           <a href="" class="btn btn-md button-primary">Cadastrar</a>
         </div>
       </div>

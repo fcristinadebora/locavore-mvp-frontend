@@ -1,5 +1,5 @@
 <template>
-  <nav id="sidebar_menu" class="offcanvas offcanvas-start bg-custom-primary sidebar-menu p-3">
+  <nav id="sidebar_menu" ref="offCanvas" class="offcanvas offcanvas-start bg-custom-primary sidebar-menu p-3">
       <ul class="list-unstyled sidebar-menu_content">
           <li class="d-flex justify-content-between sidebar-menu_content_header">
               <a href=""
@@ -12,13 +12,17 @@
                 <img src="@/assets/img/icon-outline-white.png" alt="White outline icon" class="sidebar-menu_logo">
           </li>
           <li>
-              <a href="#"><i class="bi bi-house"></i>Home</a>
+            <router-link to="/">
+              <i class="bi bi-house"></i>Home
+            </router-link>
           </li>
           <li>
               <a href="#"><i class="bi bi-search"></i>Buscar</a>
           </li>
           <li>
-              <a href="#"><i class="bi bi-box-arrow-in-left"></i>Entrar</a>
+            <router-link to="/login">
+              <i class="bi bi-box-arrow-in-left"></i>Entrar
+            </router-link>
           </li>
           <li>
               <a href="#"><i class="bi bi-person"></i>Cadastrar</a>
@@ -43,6 +47,29 @@
       </ul>
   </nav>
 </template>
+
+<script setup>
+import * as bootstrap from "bootstrap/dist/js/bootstrap"
+
+import router from '../router';
+
+router.beforeEach(route => {
+  hideSidebar()
+})
+
+const hideSidebar = () => {
+  let offcanvas = document.getElementById('sidebar_menu')
+  let backdrops = document.getElementsByClassName('offcanvas-backdrop')
+  let bsOffcanvas = bootstrap.Offcanvas.getOrCreateInstance(offcanvas)
+    
+  bsOffcanvas.hide()
+  if (backdrops.length > 0) {
+    for (const backdropItem of backdrops) {
+      backdropItem.remove()
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 @import "@/assets/scss/_variables";
