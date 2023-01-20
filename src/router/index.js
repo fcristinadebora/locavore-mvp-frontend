@@ -21,7 +21,7 @@ const router = createRouter({
       path: "/register", //todo multilanguage routes
       name: "register",
       component: Register,
-    }
+    },
   ],
 });
 

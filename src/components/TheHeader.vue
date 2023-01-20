@@ -1,9 +1,3 @@
-<script>
-export default {
-  name: "TheHeader",
-};
-</script>
-
 <template>
   <header>
     <nav class="navbar navbar-white fixed-top bg-white color-primary">
@@ -29,7 +23,10 @@ export default {
           </a>
         </div>
         <div class="menu-content-left justify-content-end">
-          <router-link to="/login" class="btn btn-md button-primary button-primary--light me-2">
+          <router-link
+            to="/login"
+            class="btn btn-md button-primary button-primary--light me-2"
+          >
             Entrar
           </router-link>
           <a href="" class="btn btn-md button-primary">Cadastrar</a>
@@ -55,7 +52,6 @@ export default {
     display: none !important;
   }
 }
-
 
 .menu-toggler {
   border: none;

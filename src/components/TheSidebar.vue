@@ -1,71 +1,81 @@
 <template>
-  <nav id="sidebar_menu" ref="offCanvas" class="offcanvas offcanvas-start bg-custom-primary sidebar-menu p-3">
-      <ul class="list-unstyled sidebar-menu_content">
-          <li class="d-flex justify-content-between sidebar-menu_content_header">
-              <a href=""
-                data-bs-toggle="offcanvas"
-                data-bs-target="#sidebar_menu"
-                aria-controls="sidebar_menu"
-                aria-expanded="false"
-                aria-label="Close navigation">
-                <i class="bi bi-arrow-return-left"></i>Fechar menu</a>
-                <img src="@/assets/img/icon-outline-white.png" alt="White outline icon" class="sidebar-menu_logo">
-          </li>
-          <li>
-            <router-link to="/">
-              <i class="bi bi-house"></i>Home
-            </router-link>
-          </li>
-          <li>
-              <a href="#"><i class="bi bi-search"></i>Buscar</a>
-          </li>
-          <li>
-            <router-link to="/login">
-              <i class="bi bi-box-arrow-in-left"></i>Entrar
-            </router-link>
-          </li>
-          <li>
-              <a href="#"><i class="bi bi-person"></i>Cadastrar</a>
-          </li>
-          <li>
-              <a href="#"><i class="bi bi-chat"></i>Feedback</a>
-          </li>
-      </ul>
-      <ul class="list-unstyled sidebar_menu_footer">
-        <li>
-          <a href="">Sobre nós</a>
-        </li>
-        <li>
-          <a href="">Contato</a>
-        </li>
-        <li>
-          <a href="">Perguntas Frequentes</a>
-        </li>
-        <li>
-          <a href="">Política de privacidade</a>
-        </li>
-      </ul>
+  <nav
+    id="sidebar_menu"
+    ref="offCanvas"
+    class="offcanvas offcanvas-start bg-custom-primary sidebar-menu p-3"
+  >
+    <ul class="list-unstyled sidebar-menu_content">
+      <li class="d-flex justify-content-between sidebar-menu_content_header">
+        <a
+          href=""
+          data-bs-toggle="offcanvas"
+          data-bs-target="#sidebar_menu"
+          aria-controls="sidebar_menu"
+          aria-expanded="false"
+          aria-label="Close navigation"
+        >
+          <i class="bi bi-arrow-return-left"></i>Fechar menu</a
+        >
+        <img
+          src="@/assets/img/icon-outline-white.png"
+          alt="White outline icon"
+          class="sidebar-menu_logo"
+        />
+      </li>
+      <li>
+        <router-link to="/"> <i class="bi bi-house"></i>Home </router-link>
+      </li>
+      <li>
+        <a href="#"><i class="bi bi-search"></i>Buscar</a>
+      </li>
+      <li>
+        <router-link to="/login">
+          <i class="bi bi-box-arrow-in-left"></i>Entrar
+        </router-link>
+      </li>
+      <li>
+        <a href="#"><i class="bi bi-person"></i>Cadastrar</a>
+      </li>
+      <li>
+        <a href="#"><i class="bi bi-chat"></i>Feedback</a>
+      </li>
+    </ul>
+    <ul class="list-unstyled sidebar_menu_footer">
+      <li>
+        <a href="">Sobre nós</a>
+      </li>
+      <li>
+        <a href="">Contato</a>
+      </li>
+      <li>
+        <a href="">Perguntas Frequentes</a>
+      </li>
+      <li>
+        <a href="">Política de privacidade</a>
+      </li>
+    </ul>
   </nav>
 </template>
 
 <script setup>
-import * as bootstrap from "bootstrap/dist/js/bootstrap"
+import * as bootstrap from "bootstrap";
+import { onMounted } from "vue";
 
-import router from '../router';
+import router from "../router";
 
-router.beforeEach(route => {
-  hideSidebar()
-})
+onMounted(() => {
+  router.beforeEach(() => hideSidebar());
+});
 
-const hideSidebar = () => {
-  let offcanvas = document.getElementById('sidebar_menu')
-  let backdrops = document.getElementsByClassName('offcanvas-backdrop')
-  let bsOffcanvas = bootstrap.Offcanvas.getOrCreateInstance(offcanvas)
-    
-  bsOffcanvas.hide()
+function hideSidebar() {
+  let offcanvas = document.getElementById("sidebar_menu");
+  let backdrops = document.getElementsByClassName("offcanvas-backdrop");
+  let bsOffcanvas = bootstrap.Offcanvas.getOrCreateInstance(offcanvas);
+
+  bsOffcanvas.hide();
   if (backdrops.length > 0) {
     for (const backdropItem of backdrops) {
-      backdropItem.remove()
+      backdropItem.remove();
     }
   }
 }
@@ -76,7 +86,7 @@ const hideSidebar = () => {
 
 .sidebar-menu {
   li {
-    margin-bottom: .25rem;
+    margin-bottom: 0.25rem;
   }
 
   a {
@@ -91,7 +101,7 @@ const hideSidebar = () => {
   i {
     margin-right: 0.75rem;
   }
-  
+
   &_content {
     margin-bottom: auto;
 
