@@ -9,9 +9,9 @@
           class="footer_detail_logo mb-2"
           alt="Logo"
         />
-        <span class="text mb-2"
-          >Conectando produtores e consumidores locais</span
-        >
+        <span class="text mb-2 px-3"
+          >Conectando produtores e consumidores locais
+        </span>
         <nav class="social-icons mb-2">
           <ul class="navbar-nav flex-row footer_detail_nav text-lg">
             <li class="me-2">

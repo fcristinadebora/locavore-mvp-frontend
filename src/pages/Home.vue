@@ -1,3 +1,14 @@
+<script setup>
+import TheLayout from "../layouts/TheLayout.vue";
+import HomeHero from "../components/HomeHero.vue";
+import HomeSearch from "../components/HomeSearch.vue";
+import CategoriesCarousel from "../components/CategoriesCarousel.vue";
+import HomeManufacturers from "../components/HomeManufacturers.vue";
+import HomeProducts from "../components/HomeProducts.vue";
+import HomeTestimonials from "../components/HomeTestimonials.vue";
+import HomeNewsletter from "../components/HomeNewsletter.vue";
+</script>
+
 <template>
   <TheLayout>
     <HomeHero />
@@ -9,17 +20,6 @@
     <HomeNewsletter />
   </TheLayout>
 </template>
-
-<script setup>
-import TheLayout from "../layouts/TheLayout.vue";
-import HomeHero from "../components/HomeHero.vue";
-import HomeSearch from "../components/HomeSearch.vue";
-import CategoriesCarousel from "../components/CategoriesCarousel.vue";
-import HomeManufacturers from "../components/HomeManufacturers.vue";
-import HomeProducts from "../components/HomeProducts.vue";
-import HomeTestimonials from "../components/HomeTestimonials.vue";
-import HomeNewsletter from "../components/HomeNewsletter.vue";
-</script>
 
 <style lang="scss">
 @import "@/assets/scss/_variables";

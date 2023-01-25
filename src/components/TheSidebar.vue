@@ -34,7 +34,9 @@
         </router-link>
       </li>
       <li>
-        <a href="#"><i class="bi bi-person"></i>Cadastrar</a>
+        <router-link to="/register">
+          <i class="bi bi-person"></i>Cadastrar
+        </router-link>
       </li>
       <li>
         <a href="#"><i class="bi bi-chat"></i>Feedback</a>
@@ -61,18 +63,18 @@
 import * as bootstrap from "bootstrap";
 import { onMounted } from "vue";
 
-import router from "../router";
-
 onMounted(() => {
-  router.beforeEach(() => hideSidebar());
+  hideSidebar();
 });
 
 function hideSidebar() {
   let offcanvas = document.getElementById("sidebar_menu");
   let backdrops = document.getElementsByClassName("offcanvas-backdrop");
   let bsOffcanvas = bootstrap.Offcanvas.getOrCreateInstance(offcanvas);
+  let body = document.querySelector("body");
 
   bsOffcanvas.hide();
+  body.removeAttribute("style");
   if (backdrops.length > 0) {
     for (const backdropItem of backdrops) {
       backdropItem.remove();

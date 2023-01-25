@@ -18,11 +18,16 @@ const router = createRouter({
       component: Login,
     },
     {
-      path: "/register", //todo multilanguage routes
+      path: "/register/:step?", //todo multilanguage routes
       name: "register",
       component: Register,
     },
   ],
+});
+
+router.beforeEach(() => {
+  // todo scroll smoothly (animation)
+  window.scrollTo(0, 0);
 });
 
 export default router;

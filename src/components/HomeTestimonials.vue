@@ -21,9 +21,7 @@
           <article
             class="testimonials__item flex-column justify-content-start align-items-center p-2"
           >
-            <div
-              class="testimonials__item__content bg-white border-radius pb-2"
-            >
+            <div class="testimonials__item__content bg-white border-radius p-2">
               <span
                 class="testimonials__item__img border-radius mb-2 d-inline-block"
                 :style="{ 'background-image': 'url(' + testimonial.img + ')' }"
@@ -33,7 +31,7 @@
                 {{ testimonial.name }}
               </h3>
               <p class="text-sm">{{ testimonial.category }}</p>
-              <p>{{ testimonial.testimonial }}</p>
+              <p class="px-3">{{ testimonial.testimonial }}</p>
             </div>
           </article>
         </slide>

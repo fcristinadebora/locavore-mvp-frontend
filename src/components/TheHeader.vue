@@ -29,7 +29,9 @@
           >
             Entrar
           </router-link>
-          <a href="" class="btn btn-md button-primary">Cadastrar</a>
+          <router-link to="/register" href="" class="btn btn-md button-primary">
+            Cadastrar</router-link
+          >
         </div>
       </div>
     </nav>

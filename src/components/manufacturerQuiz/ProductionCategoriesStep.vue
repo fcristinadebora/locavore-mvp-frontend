@@ -1,0 +1,70 @@
+<script setup>
+import { ref, defineProps } from "vue";
+import { categoriesStore } from "../../stores";
+import StepsNavigation from "./StepsNavigation.vue";
+
+const props = defineProps(["currentStep"]);
+const currentStep = props.currentStep ?? 0;
+const showNewCategoryInput = ref(true);
+
+const categories = ref([]);
+const activeCategories = ref([]);
+
+function isCategoryActive(index) {
+  return activeCategories.value.includes(index);
+}
+
+function selectCategory(index) {
+  activeCategories.value.push(index);
+}
+
+const { allCategories } = categoriesStore();
+categories.value = [...allCategories, "Outros"];
+</script>
+
+<template>
+  <section class="d-flex flex-column justify-content-between">
+    <section id="quiz-production-categories">
+      <section id="quiz-production-categories">
+        <p class="w-100 text-muted text-center mb-3">
+          Está na etapa {{ currentStep }} de 6
+        </p>
+        <h1 class="color-primary fw-bold text-center">Tipo de produção</h1>
+        <p class="text-lg text-center">
+          Clique para selecionar as categorias de produtos que você produz.<br />
+          É possível selecionar mais de uma.
+        </p>
+      </section>
+      <section class="my-5 text-center">
+        <!-- todo centralizar as categorias  -->
+        <button
+          class="btn mx-1 my-2"
+          v-for="(category, index) in categories"
+          :class="
+            isCategoryActive(index) ? 'button-primary' : 'button-primary--light'
+          "
+          :key="index"
+          @click="selectCategory(index)"
+        >
+          {{ category }}
+        </button>
+      </section>
+      <section id="new-category-input" class="my-3" v-if="showNewCategoryInput">
+        <p class="text-center">
+          Você selecionou a categoria “Outros”, informe a categoria abaixo
+        </p>
+        <input type="text" class="form-control text-center" placeholder="Digite a categoria">
+      </section>
+      <button
+        class="btn button-primary mt-3 mb-5 w-100"
+        @click="$emit('nextStep')"
+      >
+        Continuar
+      </button>
+    </section>
+    <StepsNavigation
+      @next-step="$emit('nextStep')"
+      @prev-step="$emit('prevStep')"
+    />
+  </section>
+</template>

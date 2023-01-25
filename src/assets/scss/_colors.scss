@@ -10,6 +10,13 @@
 .color-secondary {
   color: $color-brand-secondary
 }
+a.color-secondary {
+  color: $color-brand-secondary;
+
+  &:hover {
+    color: $color-brand-secondary;
+  }
+}
 
 .bg-custom-primary {
   background-color: $color-brand-primary;

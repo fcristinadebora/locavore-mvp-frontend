@@ -1,2 +1,2 @@
 cypress.config.js
-./dist/**
+dist/

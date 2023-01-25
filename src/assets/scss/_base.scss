@@ -23,7 +23,7 @@
 
 /* semantic color variables for this project */
 :root {
-  --color-background: var(--vt-c-white);
+  --color-background: var(--vts-c-white);
   --color-background-soft: var(--vt-c-white-soft);
   --color-background-mute: var(--vt-c-white-mute);
 
@@ -71,4 +71,8 @@ button:hover{
 
 .overflow-hidden{
   overflow-x: hidden;
+}
+
+.resize-none {
+  resize: none;
 }

@@ -112,7 +112,7 @@ function getBreakPoints() {
   }
 
   return Object.assign({}, breakpoints);
-};
+}
 </script>
 
 <style lang="scss">

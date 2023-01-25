@@ -34,31 +34,20 @@
 <script setup>
 import { ref } from "vue";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
+import { categoriesStore } from "../stores";
 
 const categories = ref([]);
 const breakpoints = ref([]);
 
-categories.value = [
-  "Orgânicos",
-  "Caseiros",
-  "Artesanais",
-  "Sem gluten",
-  "Sem lactose",
-  "Coloniais",
-  "Orgânicos",
-  "Caseiros",
-  "Artesanais",
-  "Sem gluten",
-  "Sem lactose",
-  "Coloniais",
-];
+const { allCategories } = categoriesStore();
+categories.value = allCategories;
 
 breakpoints.value = getBreakPoints();
 
 function getBreakPoints() {
   var breakpoints = [];
   for (var i = 0; i < 3000; i += 20) {
-    var itemsToShow = i / 200;
+    var itemsToShow = i / 250;
     breakpoints[i] = {
       itemsToShow: Math.floor(itemsToShow),
     };
@@ -66,8 +55,6 @@ function getBreakPoints() {
 
   return Object.assign({}, breakpoints);
 }
-
-
 </script>
 
 <style lang="scss">
