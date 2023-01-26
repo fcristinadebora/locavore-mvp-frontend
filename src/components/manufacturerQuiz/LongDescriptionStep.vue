@@ -19,7 +19,13 @@ const currentStep = props.currentStep ?? 0;
         </p>
       </section>
       <section id="quiz-long-description-form" class="my-3">
-        <textarea name="" id="" class="form-control w-100 resize-none" rows="10" placeholder="Digite aqui"></textarea>
+        <textarea
+          name=""
+          id=""
+          class="form-control w-100 resize-none"
+          rows="10"
+          placeholder="Digite aqui"
+        ></textarea>
       </section>
       <button
         class="btn button-primary mt-3 mb-5 w-100"

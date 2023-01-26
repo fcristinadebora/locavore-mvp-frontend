@@ -1,6 +1,7 @@
 <script setup>
 import { defineProps } from "vue";
 import StepsNavigation from "./StepsNavigation.vue";
+import StepCounter from "./StepCounter.vue";
 
 const props = defineProps(["currentStep"]);
 const currentStep = props.currentStep ?? 0;
@@ -10,34 +11,45 @@ const currentStep = props.currentStep ?? 0;
   <section class="w-100 d-flex flex-column justify-content-between">
     <section id="quiz-long-description">
       <section>
-        <p class="w-100 text-muted text-center mb-3">
-          Está na etapa {{ currentStep }} de 6
-        </p>
-        <h1 class="color-primary fw-bold text-center">Endereço</h1>
+        <StepCounter :current="currentStep" />
+        <h1 class="color-primary fw-bold text-center">
+          Contato e redes sociais
+        </h1>
       </section>
       <section id="quiz-long-description-form" class="my-3">
         <div class="row">
           <div class="col-md-6">
-            <input type="text" class="form-control my-2" placeholder="CEP" />
-          </div>
-          <div class="col-md-6">
-            <input type="text" class="form-control my-2" placeholder="Cidade" />
-          </div>
-          <div class="col-md-8">
-            <input type="text" class="form-control my-2" placeholder="Rua" />
-          </div>
-          <div class="col-md-4">
-            <input type="text" class="form-control my-2" placeholder="Número" />
-          </div>
-          <div class="col-md-6">
-            <input type="text" class="form-control my-2" placeholder="Bairro" />
+            <input
+              type="text"
+              class="form-control my-2"
+              placeholder="Whatsapp"
+            />
+            <!-- todo validate format -->
+            <label class="text-muted text-sm">Formato: blablablabal</label>
           </div>
           <div class="col-md-6">
             <input
               type="text"
               class="form-control my-2"
-              placeholder="Complemento"
+              placeholder="Telefone"
             />
+          </div>
+          <div class="col-md-8">
+            <input
+              type="url"
+              class="form-control my-2"
+              placeholder="Instagram"
+            />
+          </div>
+          <div class="col-md-4">
+            <input
+              type="url"
+              class="form-control my-2"
+              placeholder="Facebook"
+            />
+          </div>
+          <div class="col-md-6">
+            <input type="url" class="form-control my-2" placeholder="Website" />
           </div>
         </div>
       </section>

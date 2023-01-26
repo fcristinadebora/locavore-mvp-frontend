@@ -53,7 +53,11 @@ categories.value = [...allCategories, "Outros"];
         <p class="text-center">
           Você selecionou a categoria “Outros”, informe a categoria abaixo
         </p>
-        <input type="text" class="form-control text-center" placeholder="Digite a categoria">
+        <input
+          type="text"
+          class="form-control text-center"
+          placeholder="Digite a categoria"
+        />
       </section>
       <button
         class="btn button-primary mt-3 mb-5 w-100"

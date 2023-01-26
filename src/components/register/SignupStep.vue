@@ -1,20 +1,22 @@
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 
-const userType = ref('consumer');
+const userType = ref("consumer");
 </script>
 
 <template>
   <section id="login-header text-center" v-if="userType == 'consumer'">
     <h1 class="color-primary fw-bold text-center">Está quase pronto!</h1>
     <p class="text-lg text-center mb-5">
-      Para finalizar a criação do seu perfil de <strong>consumidor</strong>, informe os dados abaixo
+      Para finalizar a criação do seu perfil de <strong>consumidor</strong>,
+      informe os dados abaixo
     </p>
   </section>
   <section id="login-header text-center" v-if="userType == 'manufacturer'">
     <h1 class="color-primary fw-bold text-center">Bem-vindo, produtor!</h1>
     <p class="text-lg text-center mb-5">
-      Para criar seu perfil de <strong>produtor</strong>, informe os dados abaixo
+      Para criar seu perfil de <strong>produtor</strong>, informe os dados
+      abaixo
     </p>
   </section>
   <section id="login-form text-center">
@@ -41,7 +43,7 @@ const userType = ref('consumer');
         placeholder="Sua senha"
       />
       <label for="show-password w-100">
-        <input type="checkbox" name="showPassword" id="show-password">
+        <input type="checkbox" name="showPassword" id="show-password" />
         Mostrar senha
       </label>
       <button class="btn button-primary w-100 mt-3">Criar conta</button>

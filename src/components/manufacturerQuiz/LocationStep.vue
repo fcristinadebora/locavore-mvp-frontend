@@ -11,12 +11,12 @@ const currentStep = props.currentStep ?? 0;
   <section class="w-100 d-flex flex-column justify-content-between">
     <section id="quiz-long-description">
       <section>
-        <p class="w-100 text-muted text-center mb-3">
+        <p class="w-100 text-muted text-center mb-2">
           Está na etapa {{ currentStep }} de 6
         </p>
         <h1 class="color-primary fw-bold text-center">Endereço</h1>
       </section>
-      <section id="quiz-long-description-form" class="my-3">
+      <section id="quiz-long-description-form" class="map-container">
         <Map />
       </section>
       <button
@@ -32,3 +32,9 @@ const currentStep = props.currentStep ?? 0;
     />
   </section>
 </template>
+
+<style lang="scss">
+.map-container {
+  min-height: 70vh;
+}
+</style>

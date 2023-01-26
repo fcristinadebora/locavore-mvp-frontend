@@ -1,6 +1,6 @@
 <template>
   <TheLayout>
-    <section id="register" class="py-5 container d-flex flex-grow-1 h-100">
+    <section id="register" class="py-3 container d-flex flex-grow-1 h-100">
       <UserTypeStep v-if="currentStep == 0" />
       <SignupStep v-if="currentStep == 1" />
       <ManufacturerQuiz v-if="currentStep == 2" />

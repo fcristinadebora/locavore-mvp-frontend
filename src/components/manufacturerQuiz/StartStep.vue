@@ -6,9 +6,9 @@
         Para finalizar a criação do seu perfil, responda as etapas a seguir*.<br />
         São apenas 6 etapas para deixar seu perfil mais atrativo para os
         consumidores!<br /><br />
-  
-        *O preenchimento é opcional, você pode pular as etapas e editar seu perfil
-        quando quiser.
+
+        *O preenchimento é opcional, você pode pular as etapas e editar seu
+        perfil quando quiser.
       </p>
     </section>
     <section id="login-form text-center">

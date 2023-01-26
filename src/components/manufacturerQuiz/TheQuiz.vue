@@ -7,10 +7,13 @@ import ShortDescriptionStep from "./ShortDescriptionStep.vue";
 import LongDescriptionStep from "./LongDescriptionStep.vue";
 import AddressStep from "./AddressStep.vue";
 import LocationStep from "./LocationStep.vue";
+import ContactStep from "./ContactStep.vue";
+import SuccessStep from "./SuccessStep.vue";
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 const router = useRouter();
+const totalSteps = ref(6);
 const currentStep = ref(1);
 
 onMounted(() => {
@@ -54,7 +57,8 @@ function setCurrentStep() {
     @next-step="goToNextStep"
     @prev-step="goToPrevStep"
     :current-step="currentStep"
-  />
+    :total-steps="totalSteps"
+  ></ProfilePictureStep>
   <ProductionCategoriesStep
     v-if="currentStep == 3"
     @next-step="goToNextStep"
@@ -81,6 +85,18 @@ function setCurrentStep() {
   />
   <LocationStep
     v-if="currentStep == 7"
+    @next-step="goToNextStep"
+    @prev-step="goToPrevStep"
+    :current-step="currentStep"
+  />
+  <ContactStep
+    v-if="currentStep == 8"
+    @next-step="goToNextStep"
+    @prev-step="goToPrevStep"
+    :current-step="currentStep"
+  />
+  <SuccessStep
+    v-if="currentStep == 9"
     @next-step="goToNextStep"
     @prev-step="goToPrevStep"
     :current-step="currentStep"

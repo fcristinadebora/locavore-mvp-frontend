@@ -14,7 +14,7 @@ const mapOptions = ref({
   maxDistance: 0,
   myIcon: null,
   icon: {
-    // iconUrl: require("@/assets/img/marker.png"),
+    iconUrl: "img/map-marker.png",
     iconSize: [20, 30],
     popupAnchor: [0, -17],
     // shadowUrl: require("@/assets/img/markerShadow.png"),
@@ -315,6 +315,6 @@ function addMarker(mapContainer) {
 <style scoped>
 #mapContainer {
   width: 100%;
-  height: 55vh;
+  height: 70vh;
 }
 </style>
