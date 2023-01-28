@@ -1,10 +1,21 @@
+<script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+function handleSearchSubmit(event) {
+  event.preventDefault();
+
+  router.push("/search/location");
+}
+</script>
 <template>
   <section
     id="search"
     class="d-flex flex-column justify-content-center text-center py-4"
   >
     <div class="container">
-      <form action="/search/location">
+      <form @submit="handleSearchSubmit">
         <input
           type="text"
           name="location"

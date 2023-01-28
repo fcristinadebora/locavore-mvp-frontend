@@ -15,6 +15,7 @@ import QuizAddress from "../pages/QuizAddress.vue";
 import QuizLocation from "../pages/QuizLocation.vue";
 import QuizContact from "../pages/QuizContact.vue";
 import QuizSuccess from "../pages/QuizSuccess.vue";
+import ProductDetails from "../pages/ProductDetails.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -93,6 +94,16 @@ const router = createRouter({
       path: "/search/result",
       name: "SearchResult",
       component: SearchResult,
+    },
+    {
+      path: "/product/:id",
+      name: "ProductDetails",
+      component: ProductDetails,
+    },
+    {
+      path: "/manufacturer/:id",
+      name: "ProductDetails",
+      component: ProductDetails,
     },
   ],
 });

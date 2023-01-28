@@ -15,12 +15,12 @@
           >
             <i class="bi bi-list"></i>
           </button>
-          <a
+          <router-link
             class="navbar-brand menu-logo p-0 ms-2 d-flex align-items-center"
-            href="#"
+            to="/"
           >
             <img src="@/assets/img/logo_green.png" alt="" />
-          </a>
+          </router-link>
         </div>
         <div class="menu-content-left justify-content-end">
           <router-link

@@ -28,7 +28,7 @@ function selectCategory(index) {
 }
 
 const { allCategories } = categoriesStore();
-categories.value = [...allCategories, "Outros"];
+categories.value = [...allCategories, { id: null, name: "Outros" }];
 </script>
 
 <template>
@@ -50,12 +50,14 @@ categories.value = [...allCategories, "Outros"];
           class="btn mx-1 my-2"
           v-for="(category, index) in categories"
           :class="
-            isCategoryActive(index) ? 'button-primary' : 'button-primary--light'
+            isCategoryActive(category.id)
+              ? 'button-primary'
+              : 'button-primary--light'
           "
           :key="index"
-          @click="selectCategory(index)"
+          @click="selectCategory(category.id)"
         >
-          {{ category }}
+          {{ category.name }}
         </button>
       </section>
       <section id="new-category-input" class="my-3" v-if="showNewCategoryInput">

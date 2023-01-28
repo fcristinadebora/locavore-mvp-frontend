@@ -16,3 +16,8 @@ body {
 h1 {
   font-size: $size-text-xl;
 }
+
+h1, h2, h3, h4 {
+  font-weight: bold;
+  color: $color-brand-primary;
+}

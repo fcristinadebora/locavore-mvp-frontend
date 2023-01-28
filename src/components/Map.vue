@@ -316,5 +316,6 @@ function addMarker(mapContainer) {
 #mapContainer {
   width: 100%;
   height: 70vh;
+  min-height: 350px;
 }
 </style>

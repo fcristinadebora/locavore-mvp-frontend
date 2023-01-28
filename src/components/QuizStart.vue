@@ -11,8 +11,8 @@ function skip() {
 }
 </script>
 <template>
-  <section id="quiz-start">
-    <section id="login-header text-center">
+  <section id="quiz-start" class="w-100">
+    <section id="login-header" class="text-center">
       <h1 class="color-primary fw-bold text-center">Completar perfil</h1>
       <p class="text-lg text-center mb-5">
         Para finalizar a criação do seu perfil, responda as etapas a seguir*.<br />

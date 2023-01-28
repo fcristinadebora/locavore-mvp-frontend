@@ -53,32 +53,13 @@
 <script setup>
 import { ref } from "vue";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
+import { productsStore } from "../stores";
 
 const products = ref([]);
-const breakpoints = ref([]);
 
-products.value = [
-  {
-    name: "Pão de Queijo",
-    img: "img/products/prod4.png",
-    category: "Veganos, Sem glúten",
-  },
-  {
-    name: "Alface americana",
-    img: "img/products/prod1.png",
-    category: "Orgânicos",
-  },
-  {
-    name: "Pepino em conserva",
-    img: "img/products/prod2.png",
-    category: "Caseiros, Artesanais",
-  },
-  {
-    name: "Marmitas caseiras",
-    img: "img/products/prod3.png",
-    category: "Caseiros, Artesanais",
-  },
-];
+const { allProducts } = productsStore();
+products.value = allProducts;
+const breakpoints = ref([]);
 
 breakpoints.value = getBreakPoints();
 

@@ -53,53 +53,13 @@
 <script setup>
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 import { ref } from "vue";
+import { manufacturersStore } from "../stores";
 
 const manufacturers = ref([]);
 const breakpoints = ref([]);
 
-manufacturers.value = [
-  {
-    name: "Mistureba Vegana",
-    img: "img/manufacturers/mistureba.png",
-    category: "Veganos",
-  },
-  {
-    name: "Cauana Minusculi Confeiraria Gourmet",
-    img: "img/manufacturers/cau.png",
-    category: "Artesanais",
-  },
-  {
-    name: "Sitio Pema",
-    img: "img/manufacturers/pema.png",
-    category: "Orgânicos",
-  },
-  {
-    name: "Mistureba Vegana",
-    img: "img/manufacturers/mistureba.png",
-    category: "Veganos",
-  },
-  {
-    name: "Cauana Minusculi Confeiraria Gourmet",
-    img: "img/manufacturers/cau.png",
-    category: "Artesanais",
-  },
-  {
-    name: "Sitio Pema",
-    img: "img/manufacturers/pema.png",
-    category: "Orgânicos",
-  },
-  {
-    name: "Cauana Minusculi Confeiraria Gourmet",
-    img: "img/manufacturers/cau.png",
-    category: "Artesanais",
-  },
-  {
-    name: "Sitio Pema",
-    img: "img/manufacturers/pema.png",
-    category: "Orgânicos",
-  },
-];
-
+const { allManufacturers } = manufacturersStore();
+manufacturers.value = allManufacturers;
 breakpoints.value = getBreakPoints();
 
 function getBreakPoints() {

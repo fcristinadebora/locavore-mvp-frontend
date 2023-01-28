@@ -1,0 +1,15 @@
+.page-item {
+  .page-link {
+    border-radius: $border-radius !important;
+    padding: 0.375rem 1rem;
+    color: $color-brand-primary;
+    border-color: $color-brand-primary;
+    margin: 0.25rem;
+  }
+
+  &.active > a.page-link{
+    background-color: $color-brand-primary;
+    border-color: $color-brand-primary;
+    color: $color-white;
+  }
+}
