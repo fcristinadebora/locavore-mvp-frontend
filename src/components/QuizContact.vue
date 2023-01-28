@@ -1,10 +1,21 @@
 <script setup>
 import { defineProps } from "vue";
-import StepsNavigation from "./StepsNavigation.vue";
-import StepCounter from "./StepCounter.vue";
+import StepsNavigation from "./QuizStepsNavigation.vue";
+import StepCounter from "./QuizStepCounter.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const props = defineProps(["currentStep"]);
 const currentStep = props.currentStep ?? 0;
+
+function nextStep() {
+  router.push("/quiz/success");
+}
+
+function prevStep() {
+  router.push("/quiz/location");
+}
 </script>
 
 <template>
@@ -53,16 +64,10 @@ const currentStep = props.currentStep ?? 0;
           </div>
         </div>
       </section>
-      <button
-        class="btn button-primary mt-3 mb-5 w-100"
-        @click="$emit('nextStep')"
-      >
+      <button class="btn button-primary mt-3 mb-5 w-100" @click="nextStep">
         Continuar
       </button>
     </section>
-    <StepsNavigation
-      @next-step="$emit('nextStep')"
-      @prev-step="$emit('prevStep')"
-    />
+    <StepsNavigation @next-step="nextStep" @prev-step="prevStep" />
   </section>
 </template>

@@ -2,7 +2,19 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import Home from "../pages/Home.vue";
 import Login from "../pages/Login.vue";
-import Register from "../pages/Register.vue";
+import RegisterType from "../pages/RegisterType.vue";
+import RegisterSignupForm from "../pages/RegisterSignupForm.vue";
+import SearchLocation from "../pages/SearchLocation.vue";
+import SearchResult from "../pages/SearchResult.vue";
+import QuizStart from "../pages/QuizStart.vue";
+import QuizProfilePicture from "../pages/QuizProfilePicture.vue";
+import QuizCategories from "../pages/QuizCategories.vue";
+import QuizShortDescription from "../pages/QuizShortDescription.vue";
+import QuizLongDescription from "../pages/QuizLongDescription.vue";
+import QuizAddress from "../pages/QuizAddress.vue";
+import QuizLocation from "../pages/QuizLocation.vue";
+import QuizContact from "../pages/QuizContact.vue";
+import QuizSuccess from "../pages/QuizSuccess.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,9 +30,69 @@ const router = createRouter({
       component: Login,
     },
     {
-      path: "/register/:step?", //todo multilanguage routes
-      name: "register",
-      component: Register,
+      path: "/register", //todo multilanguage routes
+      name: "registerType",
+      component: RegisterType,
+    },
+    {
+      path: "/register/signup",
+      name: "registerSignup",
+      component: RegisterSignupForm,
+    },
+    {
+      path: "/quiz",
+      name: "quizStart",
+      component: QuizStart,
+    },
+    {
+      path: "/quiz/profile-picture",
+      name: "quizProfilePicture",
+      component: QuizProfilePicture,
+    },
+    {
+      path: "/quiz/categories",
+      name: "quizCategories",
+      component: QuizCategories,
+    },
+    {
+      path: "/quiz/short-description",
+      name: "quizShortDescription",
+      component: QuizShortDescription,
+    },
+    {
+      path: "/quiz/long-description",
+      name: "quizLongDescription",
+      component: QuizLongDescription,
+    },
+    {
+      path: "/quiz/address",
+      name: "quizAddress",
+      component: QuizAddress,
+    },
+    {
+      path: "/quiz/location",
+      name: "quizLocation",
+      component: QuizLocation,
+    },
+    {
+      path: "/quiz/contact",
+      name: "quizContact",
+      component: QuizContact,
+    },
+    {
+      path: "/quiz/success",
+      name: "quizSuccess",
+      component: QuizSuccess,
+    },
+    {
+      path: "/search/location", //todo multilanguage routes
+      name: "searchLocation",
+      component: SearchLocation,
+    },
+    {
+      path: "/search/result",
+      name: "SearchResult",
+      component: SearchResult,
     },
   ],
 });

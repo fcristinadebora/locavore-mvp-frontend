@@ -1,13 +1,21 @@
 <script setup>
 import { ref, defineProps } from "vue";
-import StepsNavigation from "./StepsNavigation.vue";
+import StepsNavigation from "./QuizStepsNavigation.vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const props = defineProps(["currentStep"]);
-
 const currentStep = ref(props.currentStep);
 const profilePicture = ref("");
 
 profilePicture.value = "/img/manufacturers/cau.png";
+
+function nextStep() {
+  router.push("/quiz/categories");
+}
+function prevStep() {
+  router.push("/quiz");
+}
 </script>
 
 <template>
@@ -50,15 +58,12 @@ profilePicture.value = "/img/manufacturers/cau.png";
           !!profilePicture.length ? 'button-primary' : 'button-primary--light',
         ]"
         :disabled="!profilePicture.length"
-        @click="$emit('nextStep')"
+        @click="nextStep"
       >
         Continuar
       </button>
     </section>
-    <StepsNavigation
-      @next-step="$emit('nextStep')"
-      @prev-step="$emit('prevStep')"
-    />
+    <StepsNavigation @next-step="nextStep" @prev-step="prevStep" />
   </section>
 </template>
 

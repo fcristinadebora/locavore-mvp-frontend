@@ -1,5 +1,16 @@
 <script setup>
-import StepsNavigation from "./StepsNavigation.vue";
+import StepsNavigation from "./QuizStepsNavigation.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+function nextStep() {
+  router.push("/");
+}
+
+function prevStep() {
+  router.push("/quiz/contact");
+}
 </script>
 
 <template>
@@ -20,8 +31,8 @@ import StepsNavigation from "./StepsNavigation.vue";
       </router-link>
     </section>
     <StepsNavigation
-      @next-step="$emit('nextStep')"
-      @prev-step="$emit('prevStep')"
+      @next-step="nextStep"
+      @prev-step="prevStep"
       :disable-next="true"
     />
   </section>

@@ -68,6 +68,9 @@ button:hover{
 .border-radius{
   border-radius: $border-radius;
 }
+.border-radius-important{
+  border-radius: $border-radius !important;
+}
 
 .overflow-hidden{
   overflow-x: hidden;
@@ -75,4 +78,9 @@ button:hover{
 
 .resize-none {
   resize: none;
+}
+
+/* Important marging */
+.m-l-1-important {
+  margin-left: 0.25rem !important;
 }

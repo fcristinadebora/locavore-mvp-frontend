@@ -1,14 +1,23 @@
 <script setup>
 import { ref, defineProps } from "vue";
-import { categoriesStore } from "../../stores";
-import StepsNavigation from "./StepsNavigation.vue";
+import { categoriesStore } from "../stores";
+import StepsNavigation from "./QuizStepsNavigation.vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const props = defineProps(["currentStep"]);
 const currentStep = props.currentStep ?? 0;
 const showNewCategoryInput = ref(true);
-
 const categories = ref([]);
 const activeCategories = ref([]);
+
+function nextStep() {
+  router.push("/quiz/short-description");
+}
+
+function prevStep() {
+  router.push("/quiz/profile-picture");
+}
 
 function isCategoryActive(index) {
   return activeCategories.value.includes(index);
@@ -59,16 +68,10 @@ categories.value = [...allCategories, "Outros"];
           placeholder="Digite a categoria"
         />
       </section>
-      <button
-        class="btn button-primary mt-3 mb-5 w-100"
-        @click="$emit('nextStep')"
-      >
+      <button class="btn button-primary mt-3 mb-5 w-100" @click="nextStep">
         Continuar
       </button>
     </section>
-    <StepsNavigation
-      @next-step="$emit('nextStep')"
-      @prev-step="$emit('prevStep')"
-    />
+    <StepsNavigation @next-step="nextStep" @prev-step="prevStep" />
   </section>
 </template>

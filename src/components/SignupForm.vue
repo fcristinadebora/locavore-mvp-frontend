@@ -1,9 +1,16 @@
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const userType = ref("consumer");
-</script>
 
+function createAccount(event) {
+  event.preventDefault();
+  router.push("/quiz");
+}
+</script>
 <template>
   <section id="login-header text-center" v-if="userType == 'consumer'">
     <h1 class="color-primary fw-bold text-center">Está quase pronto!</h1>
@@ -20,7 +27,7 @@ const userType = ref("consumer");
     </p>
   </section>
   <section id="login-form text-center">
-    <form action="">
+    <form @submit="createAccount">
       <input
         type="text"
         name="name"
