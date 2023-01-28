@@ -120,12 +120,6 @@
       }
     }
 
-    &:first-of-type:active{
-      animation: slideLeft 0.01s ease 0s 1 normal forwards;
-    }
-    &:last-of-type:active{
-      animation: slideRight 0.01s ease 0s 1 normal forwards;
-    }
     &:first-of-type{
       margin-right: .25rem !important;
     }
