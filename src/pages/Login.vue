@@ -10,8 +10,8 @@
           >
         </p>
       </section>
-      <section id="login-form text-center">
-        <form action="">
+      <section id="login-form">
+        <form action="" class="mb-3">
           <input
             type="text"
             name="username"
@@ -32,6 +32,10 @@
           </label>
           <button class="btn button-primary w-100 mt-3">Entrar</button>
         </form>
+
+        <div class="w-100 text-center">
+          <router-link to="/forgot-password" class="color-secondary">Esqueceu sua senha?</router-link>
+        </div>
       </section>
     </section>
   </TheLayout>

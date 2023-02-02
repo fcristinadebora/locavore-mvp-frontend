@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps, computed } from "vue";
+import { ref, computed } from "vue";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 import { categoriesStore } from "../stores";
 

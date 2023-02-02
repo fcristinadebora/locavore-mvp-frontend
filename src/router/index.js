@@ -16,6 +16,7 @@ import QuizLocation from "../pages/QuizLocation.vue";
 import QuizContact from "../pages/QuizContact.vue";
 import QuizSuccess from "../pages/QuizSuccess.vue";
 import ProductDetails from "../pages/ProductDetails.vue";
+import ForgotPassword from "../pages/ForgotPassword.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +30,11 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: Login,
+    },
+    {
+      path: "/forgot-password",
+      name: "forgotPassword",
+      component: ForgotPassword,
     },
     {
       path: "/register", //todo multilanguage routes

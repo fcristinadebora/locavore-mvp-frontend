@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref } from "vue";
+import { ref } from "vue";
 const props = defineProps(["disableNext"]);
 
 const disableNext = ref(props.disableNext ?? false);

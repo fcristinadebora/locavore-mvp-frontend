@@ -1,5 +1,4 @@
 <script setup>
-import { defineProps } from "vue";
 import StepsNavigation from "./QuizStepsNavigation.vue";
 import Map from "./Map.vue";
 import { useRouter } from "vue-router";

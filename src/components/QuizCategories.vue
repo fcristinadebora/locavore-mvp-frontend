@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps } from "vue";
+import { ref } from "vue";
 import { categoriesStore } from "../stores";
 import StepsNavigation from "./QuizStepsNavigation.vue";
 import { useRouter } from "vue-router";

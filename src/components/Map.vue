@@ -14,7 +14,7 @@ const mapOptions = ref({
   maxDistance: 0,
   myIcon: null,
   icon: {
-    iconUrl: "img/map-marker.png",
+    iconUrl: "@/img/map-marker.png",
     iconSize: [20, 30],
     popupAnchor: [0, -17],
     // shadowUrl: require("@/assets/img/markerShadow.png"),
