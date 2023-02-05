@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, defineEmits } from "vue";
+import { ref, onMounted } from "vue";
 import { PRODUCT, MANUFACTURER } from "../enum/general";
 import CategoriesCarousel from "./CategoriesCarousel.vue";
 
