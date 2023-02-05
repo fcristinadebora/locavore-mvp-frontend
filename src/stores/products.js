@@ -13,6 +13,9 @@ export const productsStore = defineStore("products", () => {
       distance: "3km",
       price: 15.0,
       priceUnit: "UN",
+      availability: "Sob encomenda",
+      description:
+        "Delicioso pão de queijo, macio e fresquinho. Temos as opções: Tradicional, Vegano e Sem glúten. Por apenas R$3,50 o Kg!",
     },
     {
       id: id++,
@@ -23,6 +26,9 @@ export const productsStore = defineStore("products", () => {
       distance: "3km",
       price: 15.0,
       priceUnit: "UN",
+      availability: "Sob encomenda",
+      description:
+        "Delicioso pão de queijo, macio e fresquinho. Temos as opções: Tradicional, Vegano e Sem glúten. Por apenas R$3,50 o Kg!",
     },
     {
       id: id++,
@@ -33,6 +39,9 @@ export const productsStore = defineStore("products", () => {
       distance: "3km",
       price: 15.0,
       priceUnit: "UN",
+      availability: "Sob encomenda",
+      description:
+        "Delicioso pão de queijo, macio e fresquinho. Temos as opções: Tradicional, Vegano e Sem glúten. Por apenas R$3,50 o Kg!",
     },
     {
       id: id++,
@@ -43,6 +52,9 @@ export const productsStore = defineStore("products", () => {
       distance: "3km",
       price: 15.0,
       priceUnit: "KG",
+      availability: "Sob encomenda",
+      description:
+        "Delicioso pão de queijo, macio e fresquinho. Temos as opções: Tradicional, Vegano e Sem glúten. Por apenas R$3,50 o Kg!",
     },
     {
       id: id++,
@@ -53,6 +65,9 @@ export const productsStore = defineStore("products", () => {
       distance: "3km",
       price: 15.0,
       priceUnit: "100g",
+      availability: "Sob encomenda",
+      description:
+        "Delicioso pão de queijo, macio e fresquinho. Temos as opções: Tradicional, Vegano e Sem glúten. Por apenas R$3,50 o Kg!",
     },
     {
       id: id++,
@@ -63,6 +78,9 @@ export const productsStore = defineStore("products", () => {
       distance: "3km",
       price: 15.0,
       priceUnit: "UN",
+      availability: "Sob encomenda",
+      description:
+        "Delicioso pão de queijo, macio e fresquinho. Temos as opções: Tradicional, Vegano e Sem glúten. Por apenas R$3,50 o Kg!",
     },
     {
       id: id++,
@@ -73,6 +91,9 @@ export const productsStore = defineStore("products", () => {
       distance: "3km",
       price: 15.0,
       priceUnit: "UN",
+      availability: "Sob encomenda",
+      description:
+        "Delicioso pão de queijo, macio e fresquinho. Temos as opções: Tradicional, Vegano e Sem glúten. Por apenas R$3,50 o Kg!",
     },
     {
       id: id++,
@@ -83,8 +104,15 @@ export const productsStore = defineStore("products", () => {
       distance: "3km",
       price: 15.0,
       priceUnit: "UN",
+      availability: "Sob encomenda",
+      description:
+        "Delicioso pão de queijo, macio e fresquinho. Temos as opções: Tradicional, Vegano e Sem glúten. Por apenas R$3,50 o Kg!",
     },
   ]);
 
-  return { allProducts };
+  const findProduct = (id) => {
+    return allProducts.value.find((product) => product.id == id);
+  };
+
+  return { allProducts, findProduct };
 });

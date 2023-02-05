@@ -17,6 +17,13 @@ a.color-secondary {
     color: $color-brand-secondary;
   }
 }
+.color-primary-light {
+  color: $color-brand-primary-light;
+
+  &:hover {
+    color: $color-brand-primary-light;
+  }
+}
 
 .bg-custom-primary {
   background-color: $color-brand-primary;

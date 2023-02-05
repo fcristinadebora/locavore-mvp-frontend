@@ -3,7 +3,7 @@ import { ref } from "vue";
 import SearchProductsList from "./SearchProductsList.vue";
 import SearchManufacturersList from "./SearchManufacturersList.vue";
 import SearchFilterModal from "./SearchFilterModal.vue";
-import SearchHeader from "./SearchFilterModal.vue";
+import SearchHeader from "./SearchHeader.vue";
 import { PRODUCT, MANUFACTURER } from "../enum/general";
 import { areEqual } from "../helpers/object";
 

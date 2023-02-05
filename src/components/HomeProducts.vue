@@ -18,19 +18,16 @@
           :key="index"
           class="products__slide pb-3 px-1"
         >
-          <article
-            class="products__item border-radius flex-column justify-content-start align-items-center p-2"
+          <router-link
+            :to="`/product/${product.id}`"
+            class="products__item border-radius d-flex flex-column justify-content-start align-items-center p-2"
           >
-            <img
-              class="products__item__img border-radius my-2"
-              :src="product.img"
-              alt=""
-            />
+            <div class="products__item__img border-radius my-2" :style="`background-image: url(${product.img})`"></div>
             <h3 class="text-normal text-center color-primary text-bold">
               {{ product.name }}
             </h3>
-            <p class="text-sm">{{ product.category }}</p>
-          </article>
+            <p class="text-sm color-primary-light">{{ product.category }}</p>
+          </router-link>
         </slide>
 
         <template #addons>
@@ -84,9 +81,15 @@ function getBreakPoints() {
 .products__item {
   width: 100%;
   flex: 1;
+  text-decoration: none;
 
   &__img {
     height: 100px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
   }
 }
 </style>
