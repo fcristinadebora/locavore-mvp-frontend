@@ -7,13 +7,6 @@ import HomeManufacturers from "../components/HomeManufacturers.vue";
 import HomeProducts from "../components/HomeProducts.vue";
 import HomeTestimonials from "../components/HomeTestimonials.vue";
 import HomeNewsletter from "../components/HomeNewsletter.vue";
-
-import { sendGetRequest } from "../api";
-import { onMounted } from "vue";
-
-onMounted(async () => {
-  console.log(await sendGetRequest("/test"));
-});
 </script>
 
 <template>

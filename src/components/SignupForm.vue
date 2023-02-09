@@ -1,14 +1,33 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { authStore } from "../stores/auth";
 
 const router = useRouter();
-
+const { executeRegister } = authStore();
 const userType = ref("consumer");
+const showPassword = ref(false);
+const formData = ref({
+  name: "",
+  email: "",
+  password: "",
+  passwordConfirm: "",
+});
 
-function createAccount(event) {
-  event.preventDefault();
-  router.push("/quiz");
+function handleSubmit() {
+  const registered = executeRegister({
+    name: formData.value.name,
+    email: formData.value.email,
+    password: formData.value.password,
+    passwordConfirm: formData.value.passwordConfirm,
+  });
+
+  if (registered) {
+    alert('deu boa rapaziada');
+    router.push("/quiz");
+  }
+
+  
 }
 </script>
 <template>
@@ -27,13 +46,14 @@ function createAccount(event) {
     </p>
   </section>
   <section id="login-form text-center">
-    <form @submit="createAccount">
+    <form @submit.prevent="handleSubmit">
       <input
         type="text"
         name="name"
         id="name"
         class="form-control mb-2"
         placeholder="Seu nome"
+        v-model="formData.name"
       />
       <input
         type="email"
@@ -41,17 +61,36 @@ function createAccount(event) {
         id="email"
         class="form-control mb-2"
         placeholder="Seu e-mail"
+        v-model="formData.email"
       />
       <input
-        type="password"
+        :type="showPassword ? 'text' : 'password'"
         name="password"
         id="password"
         class="form-control mb-2"
         placeholder="Sua senha"
+        v-model="formData.password"
       />
-      <label for="show-password w-100">
-        <input type="checkbox" name="showPassword" id="show-password" />
-        Mostrar senha
+      <input
+        :type="showPassword ? 'text' : 'password'"
+        name="password"
+        id="password"
+        class="form-control mb-2"
+        placeholder="Confirmar senha"
+        v-model="formData.passwordConfirm"
+      />
+      <label
+        for="show-password"
+        class="w-100 ps-2 color-secondary cursor-pointer"
+      >
+        <input
+          type="checkbox"
+          name="showPassword"
+          value="1"
+          id="show-password"
+          v-model="showPassword"
+        />
+        {{ showPassword ? "Esconder senha" : "Mostrar senha" }}
       </label>
       <button class="btn button-primary w-100 mt-3">Criar conta</button>
     </form>

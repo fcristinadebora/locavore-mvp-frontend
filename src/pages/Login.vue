@@ -11,27 +11,7 @@
         </p>
       </section>
       <section id="login-form">
-        <form action="" class="mb-3">
-          <input
-            type="text"
-            name="username"
-            id="username"
-            class="form-control mb-2"
-            placeholder="Seu e-mail"
-          />
-          <input
-            type="password"
-            name="password"
-            id="password"
-            class="form-control mb-2"
-            placeholder="Sua senha"
-          />
-          <label for="show-password w-100">
-            <input type="checkbox" name="showPassword" id="show-password" />
-            Mostrar senha
-          </label>
-          <button class="btn button-primary w-100 mt-3">Entrar</button>
-        </form>
+        <LoginForm />
 
         <div class="w-100 text-center">
           <router-link to="/forgot-password" class="color-secondary">Esqueceu sua senha?</router-link>
@@ -43,6 +23,7 @@
 
 <script setup>
 import TheLayout from "../layouts/TheLayout.vue";
+import LoginForm from "../components/LoginForm.vue";
 //todo add show password feature
 </script>
 

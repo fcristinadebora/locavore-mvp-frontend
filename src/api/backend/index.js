@@ -1,7 +1,8 @@
-import { METHOD_GET, METHOD_POST } from "../enum/http";
+import { METHOD_GET, METHOD_POST } from "../../enum/http";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000/api";
 const API_KEY = import.meta.env.VITE_API_KEY ?? '';
+const DEBUG_ENABLED = !!import.meta.env.VITE_APP_DEBUG ?? false;
 
 async function sendRequest(method, endpoint, query = {}, body = {}) {
   const queryString = Object.keys(query).length
@@ -15,16 +16,27 @@ async function sendRequest(method, endpoint, query = {}, body = {}) {
     headers: {
       "Content-Type": "application/json",
       "X-Authorization": API_KEY,
+      Accept: "application/json",
     },
-    body: body,
+    body: JSON.stringify(body),
   };
 
   if (method == METHOD_GET) {
     delete options.body;
   }
 
-  const response = await fetch(requestUrl, options);
-  return response;
+  const result = await fetch(requestUrl, options);
+
+  const responseBody = await result.json();
+  
+  if (!result.ok) {
+    if (DEBUG_ENABLED) {
+      console.error("Request failed", result);
+    }
+    throw Error("Error performing request", result.statusText);
+  }
+
+  return responseBody;
 }
 
 async function sendPostRequest(endpoint, body = {}, query = {}) {

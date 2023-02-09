@@ -15,6 +15,10 @@
     color: $color-white;
   }
 
+  &:disabled {
+    background-color: $color-brand-primary;
+  }
+
   &--light {
     color: $color-brand-primary;
     border-color: $color-brand-primary;
@@ -50,6 +54,10 @@
       border-color: $color-brand-secondary;
       background-color: $color-white;
     }
+  }
+
+  &:disabled {
+    background-color: $color-brand-secondary;
   }
 }
 
