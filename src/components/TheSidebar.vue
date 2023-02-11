@@ -1,3 +1,37 @@
+<script setup>
+import * as bootstrap from "bootstrap";
+import { onMounted, computed } from "vue";
+import { useAuthStore } from "../stores";
+
+const authStore = useAuthStore();
+
+const loggedUser = computed(() => authStore.loggedUser);
+
+onMounted(() => {
+  hideSidebar();
+});
+
+function hideSidebar() {
+  let offcanvas = document.getElementById("sidebar_menu");
+  let backdrops = document.getElementsByClassName("offcanvas-backdrop");
+  let bsOffcanvas = bootstrap.Offcanvas.getOrCreateInstance(offcanvas);
+  let body = document.querySelector("body");
+
+  bsOffcanvas.hide();
+  body.removeAttribute("style");
+  if (backdrops.length > 0) {
+    for (const backdropItem of backdrops) {
+      backdropItem.remove();
+    }
+  }
+}
+
+function logout () {
+  authStore.executeLogout();
+}
+
+</script>
+
 <template>
   <nav
     id="sidebar_menu"
@@ -28,15 +62,18 @@
       <li>
         <a href="#"><i class="bi bi-search"></i>Buscar</a>
       </li>
-      <li>
+      <li v-if="!loggedUser">
         <router-link to="/login">
           <i class="bi bi-box-arrow-in-left"></i>Entrar
         </router-link>
       </li>
-      <li>
+      <li v-if="!loggedUser">
         <router-link to="/register">
           <i class="bi bi-person"></i>Cadastrar
         </router-link>
+      </li>
+      <li v-if="loggedUser">
+        <a href="#" @click.prevent="logout"><i class="bi bi-box-arrow-left"></i>Sair</a>
       </li>
       <li>
         <a href="#"><i class="bi bi-chat"></i>Feedback</a>
@@ -58,30 +95,6 @@
     </ul>
   </nav>
 </template>
-
-<script setup>
-import * as bootstrap from "bootstrap";
-import { onMounted } from "vue";
-
-onMounted(() => {
-  hideSidebar();
-});
-
-function hideSidebar() {
-  let offcanvas = document.getElementById("sidebar_menu");
-  let backdrops = document.getElementsByClassName("offcanvas-backdrop");
-  let bsOffcanvas = bootstrap.Offcanvas.getOrCreateInstance(offcanvas);
-  let body = document.querySelector("body");
-
-  bsOffcanvas.hide();
-  body.removeAttribute("style");
-  if (backdrops.length > 0) {
-    for (const backdropItem of backdrops) {
-      backdropItem.remove();
-    }
-  }
-}
-</script>
 
 <style lang="scss">
 @import "@/assets/scss/_variables";

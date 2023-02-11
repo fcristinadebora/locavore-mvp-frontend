@@ -1,4 +1,4 @@
-import { METHOD_GET, METHOD_POST } from "../../enum/http";
+import { METHOD_DELETE, METHOD_GET, METHOD_POST } from "../../enum/http";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000/api";
 const API_KEY = import.meta.env.VITE_API_KEY ?? '';
@@ -10,6 +10,7 @@ async function sendRequest(method, endpoint, query = {}, body = {}) {
     : "";
 
   const requestUrl = `${API_BASE_URL}${endpoint}${queryString}`;
+  const token = sessionStorage.getItem('userToken');
 
   const options = {
     method: method,
@@ -20,6 +21,11 @@ async function sendRequest(method, endpoint, query = {}, body = {}) {
     },
     body: JSON.stringify(body),
   };
+
+  if (token) {
+    options.headers['Authorization'] = `Bearer ${token}`;
+  }
+
 
   if (method == METHOD_GET) {
     delete options.body;
@@ -47,4 +53,8 @@ async function sendGetRequest(endpoint, query = {}) {
   return await sendRequest(METHOD_GET, endpoint, query);
 }
 
-export { sendPostRequest, sendGetRequest };
+async function sendDeleteRequest(endpoint, query = {}) {
+  return await sendRequest(METHOD_DELETE, endpoint, query);
+}
+
+export { sendPostRequest, sendGetRequest, sendDeleteRequest };

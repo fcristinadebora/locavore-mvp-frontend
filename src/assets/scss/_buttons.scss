@@ -9,14 +9,12 @@
   color: $color-white;
   background-color: $color-brand-primary;
 
-  &:hover {
-    border-color: $color-brand-primary;
-    background-color: $color-brand-primary;
-    color: $color-white;
-  }
-
-  &:disabled {
-    background-color: $color-brand-primary;
+  &:hover,
+  &:active,
+  &:focus-visible{
+    border-color: $color-brand-primary !important;
+    background-color: $color-brand-primary !important;
+    color: $color-white !important;
   }
 
   &--light {

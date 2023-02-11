@@ -1,10 +1,10 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { authStore } from "../stores/auth";
+import { useAuthStore } from "../stores/auth";
 
 const router = useRouter();
-const { executeRegister } = authStore();
+const { executeRegister } = useAuthStore();
 const userType = ref("consumer");
 const showPassword = ref(false);
 const formData = ref({
@@ -14,8 +14,8 @@ const formData = ref({
   passwordConfirm: "",
 });
 
-function handleSubmit() {
-  const registered = executeRegister({
+async function handleSubmit() {
+  const registered = await executeRegister({
     name: formData.value.name,
     email: formData.value.email,
     password: formData.value.password,
@@ -27,7 +27,7 @@ function handleSubmit() {
     router.push("/quiz");
   }
 
-  
+  //handle errors  
 }
 </script>
 <template>

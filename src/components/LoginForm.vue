@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue';
-import { authStore } from '../stores';
+import { useAuthStore } from '../stores';
 
-const { executeLogin } = authStore();
+const authStore = useAuthStore();
 
 const formData = ref({
   email: "",
@@ -15,7 +15,7 @@ async function handleSubmit() {
   error.value = '';
   loading.value = true;
 
-  const logged = await executeLogin({
+  const logged = await authStore.executeLogin({
     email: formData.value.email,
     password: formData.value.password,
   });
@@ -25,6 +25,7 @@ async function handleSubmit() {
   }
 
   loading.value = false;
+  authStore.setupAuth();
 }
 </script>
 

@@ -1,9 +1,9 @@
-import { sendPostRequest } from ".";
+import { sendPostRequest, sendGetRequest, sendDeleteRequest } from ".";
 
 async function register({ name, email, password, passwordConfirm }) {
   const ENDPOINT_PATH = "/register";
 
-  const result = sendPostRequest(ENDPOINT_PATH, {
+  const result = await sendPostRequest(ENDPOINT_PATH, {
     name,
     email,
     password,
@@ -24,15 +24,20 @@ async function login({ email, password }) {
   return result;
 }
 
-async function getUser({ email, password }) {
-  const ENDPOINT_PATH = "/login";
+async function logout() {
+  const ENDPOINT_PATH = "/logout";
 
-  const result = await sendPostRequest(ENDPOINT_PATH, {
-    email,
-    password,
-  });
+  const result = await sendDeleteRequest(ENDPOINT_PATH);
 
   return result;
 }
 
-export { register, login };
+async function getUser() {
+  const ENDPOINT_PATH = "/user";
+
+  const result = await sendGetRequest(ENDPOINT_PATH);
+
+  return result;
+}
+
+export { register, login, getUser, logout };
