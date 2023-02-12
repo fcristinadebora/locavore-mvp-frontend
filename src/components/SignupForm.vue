@@ -23,11 +23,11 @@ async function handleSubmit() {
   });
 
   if (registered) {
-    alert('deu boa rapaziada');
+    alert("deu boa rapaziada");
     router.push("/quiz");
   }
 
-  //handle errors  
+  //handle errors
 }
 </script>
 <template>

@@ -5,7 +5,7 @@ import { login, register, getUser, logout } from "../api/backend/auth";
 export const useAuthStore = defineStore("auth", () => {
   const loggedUser = ref(null);
   const loading = ref(false);
-  
+
   const setupAuth = async () => {
     if (isLoggedIn()) {
       return;
@@ -16,26 +16,31 @@ export const useAuthStore = defineStore("auth", () => {
     }
 
     fetchUser();
-  }
-  
+  };
+
   const isLoggedIn = () => {
     const token = getToken();
     if (!token || !loggedUser.value) {
       return false;
     }
-  }
+  };
 
-  const executeRegister = async ({ name, email, password, passwordConfirm }) => {
+  const executeRegister = async ({
+    name,
+    email,
+    password,
+    passwordConfirm,
+  }) => {
     try {
       const result = await register({ name, email, password, passwordConfirm });
-      
+
       console.log(result);
       const { token } = result.data;
       saveToken(token);
 
       return true;
     } catch (error) {
-      console.error('Register failed');
+      console.error("Register failed");
       return false;
     }
   };
@@ -48,7 +53,7 @@ export const useAuthStore = defineStore("auth", () => {
 
       return true;
     } catch (error) {
-      console.error('Login failed', error);
+      console.error("Login failed", error);
       return false;
     }
   };
@@ -59,18 +64,18 @@ export const useAuthStore = defineStore("auth", () => {
         return;
       }
 
-      loading.value = true
+      loading.value = true;
       const result = await getUser();
-      
+
       loggedUser.value = result.data;
       return loggedUser;
     } catch (error) {
-      console.error(error)
+      console.error(error);
       return false;
     } finally {
-      loading.value = false
+      loading.value = false;
     }
-  }
+  };
 
   const executeLogout = async () => {
     try {
@@ -80,29 +85,37 @@ export const useAuthStore = defineStore("auth", () => {
 
       loading.value = true;
       await logout();
-      
+
       loggedUser.value = null;
-      sessionStorage.clear('userToken');
+      sessionStorage.clear("userToken");
       return loggedUser;
     } catch (error) {
-      console.error(error)
+      console.error(error);
       return false;
     } finally {
-      loading.value = false
+      loading.value = false;
     }
-  }
+  };
 
   const saveToken = (token) => {
     try {
-      window.sessionStorage.setItem('userToken', token); //pleaseeeee remove this and do it in a secure method
+      window.sessionStorage.setItem("userToken", token); //pleaseeeee remove this and do it in a secure method
     } catch (error) {
-      console.error('Failed storing token', error);
+      console.error("Failed storing token", error);
     }
   };
 
   const getToken = () => {
-    return window.sessionStorage.getItem('userToken');
+    return window.sessionStorage.getItem("userToken");
   };
 
-  return { loggedUser, isLoggedIn, executeRegister, executeLogin, executeLogout, fetchUser, setupAuth };
+  return {
+    loggedUser,
+    isLoggedIn,
+    executeRegister,
+    executeLogin,
+    executeLogout,
+    fetchUser,
+    setupAuth,
+  };
 });

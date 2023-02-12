@@ -92,7 +92,7 @@ const router = createRouter({
       component: QuizSuccess,
     },
     {
-      path: "/search/location", //todo multilanguage routes
+      path: "/search/location/", //todo multilanguage routes
       name: "searchLocation",
       component: SearchLocation,
     },

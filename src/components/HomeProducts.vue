@@ -22,7 +22,10 @@
             :to="`/product/${product.id}`"
             class="products__item border-radius d-flex flex-column justify-content-start align-items-center p-2"
           >
-            <div class="products__item__img border-radius my-2" :style="`background-image: url(${product.img})`"></div>
+            <div
+              class="products__item__img border-radius my-2"
+              :style="`background-image: url(${product.img})`"
+            ></div>
             <h3 class="text-normal text-center color-primary text-bold">
               {{ product.name }}
             </h3>
@@ -50,12 +53,12 @@
 <script setup>
 import { ref } from "vue";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
-import { productsStore } from "../stores";
+import { useProductsStore } from "../stores";
 
 const products = ref([]);
 
-const { allProducts } = productsStore();
-products.value = allProducts;
+const productsStore = useProductsStore();
+products.value = productsStore.allProducts;
 const breakpoints = ref([]);
 
 breakpoints.value = getBreakPoints();

@@ -21,6 +21,7 @@
     "pinia": "^2.0.28",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6",
+    "vue3-autocomplete": "github:fcristinadebora/vue3-autocomplete",
     "vue3-carousel": "^0.2.9"
   },
   "devDependencies": {

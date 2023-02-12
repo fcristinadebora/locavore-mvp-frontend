@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRoute } from "vue-router";
-import { productsStore } from "../stores";
+import { useProductsStore } from "../stores";
 import FavoriteButton from "./FavoriteButton.vue";
 import { toMoney } from "../helpers/locale";
 
@@ -9,8 +9,8 @@ const product = ref({});
 const route = useRoute();
 const productId = route.params.id;
 
-const { findProduct } = productsStore();
-product.value = findProduct(productId);
+const productsStore = useProductsStore();
+product.value = productsStore.findProduct(productId);
 </script>
 <template>
   <section

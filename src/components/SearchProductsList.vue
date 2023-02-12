@@ -1,13 +1,13 @@
 <script setup>
 import { ref } from "vue";
-import { productsStore } from "../stores";
+import { useProductsStore } from "../stores";
 import { toMoney } from "../helpers/locale";
 import Pagination from "./Pagination.vue";
 
 const products = ref([]);
 
-const { allProducts } = productsStore();
-products.value = allProducts;
+const productsStore = useProductsStore();
+products.value = productsStore.allProducts;
 </script>
 
 <template>

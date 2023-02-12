@@ -4,7 +4,8 @@
       <section id="login-header text-center">
         <h1 class="color-primary fw-bold text-center">Esqueci minha senha</h1>
         <p class="text-lg text-center mb-5">
-          Informe seu e-mail abaixo e lhe enviaremos um link para alterar sua senha
+          Informe seu e-mail abaixo e lhe enviaremos um link para alterar sua
+          senha
         </p>
       </section>
       <section id="login-form text-center">
@@ -19,7 +20,9 @@
           <button class="btn button-primary w-100 mt-3">Enviar</button>
         </form>
         <div class="w-100 text-center mt-3">
-          <router-link to="/login" class="color-secondary">Cancelar</router-link>
+          <router-link to="/login" class="color-secondary"
+            >Cancelar</router-link
+          >
         </div>
       </section>
     </section>

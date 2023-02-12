@@ -1,6 +1,6 @@
 <script setup>
-import { ref } from 'vue';
-import { useAuthStore } from '../stores';
+import { ref } from "vue";
+import { useAuthStore } from "../stores";
 
 const authStore = useAuthStore();
 
@@ -8,11 +8,11 @@ const formData = ref({
   email: "",
   password: "",
 });
-const error = ref('');
+const error = ref("");
 const loading = ref(false);
 
 async function handleSubmit() {
-  error.value = '';
+  error.value = "";
   loading.value = true;
 
   const logged = await authStore.executeLogin({
@@ -31,7 +31,9 @@ async function handleSubmit() {
 
 <template>
   <form class="mb-3" @submit.prevent="handleSubmit">
-    <label for="" class="text-danger w-100 ps-2" v-if="error">{{ error }}</label>
+    <label for="" class="text-danger w-100 ps-2" v-if="error">{{
+      error
+    }}</label>
     <input
       type="text"
       name="username"

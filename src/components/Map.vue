@@ -1,15 +1,16 @@
-<template>
-  <div id="mapContainer"></div>
-</template>
-
 <script setup>
-//todo all the features here
 import "leaflet/dist/leaflet.css";
 import Leaflet from "leaflet";
 import { onMounted, ref } from "vue";
 
+const props = defineProps(['center']);
+
+const defaultMapCenter = {lat: -24.23224, lng: -50.022991};
+const mapCenter = ref(null);
+mapCenter.value = isValidCoordinate(props.center)  ? props.center : defaultMapCenter;
+
 const mapOptions = ref({
-  center: [-27.23224, -52.022991],
+  center: mapCenter.value,
   lastZoom: 15,
   maxDistance: 0,
   myIcon: null,
@@ -28,6 +29,14 @@ const mapOptions = ref({
 onMounted(() => {
   setupMap();
 });
+
+function isValidCoordinate(coordinate = null) {
+  if (coordinate == null) {
+    return false;
+  }
+
+  return !!coordinate.lat && !!coordinate.lng;
+}
 
 function setupMap() {
   const mapContainer = Leaflet.map("mapContainer").setView(
@@ -319,3 +328,8 @@ function addMarker(mapContainer) {
   min-height: 350px;
 }
 </style>
+
+<template>
+  <div id="mapContainer"></div>
+</template>
+

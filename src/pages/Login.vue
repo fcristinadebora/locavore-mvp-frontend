@@ -14,7 +14,9 @@
         <LoginForm />
 
         <div class="w-100 text-center">
-          <router-link to="/forgot-password" class="color-secondary">Esqueceu sua senha?</router-link>
+          <router-link to="/forgot-password" class="color-secondary"
+            >Esqueceu sua senha?</router-link
+          >
         </div>
       </section>
     </section>

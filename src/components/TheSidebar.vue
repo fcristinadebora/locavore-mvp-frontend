@@ -26,10 +26,9 @@ function hideSidebar() {
   }
 }
 
-function logout () {
+function logout() {
   authStore.executeLogout();
 }
-
 </script>
 
 <template>
@@ -73,7 +72,9 @@ function logout () {
         </router-link>
       </li>
       <li v-if="loggedUser">
-        <a href="#" @click.prevent="logout"><i class="bi bi-box-arrow-left"></i>Sair</a>
+        <a href="#" @click.prevent="logout"
+          ><i class="bi bi-box-arrow-left"></i>Sair</a
+        >
       </li>
       <li>
         <a href="#"><i class="bi bi-chat"></i>Feedback</a>
