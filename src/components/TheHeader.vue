@@ -1,3 +1,12 @@
+<script setup>
+import { computed } from "vue";
+import { useAuthStore } from "../stores";
+
+const authStore = useAuthStore();
+
+const loggedUser = computed(() => authStore.loggedUser);
+
+</script>
 <template>
   <header>
     <nav class="navbar navbar-white fixed-top bg-white color-primary">
@@ -26,11 +35,15 @@
           <router-link
             to="/login"
             class="btn btn-md button-primary button-primary--light me-2"
+            v-if="!loggedUser"
           >
             Entrar
           </router-link>
-          <router-link to="/register" href="" class="btn btn-md button-primary">
+          <router-link to="/register" href="" class="btn btn-md button-primary" v-if="!loggedUser">
             Cadastrar</router-link
+          >
+          <router-link to="/register" href="" class="btn btn-md button-primary--light" v-if="loggedUser">
+            Conta</router-link
           >
         </div>
       </div>

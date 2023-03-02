@@ -1,17 +1,19 @@
 <script setup>
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
-import { useCitiesStore } from "../stores";
-
-import localStorageHelper from '../helpers/localStorage'; 
+import { useSearchStore } from "../stores";
 
 import Map from "./Map.vue";
+import LoadingLg from "./LoadingLg.vue";
 
-const citiesStore = useCitiesStore();
+const searchStore = useSearchStore();
 const route = useRoute();
+const router = useRouter();
+
 const locationId = ref('');
 const mapCenter = ref(null);
 const loadingLocation = ref(true);
+const searchCenterCoordinates = ref(null);
 
 locationId.value = route.query.locationId ?? 0;
 if (!locationId.value) {
@@ -23,27 +25,30 @@ onMounted(() => {
 })
 
 async function loadLocation() {
-  const locationFromStorage = localStorageHelper.getSearchSelectedCity();
-  if (locationFromStorage) {
-    console.log('found on local storage', locationFromStorage);
-    setMapCenter(locationFromStorage.location.coordinates[1], locationFromStorage.location.coordinates[0]);
-    loadingLocation.value = false;
-    return;
-  }
-
-  const locationFromStore = await citiesStore.findCity(locationId.value);
-  if (locationFromStore) {
-    setMapCenter(locationFromStore.location.coordinates[1], locationFromStore.location.coordinates[0]);
-    loadingLocation.value = false;
-  }
+  loadingLocation.value = true;
+  const searchLocation = await searchStore.getSearchLocation();
+  setMapCenter(searchLocation.location.coordinates[1], searchLocation.location.coordinates[0]);
+  loadingLocation.value = false;
 }
 
 function setMapCenter(lat, lng) {
   mapCenter.value = {
     lat, lng
   }
+  searchCenterCoordinates.value = { ...mapCenter.value };
 }
 
+function handleMainMarkerMoved (newPosition) {
+  searchCenterCoordinates.value = { ...newPosition };
+}
+
+function gotoNextStep () {
+  router.push({ path: '/search/result', query: {
+    lat: searchCenterCoordinates.value.lat,
+    lng: searchCenterCoordinates.value.lng,
+    locationId: locationId.value
+  }});
+}
 </script>
 
 <template>
@@ -51,21 +56,23 @@ function setMapCenter(lat, lng) {
     <section id="search-map">
       <section>
         <h1 class="color-primary fw-bold text-center">Confirmar localização</h1>
+        <p class="text-center">Segure e arraste o marcador para definir o ponto de referência para sua busca</p>
       </section>
       <section id="search-map-map" class="map-container d-flex justify-content-center align-items-center">
-        <Map :center="mapCenter" v-if="!loadingLocation"/>
+        <Map :center="mapCenter" v-if="!loadingLocation" @main-marker-moved="handleMainMarkerMoved" />
 
-        <div class="loading text-center"  v-if="loadingLocation">
-          <div class="spinner-border color-secondary mb-2 loading-lg" role="status"></div>
-          <div class="">Carregando localização...</div>
+        <div class="loading justify-content-center d-flex flex-column align-items-center"  v-if="loadingLocation">
+          <LoadingLg />
+          Carregando localização...
         </div>
       </section>
-      <router-link
-        to="/search/result?carried-querystring"
+      <button
+        type="button"
+        @click="gotoNextStep"
         class="btn button-primary mt-3 mb-5 w-100"
       >
         Continuar
-      </router-link>
+      </button>
     </section>
   </section>
 </template>

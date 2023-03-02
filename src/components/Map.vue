@@ -1,13 +1,22 @@
 <script setup>
 import "leaflet/dist/leaflet.css";
 import Leaflet from "leaflet";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch, computed } from "vue";
 
 const props = defineProps(['center']);
+const emit = defineEmits(['mainMarkerMoved']);
 
 const defaultMapCenter = {lat: -24.23224, lng: -50.022991};
-const mapCenter = ref(null);
-mapCenter.value = isValidCoordinate(props.center)  ? props.center : defaultMapCenter;
+const mapElement = ref(null);
+const centerMaker = ref(null);
+
+const mapCenter = computed(() => isValidCoordinate(props.center)  ? props.center : defaultMapCenter);
+
+watch(
+  () => props.center,
+  (center) => {
+    updateMapCenter(center.lat, center.lng);
+  })
 
 const mapOptions = ref({
   center: mapCenter.value,
@@ -39,7 +48,7 @@ function isValidCoordinate(coordinate = null) {
 }
 
 function setupMap() {
-  const mapContainer = Leaflet.map("mapContainer").setView(
+  mapElement.value = Leaflet.map("mapContainer").setView(
     mapOptions.value.center,
     mapOptions.value.lastZoom
   );
@@ -50,9 +59,9 @@ function setupMap() {
       accessToken:
         "sk.eyJ1IjoiZGFvcmFoZWluIiwiYSI6ImNrZ3h1YXp5dTA0bmIycmswMWZsY3AwcTMifQ.B10yLUXLOS3SvHJAeifQjg",
     }
-  ).addTo(mapContainer);
+  ).addTo(mapElement.value);
 
-  addMarker(mapContainer);
+  addMainMarker();
 
   // mapContainer.on("zoomend", this.handleZoomEnd);
   // mapContainer.on("moveend", this.handleMoveEnd);
@@ -60,12 +69,51 @@ function setupMap() {
   // this.handleMoveEnd();
 }
 
-function addMarker(mapContainer) {
-  Leaflet.marker(mapOptions.value.center /*, { icon: this.myIcon }*/)
-    .addTo(mapContainer)
+// Use this later on with the producers :)
+function addMarker() {
+  const marker = Leaflet.marker(mapOptions.value.center)
+    .addTo(mapElement.value)
     .bindPopup("Você está aqui")
     .openPopup();
 }
+
+function addMainMarker() {
+  centerMaker.value = Leaflet.marker(mapOptions.value.center, { draggable: 'true' })
+    .addTo(mapElement.value)
+    .bindPopup("Você está aqui")
+    .openPopup();
+
+    centerMaker.value.on('dragend', function (event) {
+    const position = centerMaker.value.getLatLng();
+
+    recenterView(position.lat, position.lng);
+
+    emit('mainMarkerMoved', {lat: position.lat, lng: position.lng});
+  })
+}
+
+function updateMapCenter(newLat, newLng) {
+  const latLngObj = new Leaflet.LatLng(newLat, newLng);
+  centerMaker.value.setLatLng(latLngObj);
+  recenterView(newLat, newLng);
+}
+
+function recenterView (lat, lng) {
+  mapElement.value.setView(new Leaflet.latLng(lat, lng));
+}
+
+// function onMapClick(e) {
+//   marker = new Leaflet.marker(e.latlng, {draggable:'true'});
+//   marker.on('dragend', function(event){
+//     var marker = event.target;
+//     var position = marker.getLatLng();
+//     marker.setLatLng(new Leaflet.LatLng(position.lat, position.lng),{draggable:'true'});
+//     map.panTo(new Leaflet.LatLng(position.lat, position.lng))
+//   });
+//   map.addLayer(marker);
+// };
+
+// map.on('click', onMapClick);
 // export default {
 //   components: {
 //     Page
@@ -326,6 +374,7 @@ function addMarker(mapContainer) {
   width: 100%;
   height: 70vh;
   min-height: 350px;
+  z-index: 98;
 }
 </style>
 

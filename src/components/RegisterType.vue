@@ -21,7 +21,7 @@ function selectRegisterType(type) {
   <section id="login-form" class="text-center w-100">
     <button
       class="btn button-primary mb-2 w-100"
-      @click="selectRegisterType('manufacturer')"
+      @click="selectRegisterType('producer')"
     >
       Sou produtor
     </button>

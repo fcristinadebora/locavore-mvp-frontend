@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useAuthStore } from "../stores";
+import LoadingSm from './LoadingSm.vue';
 
 const authStore = useAuthStore();
 
@@ -58,7 +59,7 @@ async function handleSubmit() {
     </label>
     <button class="btn button-primary w-100 mt-3" :disabled="loading">
       Entrar
-      <div class="spinner-border spinner-border-sm ml-1" v-if="loading"></div>
+      <LoadingSm v-if="loading" />
     </button>
   </form>
 </template>

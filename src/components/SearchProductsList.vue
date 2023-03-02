@@ -1,13 +1,9 @@
 <script setup>
-import { ref } from "vue";
-import { useProductsStore } from "../stores";
 import { toMoney } from "../helpers/locale";
-import Pagination from "./Pagination.vue";
+import { fromMeterToKm } from "../helpers/measureUnits";
+import LoadingLg from "./LoadingLg.vue";
 
-const products = ref([]);
-
-const productsStore = useProductsStore();
-products.value = productsStore.allProducts;
+const props = defineProps(['items', 'loading']);
 </script>
 
 <template>
@@ -16,44 +12,46 @@ products.value = productsStore.allProducts;
       Resultados em <span class="color-secondary fw-bold">Produtos</span>
     </h1>
   </section>
-  <section id="search-products-items" class="row">
+  <section class="d-flex flex-column align-items-center pt-3" v-if="props.loading">
+    <LoadingLg />
+    Carregando resultados...
+  </section>
+  <section class="d-flex flex-column align-items-center pt-3" v-if="!props.loading && !props.items.length">
+    <i class="bi bi-window icon-lg"></i>
+    Nenhum resultado encontrado com esses filtros :(
+  </section>
+  <section id="search-products-items" class="row" v-if="!props.loading && props.items.length">
     <div
       class="search-item-wrapper col-lg-6"
-      v-for="(product, index) in products"
+      v-for="(product, index) in props.items"
       :key="index"
     >
       <router-link
         class="search-product-item p-3 my-3 cursor-pointer d-flex flex-column flex-sm-row bg-custom-light border-radius"
         :to="`/product/${product.id}`"
       >
-        <div class="search-product-img mb-3 mb-sm-0">
-          <img class="border-radius" :src="product.img" alt="" />
+        <div class="search-product-img mb-3 mb-sm-0 d-flex justify-content-center align-items-center search-item-image-placeholder">
+          <img class="border-radius" :src="product.image" alt="Imagem do produto" v-if="product.image" />
+          <i class="bi bi-image icon-lg" v-if="!product.image"></i>
         </div>
-        <div class="search-product-data ps-3">
+        <div class="search-product-data ps-3 color-default">
           <h3 class="text-normal color-primary text-bold w-100 mb-0">
             {{ product.name }}
           </h3>
           <p class="text-sm color-secondary mb-2">{{ product.category }}</p>
           <p class="text-normal fw-bold mb-2">
-            {{ toMoney(product.price)
-            }}<span class="text-normal">/{{ product.priceUnit }}</span>
+            {{ toMoney(product.price) }}<span class="text-normal"><span v-if="product.priceUnit">/{{ product.priceUnit }}</span></span>
           </p>
           <p class="color-secondary mb-0">
-            {{ product.distance }} de distância
+            {{ fromMeterToKm(product.address.distance) }} km de distância
           </p>
           <p class="mb-0">
             <i class="bi bi-geo"></i>
-            {{ product.address }}<br />
+            {{ product.address.address }}<br />
           </p>
         </div>
       </router-link>
     </div>
-  </section>
-  <section
-    id="search-products-pagination"
-    class="d-flex justify-content-center mt-3"
-  >
-    <Pagination />
   </section>
 </template>
 

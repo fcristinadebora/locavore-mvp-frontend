@@ -107,8 +107,8 @@ const router = createRouter({
       component: ProductDetails,
     },
     {
-      path: "/manufacturer/:id",
-      name: "ManufacturerDetails",
+      path: "/producer/:id",
+      name: "producerDetails",
       component: ProductDetails,
     },
   ],

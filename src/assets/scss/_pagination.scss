@@ -13,3 +13,24 @@
     color: $color-white;
   }
 }
+
+.PaginationControl {
+  margin: 0.5rem;
+}
+
+.Page {
+  border-radius: $border-radius !important;
+  padding: 1.25rem 1.25rem;
+  color: $color-brand-primary;
+  border-color: $color-brand-primary;
+  margin: 0.25rem;
+  font-size: $size-text-secondary;
+  border-width: 1px;
+  border-radius: 20px;
+}
+
+.Page-active {
+  background-color: $color-brand-primary !important;
+  border-color: $color-brand-primary;
+  color: $color-white;
+}

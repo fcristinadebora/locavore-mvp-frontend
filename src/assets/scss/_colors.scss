@@ -4,8 +4,19 @@
   background-color: $color-white;
 }
 
+.color-default {
+  color: $color-text-default;
+
+  &:hover {
+    color: $color-text-default;
+  }
+}
 .color-primary {
-  color: $color-brand-primary
+  color: $color-brand-primary;
+
+  &:hover {
+    color: $color-brand-primary;
+  }
 }
 .color-secondary {
   color: $color-brand-secondary

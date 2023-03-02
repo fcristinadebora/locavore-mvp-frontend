@@ -13,6 +13,10 @@ body {
 .text-sm { font-size: $size-text-sm; }
 .text-bold { font-weight: bold }
 
+.icon-lg {
+  font-size: 4rem;
+}
+
 h1 {
   font-size: $size-text-xl;
 }

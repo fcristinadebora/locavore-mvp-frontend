@@ -1,5 +1,6 @@
 export { categoriesStore } from "./categories";
-export { manufacturersStore } from "./manufacturers";
+export { useProducersStore } from "./producers";
 export { useProductsStore } from "./products";
 export { useAuthStore } from "./auth";
 export { useCitiesStore } from "./cities";
+export { useSearchStore } from "./search";

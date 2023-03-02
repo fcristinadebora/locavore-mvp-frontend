@@ -1,9 +1,10 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { PRODUCT, MANUFACTURER } from "../enum/general";
+import { ref, onMounted, computed } from "vue";
+import { PRODUCT, PRODUCER } from "../enum/general";
 import CategoriesCarousel from "./CategoriesCarousel.vue";
 
 const emit = defineEmits(["applyFilters"]);
+const props = defineProps(['filters']);
 
 const filters = ref({
   searchFor: PRODUCT,
@@ -17,6 +18,8 @@ onMounted(() => {
   listenToModalShow();
 });
 
+const selectedCategories = computed(() => filters.value.categories);
+
 function setSearchFor(type) {
   filters.value.searchFor = type;
 }
@@ -24,6 +27,10 @@ function setSearchFor(type) {
 function listenToModalShow() {
   filterModal.value.addEventListener("shown.bs.modal", function () {
     window.dispatchEvent(new Event("resize"));
+    filters.value = {
+      searchFor: props.filters.searchFor ?? filters.value.searchFor,
+      categories: props.filters.categories ?? [],
+    }
   });
 }
 
@@ -95,8 +102,8 @@ function applyFilters() {
               <button
                 type="button"
                 class="btn"
-                @click="setSearchFor(MANUFACTURER)"
-                :class="filters.searchFor == MANUFACTURER ? 'active' : ''"
+                @click="setSearchFor(PRODUCER)"
+                :class="filters.searchFor == PRODUCER ? 'active' : ''"
               >
                 Produtores
               </button>
@@ -111,8 +118,9 @@ function applyFilters() {
                 class="px-0"
                 @category-clicked="handleCategoryClicked"
                 :breakpoints="getBreakpoints()"
-                :active-items="filters.categories"
+                :active-items="selectedCategories"
               />
+              {{ selectedCategories }}
             </div>
           </div>
         </div>
@@ -129,44 +137,3 @@ function applyFilters() {
     </div>
   </div>
 </template>
-
-<style lang="scss">
-@import "@/assets/scss/_variables";
-
-.my-modal {
-  .modal-dialog {
-    border-color: $color-white !important;
-
-    @media (max-width: 576px) {
-      position: absolute;
-      bottom: 0;
-      margin-bottom: 0;
-      width: 100%;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 0;
-    }
-    @media (max-width: 575.99px) {
-      max-width: 100%;
-    }
-    @media (min-width: 576px) {
-      max-width: 540px;
-    }
-    @media (min-width: 768px) {
-      max-width: 720px;
-    }
-    @media (min-width: 992px) {
-      max-width: 960px;
-    }
-  }
-
-  .modal-title {
-    color: $color-brand-primary;
-    font-weight: bold;
-  }
-
-  .modal-content {
-    border-color: $color-white !important;
-  }
-}
-</style>

@@ -8,7 +8,7 @@ const props = defineProps(["currentStep"]);
 const currentStep = ref(props.currentStep);
 const profilePicture = ref("");
 
-profilePicture.value = "/img/manufacturers/cau.png";
+profilePicture.value = "/img/producers/cau.png";
 
 function nextStep() {
   router.push("/quiz/categories");
@@ -41,7 +41,7 @@ function prevStep() {
       <button
         class="btn button-primary mb-2 w-100"
         v-if="!profilePicture.length"
-        @click="profilePicture = '/img/manufacturers/cau.png'"
+        @click="profilePicture = '/img/producers/cau.png'"
       >
         Selecionar foto
       </button>

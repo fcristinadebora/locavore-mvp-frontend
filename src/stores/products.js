@@ -1,5 +1,6 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
+import { search, findById } from "../api/backend/products";
 
 export const useProductsStore = defineStore("products", () => {
   var id = 1;
@@ -114,5 +115,18 @@ export const useProductsStore = defineStore("products", () => {
     return allProducts.value.find((product) => product.id == id);
   };
 
-  return { allProducts, findProduct };
+  const searchProducts = async (filters) => {
+    try {
+      const result = await search({...filters});
+
+      //todo cache data
+
+      return result;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  };
+
+  return { allProducts, findProduct, searchProducts };
 });

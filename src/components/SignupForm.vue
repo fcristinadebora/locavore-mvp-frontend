@@ -38,7 +38,7 @@ async function handleSubmit() {
       informe os dados abaixo
     </p>
   </section>
-  <section id="login-header text-center" v-if="userType == 'manufacturer'">
+  <section id="login-header text-center" v-if="userType == 'producer'">
     <h1 class="color-primary fw-bold text-center">Bem-vindo, produtor!</h1>
     <p class="text-lg text-center mb-5">
       Para criar seu perfil de <strong>produtor</strong>, informe os dados

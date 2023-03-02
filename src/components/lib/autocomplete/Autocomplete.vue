@@ -1,0 +1,264 @@
+<template>
+  <div class="vue3-autocomplete-container">
+    <input
+        ref="autocompleteRef"
+        type="text"
+        @input="handleInput"
+        v-bind="$attrs"
+        v-model="searchText"
+        :placeholder="placeholder"
+        :class="getInputClass"
+        @focus="displayResults"
+        @blur="handleInputBlur"
+    />
+    <div :style="{ width: inputWidth + 'px' }" :class="getResultsContainerClass" v-if="shouldShowResults">
+      <div
+          v-if="useHtmlForResults"
+          v-for="item in filteredResults"
+          :key="item"
+          :class="getResultsItemClass"
+          @click="clickItem(item)"
+          @mousedown.prevent
+          v-html="displayItem(item)"
+      ></div>
+      <div
+          v-if="!useHtmlForResults"
+          v-for="item in filteredResults"
+          :key="item"
+          :class="getResultsItemClass"
+          @click="clickItem(item)"
+          @mousedown.prevent
+      >{{ displayItem(item) }}</div>
+      </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { ref, computed, SetupContext, onMounted, watch } from 'vue'
+import ComponentProps from './interfaces/ComponentProps'
+
+export default {
+  name: 'Autocomplete',
+  inheritAttrs: false,
+  props: {
+    debounce: {
+      type: Number,
+      default: 0
+    },
+    inputClass: {
+      type: Array,
+      default: []
+    },
+    useHtmlForResults: {
+      type: Boolean,
+      default: false
+    },
+    max: {
+      type: Number,
+      default: 10
+    },
+    placeholder: {
+      type: String,
+      default: ''
+    },
+    results: {
+      type: Array,
+      default: []
+    },
+    resultsContainerClass: {
+      type: Array,
+      default: []
+    },
+    resultsItemClass: {
+      type: Array,
+      default: []
+    },
+    displayItem: {
+      type: Function,
+      default: (item: Object|String) => {
+        // @ts-ignore
+        return typeof item === 'string' ? item : item.name
+      }
+    },
+    currentValue: {
+      type: String,
+      default: null
+    }
+  },
+  emits: [
+    'input',
+    'onSelect'
+  ],
+  setup(props: ComponentProps, context: SetupContext) {
+    const autocompleteRef = ref()
+
+    let inputWidth = ref(0),
+        searchText = ref(''),
+        timeout: NodeJS.Timeout,
+        showResults = ref(true),
+        selected = ref({});
+
+    /**
+     * Same as Vue2 'mounted' function, used to get refs correctly
+     */
+    onMounted(() => {
+      inputWidth.value = autocompleteRef.value.offsetWidth - 2;
+    })
+
+    watch(
+      () => props.currentValue,
+      (currentValue) => {
+        searchText.value = currentValue
+      });
+
+    /**
+     * Triggered on input changes with a dynamic debounce
+     * @param { InputEvent } e
+     */
+    function handleInput(e: any) {
+      clearTimeout(timeout)
+      timeout = setTimeout(() => {
+        context.emit('input', e.target.value)
+      }, props.debounce)
+    }
+
+    /**
+     * Triggered on click on a result item
+     */
+    function clickItem(data: Object) {
+      context.emit('onSelect', data)
+      searchText.value = String(props.displayItem(data))
+      selected.value = data;
+      showResults.value = false
+    }
+
+    /**
+     * Called on focus
+     */
+    function displayResults() {
+      showResults.value = true
+    }
+
+    /**
+     * Called on blur
+     */
+    function handleInputBlur() {
+      resetSearchText();
+      hideResults();
+    }
+    
+    function hideResults() {
+      showResults.value = false
+    }
+
+    function resetSearchText() {
+      searchText.value = String(props.displayItem(selected.value ?? ''));
+    }
+
+    /**
+     * Manually update the displayed text in the input
+     * @param value
+     */
+    function setText(value: string) {
+      searchText.value = value
+    }
+
+    /**
+     * Return class(es) for input element
+     */
+    const getInputClass = computed(() => {
+      return props.inputClass.length > 0 ? props.inputClass : ['vue3-input']
+    })
+
+    /**
+     * Return class(es) for results container element
+     */
+    const getResultsContainerClass = computed(() => {
+      return props.resultsContainerClass.length > 0 ?
+          props.resultsContainerClass :
+          ['vue3-results-container']
+    })
+
+    /**
+     * Return class(es) for results item elements
+     */
+    const getResultsItemClass = computed(() => {
+      return props.resultsItemClass.length > 0 ?
+          props.resultsItemClass :
+          ['vue3-results-item']
+    })
+
+    /**
+     * Show results depending on results length and showResults boolean
+     */
+    const shouldShowResults = computed(() => {
+      return showResults.value && (props.results.length > 0)
+    })
+
+    /**
+     * Return results filtered with the 'max' props
+     */
+    const filteredResults = computed(() => {
+      return props.results.slice(0, props.max)
+    })
+
+    /**
+     * Return data, making them reactive
+     */
+    return {
+      searchText,
+      showResults,
+      autocompleteRef,
+      inputWidth,
+      displayResults,
+      hideResults,
+      handleInput,
+      clickItem,
+      setText,
+      filteredResults,
+      getInputClass,
+      getResultsContainerClass,
+      getResultsItemClass,
+      shouldShowResults,
+      handleInputBlur
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.vue3-autocomplete-container {
+  display: flex;
+  flex-direction: column;
+
+  .vue3-input {
+    border-radius: 5px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .vue3-results-container {
+    position: absolute;
+    top: 27px;
+    border: 1px solid black;
+    z-index: 99;
+    background: white;
+  }
+
+  .vue3-results-item {
+    list-style-type: none;
+    padding: 5px;
+    border-bottom: 1px solid black;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:nth-last-child(1) {
+      border-bottom: none;
+    }
+  }
+}
+</style>

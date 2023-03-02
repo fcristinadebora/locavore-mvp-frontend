@@ -3,7 +3,7 @@ import TheLayout from "../layouts/TheLayout.vue";
 import HomeHero from "../components/HomeHero.vue";
 import HomeSearch from "../components/HomeSearch.vue";
 import HomeCategories from "../components/HomeCategories.vue";
-import HomeManufacturers from "../components/HomeManufacturers.vue";
+import HomeProducers from "../components/HomeProducers.vue";
 import HomeProducts from "../components/HomeProducts.vue";
 import HomeTestimonials from "../components/HomeTestimonials.vue";
 import HomeNewsletter from "../components/HomeNewsletter.vue";
@@ -14,7 +14,7 @@ import HomeNewsletter from "../components/HomeNewsletter.vue";
     <HomeHero />
     <HomeSearch />
     <HomeCategories />
-    <HomeManufacturers />
+    <HomeProducers />
     <HomeProducts />
     <HomeTestimonials />
     <HomeNewsletter />
