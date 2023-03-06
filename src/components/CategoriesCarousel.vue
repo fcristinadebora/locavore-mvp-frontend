@@ -1,7 +1,51 @@
+<script setup>
+import { ref, computed } from "vue";
+import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
+import { useCategoriesStore } from "../stores";
+
+const props = defineProps([
+  "itemClass",
+  "wrapperClass",
+  "breakpoints",
+  "activeItems",
+]);
+const breakpoints = ref([]);
+const itemClass = ref("button-secondary--light");
+const itemActiveClass = ref("button-secondary");
+
+breakpoints.value = props.breakpoints ?? getBreakPoints();
+itemClass.value = props.itemClass ?? itemClass.value;
+itemActiveClass.value = props.itemActiveClass ?? itemActiveClass.value;
+
+const categoriesStore = useCategoriesStore();
+const categories = computed(() => categoriesStore.allCategories);
+
+const activeItems = computed(() => {
+  return props.activeItems ?? [];
+});
+
+function getBreakPoints() {
+  var breakpoints = [];
+  for (var i = 0; i < 3000; i += 20) {
+    var itemsToShow = i / 250;
+    breakpoints[i] = {
+      itemsToShow: Math.floor(itemsToShow),
+    };
+  }
+
+  return Object.assign({}, breakpoints);
+}
+
+function isActive(categoryId) {
+  return activeItems.value.includes(categoryId);
+}
+</script>
+
 <template>
   <carousel
     :breakpoints="breakpoints"
     :snap-align="'start'"
+    v-if="categories"
     id="categories-carousel"
   >
     <slide
@@ -26,50 +70,6 @@
     </template>
   </carousel>
 </template>
-
-<script setup>
-import { ref, computed } from "vue";
-import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
-import { categoriesStore } from "../stores";
-
-const props = defineProps([
-  "itemClass",
-  "wrapperClass",
-  "breakpoints",
-  "activeItems",
-]);
-const categories = ref([]);
-const breakpoints = ref([]);
-const itemClass = ref("button-secondary--light");
-const itemActiveClass = ref("button-secondary");
-
-breakpoints.value = props.breakpoints ?? getBreakPoints();
-itemClass.value = props.itemClass ?? itemClass.value;
-itemActiveClass.value = props.itemActiveClass ?? itemActiveClass.value;
-
-const { allCategories } = categoriesStore();
-categories.value = allCategories;
-
-const activeItems = computed(() => {
-  return props.activeItems ?? [];
-});
-
-function getBreakPoints() {
-  var breakpoints = [];
-  for (var i = 0; i < 3000; i += 20) {
-    var itemsToShow = i / 250;
-    breakpoints[i] = {
-      itemsToShow: Math.floor(itemsToShow),
-    };
-  }
-
-  return Object.assign({}, breakpoints);
-}
-
-function isActive(categoryId) {
-  return activeItems.value.includes(categoryId);
-}
-</script>
 
 <style lang="scss">
 .categories-carousel__category {

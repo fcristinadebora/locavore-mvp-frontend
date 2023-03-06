@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { categoriesStore } from "../stores";
+import { useCategoriesStore } from "../stores";
 import StepsNavigation from "./QuizStepsNavigation.vue";
 import { useRouter } from "vue-router";
 
@@ -27,7 +27,7 @@ function selectCategory(index) {
   activeCategories.value.push(index);
 }
 
-const { allCategories } = categoriesStore();
+const { allCategories } = useCategoriesStore();
 categories.value = [...allCategories, { id: null, name: "Outros" }];
 </script>
 

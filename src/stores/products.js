@@ -1,9 +1,13 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import { search, findById } from "../api/backend/products";
+import { useSearchStore } from './search';
 
 export const useProductsStore = defineStore("products", () => {
-  var id = 1;
+  
+  const searchStore =  useSearchStore();
+
+  var id = 0;
   const allProducts = ref([
     {
       id: id++,
@@ -111,8 +115,24 @@ export const useProductsStore = defineStore("products", () => {
     },
   ]);
 
-  const findProduct = (id) => {
-    return allProducts.value.find((product) => product.id == id);
+  const findProduct = async (id) => {
+    try {
+      const includes = 'address,distance,availability,categories,producer.categories';
+      const query = { include: includes }
+      const searchLocation = await searchStore.getSearchLocation();
+      if (searchLocation) {
+        query.lat = searchLocation.location.coordinates[1];
+        query.lng = searchLocation.location.coordinates[0];
+      }
+            
+      const result = await findById(id, query);
+
+      return result.data;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+    
   };
 
   const searchProducts = async (filters) => {

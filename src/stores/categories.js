@@ -1,19 +1,21 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
+import { list } from '../api/backend/categories';
 
-export const categoriesStore = defineStore("categories", () => {
+export const useCategoriesStore = defineStore("categories", () => {
+  fetchAllCategories();
+  
   var id = 0;
-  const allCategories = ref([
-    { id: id++, name: "Orgânicos" },
-    { id: id++, name: "Caseiros" },
-    { id: id++, name: "Artesanais" },
-    { id: id++, name: "Vegetarianos" },
-    { id: id++, name: "Veganos" },
-    { id: id++, name: "Sem lactose" },
-    { id: id++, name: "Sem glúten" },
-    { id: id++, name: "Sem conservantes" },
-    { id: id++, name: "Sem açúcar" },
-  ]);
+  const allCategories = ref([]);
+
+  async function fetchAllCategories () {
+    try {
+      const result = await list();
+      allCategories.value = result.data
+    } catch (error) {
+      console.error('error fetching categories');
+    }
+  }
 
   return { allCategories };
 });

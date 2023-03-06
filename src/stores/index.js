@@ -1,4 +1,4 @@
-export { categoriesStore } from "./categories";
+export { useCategoriesStore } from "./categories";
 export { useProducersStore } from "./producers";
 export { useProductsStore } from "./products";
 export { useAuthStore } from "./auth";

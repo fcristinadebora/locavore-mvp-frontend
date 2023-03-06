@@ -1,9 +1,11 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import { search, findById } from "../api/backend/producers";
+import { useSearchStore } from "./search";
 
 export const useProducersStore = defineStore("producers", () => {
   var id = 1;
+  const searchStore = useSearchStore();
   const allproducers = ref([
     {
       id: id++,
@@ -79,9 +81,30 @@ export const useProducersStore = defineStore("producers", () => {
     },
   ]);
 
+  const findProducer = async (id) => {
+    try {
+      const searchLocation = await searchStore.getSearchLocation();
+      
+      const includes = 'address,distance,categories,longDescription';
+      const result = await findById(id, includes);
+
+      return result.data;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+    
+  };
+
   const searchProducers = async (filters) => {
     try {
-      const result = await search({...filters});
+      const result = await search({
+        ...filters,
+        include: [
+          'address',
+          'categories'
+        ]
+      });
 
       //todo cache data
 
@@ -92,5 +115,5 @@ export const useProducersStore = defineStore("producers", () => {
     }
   };
 
-  return { allproducers, searchProducers };
+  return { allproducers, searchProducers, findProducer };
 });

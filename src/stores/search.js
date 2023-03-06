@@ -48,5 +48,9 @@ export const useSearchStore = defineStore("search", () => {
         return null;
     }
 
-    return {searchLocation, setSearchLocation, getSearchLocation };
+    const setSearchCoordinates  = (lat, lng) => {
+        searchCoordinates.value = { lat, lng };
+    }
+
+    return {searchLocation, searchCoordinates, setSearchCoordinates, setSearchLocation, getSearchLocation };
 });

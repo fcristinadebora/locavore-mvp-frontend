@@ -13,10 +13,10 @@ async function search({lat, lng, search, page}) {
   return result;
 }
 
-async function findById(id) {
+async function findById(id, query) {
   const ENDPOINT_PATH = `/products/${id}`;
 
-  const result = await sendGetRequest(ENDPOINT_PATH);
+  const result = await sendGetRequest(ENDPOINT_PATH, { ...query });
 
   return result;
 }

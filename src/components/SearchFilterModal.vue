@@ -120,7 +120,6 @@ function applyFilters() {
                 :breakpoints="getBreakpoints()"
                 :active-items="selectedCategories"
               />
-              {{ selectedCategories }}
             </div>
           </div>
         </div>

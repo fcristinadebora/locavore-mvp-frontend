@@ -27,9 +27,10 @@ const props = defineProps(['items', 'loading']);
       :key="index"
     >
       <router-link
-        class="search-product-item p-3 my-3 cursor-pointer d-flex flex-column flex-sm-row bg-custom-light border-radius"
+        class="card-link"
         :to="`/product/${product.id}`"
       >
+      <article class="search-product-item p-3 my-3 cursor-pointer d-flex flex-column flex-sm-row bg-light border-radius">
         <div class="search-product-img mb-3 mb-sm-0 d-flex justify-content-center align-items-center search-item-image-placeholder">
           <img class="border-radius" :src="product.image" alt="Imagem do produto" v-if="product.image" />
           <i class="bi bi-image icon-lg" v-if="!product.image"></i>
@@ -50,6 +51,7 @@ const props = defineProps(['items', 'loading']);
             {{ product.address.address }}<br />
           </p>
         </div>
+      </article>
       </router-link>
     </div>
   </section>
@@ -59,7 +61,7 @@ const props = defineProps(['items', 'loading']);
 @import "@/assets/scss/_variables";
 
 .search-product-item {
-  text-decoration: none;
+  text-decoration: none !important;
   color: $color-brand-primary-light;
   &:hover {
     color: $color-brand-primary-light;

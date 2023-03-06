@@ -13,7 +13,7 @@ function toggleFavorite() {
 const isHeartFilled = computed(() => isFavorite.value || hover.value);
 </script>
 <template>
-  <button class="no-border text-lg color-secondary" @click="toggleFavorite">
+  <button class="no-border bg-transparent text-lg color-secondary" @click="toggleFavorite">
     <i
       class="bi favorite-icon"
       :class="isHeartFilled ? 'bi-heart-fill' : 'bi-heart'"

@@ -97,3 +97,26 @@ button:hover{
   width: 3rem;
   height: 3rem;
 }
+
+.card-link {
+  text-decoration: none;
+}
+
+.overflow-dots {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap; 
+}
+
+.ratio-16-9 {
+  aspect-ratio: 16 / 9;
+}
+
+.img-fit {
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}

@@ -16,6 +16,7 @@ import QuizLocation from "../pages/QuizLocation.vue";
 import QuizContact from "../pages/QuizContact.vue";
 import QuizSuccess from "../pages/QuizSuccess.vue";
 import ProductDetails from "../pages/ProductDetails.vue";
+import ProducerDetails from "../pages/ProducerDetails.vue";
 import ForgotPassword from "../pages/ForgotPassword.vue";
 
 const router = createRouter({
@@ -109,7 +110,7 @@ const router = createRouter({
     {
       path: "/producer/:id",
       name: "producerDetails",
-      component: ProductDetails,
+      component: ProducerDetails,
     },
   ],
 });
