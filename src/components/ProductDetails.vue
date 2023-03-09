@@ -6,6 +6,7 @@ import FavoriteButton from "./FavoriteButton.vue";
 import { toMoney } from "../helpers/locale";
 import ProducerCard from "./ProducerCard.vue";
 import { fromMeterToKm } from "../helpers/measureUnits";
+import FloatingFooterButton from "./FloatingFooterButton.vue";
 
 const product = ref(null);
 const route = useRoute();
@@ -80,7 +81,9 @@ onMounted(async () => {
       >
         <ProducerCard :producer="product.producer" />
       </router-link>
-      <button class="btn button-primary w-100 mt-2">Falar com produtor</button>
+      <FloatingFooterButton>
+        <button class="btn button-primary w-100 mt-2">Falar com produtor</button>
+      </FloatingFooterButton>
     </section>
   </section>
 </template>

@@ -15,10 +15,10 @@ async function search({lat, lng, search, page, include}) {
   return result;
 }
 
-async function findById(id, include) {
+async function findById(id, query) {
   const ENDPOINT_PATH = `/producers/${id}`;
 
-  const result = await sendGetRequest(ENDPOINT_PATH, { include: include });
+  const result = await sendGetRequest(ENDPOINT_PATH, { ...query });
 
   return result;
 }

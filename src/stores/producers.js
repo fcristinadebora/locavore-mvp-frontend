@@ -83,10 +83,15 @@ export const useProducersStore = defineStore("producers", () => {
 
   const findProducer = async (id) => {
     try {
-      const searchLocation = await searchStore.getSearchLocation();
-      
       const includes = 'address,distance,categories,longDescription';
-      const result = await findById(id, includes);
+      const query = { include: includes }
+      const searchLocation = await searchStore.getSearchLocation();
+      if (searchLocation) {
+        query.lat = searchLocation.location.coordinates[1];
+        query.lng = searchLocation.location.coordinates[0];
+      }
+      
+      const result = await findById(id, query);
 
       return result.data;
     } catch (error) {
