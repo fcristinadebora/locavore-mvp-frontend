@@ -103,7 +103,7 @@ function applySearchLocation(event) {
           <div class="form-group mb-2">
             <label class="w-100">Confirmar localização: </label>
             <p class="text-sm">Segure e arraste o marcador para definir o ponto de referência para sua busca</p>
-            <Map class="search-modal-map-container" v-if="searchLocation && isModalOpen" :center="searchCenterCoordinates"  @main-marker-moved="handleMainMarkerMoved" />
+            <Map class="search-modal-map-container" v-if="searchLocation && isModalOpen" :center="searchCenterCoordinates" :recenterable="true" @main-marker-moved="handleMainMarkerMoved" />
           </div>
         </div>
         <div class="modal-footer">

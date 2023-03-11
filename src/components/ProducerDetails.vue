@@ -1,21 +1,53 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
-import { useProducersStore } from "../stores";
+import { useProducersStore, useProductsStore } from "../stores";
 import FavoriteButton from "./FavoriteButton.vue";
-import { toMoney } from "../helpers/locale";
 import LoadingLg from "./LoadingLg.vue";
 import { fromMeterToKm } from "../helpers/measureUnits";
+import ContactProducerButton from "./ContactProducerButton.vue";
+import ProductCardsCarousel from "./ProductCardsCarousel.vue";
 
 const producer = ref({});
+const products = ref(null);
 const route = useRoute();
 const producerId = route.params.id;
 
 const producersStore = useProducersStore();
+const productsStore = useProductsStore();
 
-onMounted(async () => {
-    producer.value = await producersStore.findProducer(producerId);
+const mockedContacts = ref([
+    {
+        type: 'instagram',
+        value: 'daorahein',
+    },
+    {
+        type: 'whatsapp',
+        value: '+351 915 273 486'
+    },
+    {
+        type: 'phone',
+        value: '+351 915 273 486'
+    },
+    {
+        type: 'email',
+        value: 'debora@debora.com'
+    }
+])
+
+onMounted(() => {
+    fetchProducer();
+    fetchProducts();
 })
+
+async function fetchProducer () {
+    producer.value = await producersStore.findProducer(producerId);
+}
+
+async function fetchProducts () {
+    const result = await productsStore.listProductsByProducer(producerId, 10, 0)
+    products.value = result.data;
+}
 </script>
 
 <template>
@@ -27,34 +59,65 @@ onMounted(async () => {
         <section id="producer-details-header" class="d-flex w-100 justify-content-between align-items-center">
             <span></span>
             <h1 class="justify-self-center">{{ producer.name }}</h1>
-            <FavoriteButton />
+            <FavoriteButton :is-favorite="false" />
         </section>
 
-        <section id="producer-details-producer" class="mt-3">
+        <section id="producer-details-header" class="mt-3">
             <div class="producer-details-img ratio-1-1 border-radius bg-light float-start me-3 mb-3">
-                <img v-if="producer.image" :src="producer.image" alt="Producer image" class="border-radius" />
+                <img v-if="producer.profile_picture" :src="producer.profile_picture" alt="Producer image" class="border-radius" />
             </div>
 
-            <span class="w-100">{{ producer.short_description }}</span>
-
-            <p class="color-secondary mb-0" v-if="producer.distance">{{ producer.distance }} de distância</p>
-
-            <p class="w-100">{{ producer.description }}</p>
-
-            <span class="color-secondary mb-0" v-if="producer.address">
+            <p class="w-100 color-default">{{ producer.short_description }}</p>
+            
+            <p class="mb-3 color-primary text-bold" v-if="producer.address && producer.address.distance != undefined">
+                <i class="bi bi-geo me-2"></i>
                 {{ fromMeterToKm(producer.address.distance) }} km de distância
-            </span>
+            </p>
+        </section>
 
-            <div class="d-flex justify-content-between">
-                <span class="color-secondary overflow-dots" v-if="producer.categories">
-                    {{ producer.categories.map((category) => category.name).join(', ') }}
-                </span>
+        <section id="producer-details-body">
+            <h4 class="text-normal">Categorias</h4>
+            <p class="color-secondary mb-3" v-if="producer.categories">
+                {{ producer.categories.map((category) => category.name).join(', ') }}
+            </p>
+
+            <h4 class="text-normal">Sobre o produtor</h4>
+            <p class="w-100 color-default mb-3">{{ producer.longDescription }}</p>
+        </section>
+        <section id="producer-details-contacts">
+            <h4 class="text-normal">Endereço e contatos</h4>
+            <div class="border-radius bg-light p-3 mt-3">
+                <p class="mb-3 color-default" v-if="producer.address">
+                    <i class="bi bi-geo"></i>
+                    {{ producer.address.address }}
+                </p>
+                <p class="mb-3 color-default" v-for="(contact, index) in mockedContacts" :key="index">
+                    <i class="bi bi-instagram" v-if="contact.type == 'instagram'"></i>
+                    <i class="bi bi-whatsapp" v-if="contact.type == 'whatsapp'"></i>
+                    <i class="bi bi-telephone" v-if="contact.type == 'phone'"></i>
+                    <i class="bi bi-envelope-at" v-if="contact.type == 'email'"></i>
+                    <a href="" class="color-secondary ms-2">{{ contact.value }}</a>
+                </p>
             </div>
 
-            <p class="mb-0" v-if="producer.address && producer.address.length">
-                <i class="bi bi-geo"></i>
-                {{ producer.address.address }}<br />
-            </p>
+            <ContactProducerButton />
+        </section>
+        <section id="producer-details-products" v-if="products">
+            <!-- //find products from producer by id -->
+            <!-- add slider of products and link to see more -->
+            <h4 class="mt-5">Produtos</h4>
+            <ProductCardsCarousel :products="products" />
+            <router-link to="/" class="btn button-secondary w-100 mt-3">Ver mais produtos</router-link>
+        </section>
+        <section id="producer-ratings" v-if="false">
+            <h4 class="mt-5">Avaliações</h4>
+            <i class="bi bi-star-fill color-secondary"></i>
+            <i class="bi bi-star-fill color-secondary"></i>
+            <i class="bi bi-star-fill color-secondary"></i>
+            <i class="bi bi-star-fill color-secondary"></i>
+            <i class="bi bi-star-half color-secondary"></i>
+            <br />
+            <router-link to="/" class="btn button-secondary--light w-100">Ver todas</router-link>
         </section>
     </section>
 </template>
@@ -69,6 +132,8 @@ onMounted(async () => {
     img {
         object-fit: cover;
         overflow: hidden;
+        width: 180px;
+        height: 180px;
     }
 
     @media (max-width: 576px) {

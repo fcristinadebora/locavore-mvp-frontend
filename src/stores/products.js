@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
-import { search, findById } from "../api/backend/products";
+import { list, findById } from "../api/backend/products";
 import { useSearchStore } from './search';
 
 export const useProductsStore = defineStore("products", () => {
@@ -135,9 +135,9 @@ export const useProductsStore = defineStore("products", () => {
     
   };
 
-  const searchProducts = async (filters) => {
+  const listProducts = async (filters) => {
     try {
-      const result = await search({...filters});
+      const result = await list({...filters});
 
       //todo cache data
 
@@ -148,5 +148,18 @@ export const useProductsStore = defineStore("products", () => {
     }
   };
 
-  return { allProducts, findProduct, searchProducts };
+  const listProductsByProducer = async (producer, limit, paginate) => {
+    try {
+      const result = await list({producer, limit, paginate, include: 'categories' });
+
+      //todo cache data
+
+      return result;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  };
+
+  return { allProducts, findProduct, listProducts, listProductsByProducer };
 });

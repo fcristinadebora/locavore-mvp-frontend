@@ -6,8 +6,8 @@ const props = defineProps(['producer'])
 <template>
     <section v-if="props.producer" class="search-producer-item p-3 my-3 cursor-pointer d-flex flex-column flex-sm-row bg-light border-radius color-text-default">
         <div class="mb-3 mb-sm-0 d-flex justify-content-center align-items-center search-item-image-placeholder">
-          <img class="border-radius" :src="props.producer.image" alt="Imagem do produto" v-if="props.producer.image" />
-          <i class="bi bi-image icon-lg" v-if="!props.producer.image"></i>
+          <img class="border-radius" :src="props.producer.profile_picture" alt="Imagem do produto" v-if="props.producer.profile_picture" />
+          <i class="bi bi-image icon-lg" v-if="!props.producer.profile_picture"></i>
         </div>
         <div class="search-producer-data ps-3">
           <h3 class="text-normal color-primary text-bold w-100 mb-0">

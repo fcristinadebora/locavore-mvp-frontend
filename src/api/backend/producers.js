@@ -1,7 +1,7 @@
 import { sendGetRequest } from ".";
 
 async function search({lat, lng, search, page, include}) {
-  const ENDPOINT_PATH = "/producers/search";
+  const ENDPOINT_PATH = "/producers";
 
   const result = await sendGetRequest(ENDPOINT_PATH, {
     search: search ?? '',

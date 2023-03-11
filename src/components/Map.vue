@@ -1,14 +1,15 @@
 <script setup>
 import "leaflet/dist/leaflet.css";
 import Leaflet from "leaflet";
-import { onMounted, ref, watch, computed } from "vue";
+import { onMounted, ref, watch, computed, toRaw } from "vue";
 
-const props = defineProps(['center']);
-const emit = defineEmits(['mainMarkerMoved']);
+const props = defineProps(['center', 'recenterable', 'markers']);
+const emit = defineEmits(['mainMarkerMoved', 'maxDistanceUpdated']);
 
 const defaultMapCenter = {lat: -24.23224, lng: -50.022991};
 const mapElement = ref(null);
 const centerMaker = ref(null);
+const mapIdentifier = ref(getRandomIdentifier());
 
 const mapCenter = computed(() => isValidCoordinate(props.center)  ? props.center : defaultMapCenter);
 
@@ -39,6 +40,10 @@ onMounted(() => {
   setupMap();
 });
 
+function getRandomIdentifier() {
+  return 'mapContainer' + Math.random().toString(15);
+}
+
 function isValidCoordinate(coordinate = null) {
   if (coordinate == null) {
     return false;
@@ -48,7 +53,7 @@ function isValidCoordinate(coordinate = null) {
 }
 
 function setupMap() {
-  mapElement.value = Leaflet.map("mapContainer").setView(
+  mapElement.value = Leaflet.map(mapIdentifier.value).setView(
     mapOptions.value.center,
     mapOptions.value.lastZoom
   );
@@ -63,33 +68,59 @@ function setupMap() {
 
   addMainMarker();
 
-  // mapContainer.on("zoomend", this.handleZoomEnd);
-  // mapContainer.on("moveend", this.handleMoveEnd);
+  if (props.markers) {
+    props.markers.forEach((marker) => {
+      addMarker(marker)
+    });
+  }
+  mapElement.value.on("zoomend", handleZoomEnd);
+  mapElement.value.on("moveend", handleMoveEnd);
 
-  // this.handleMoveEnd();
+  setMaxDistance();
 }
 
 // Use this later on with the producers :)
-function addMarker() {
-  const marker = Leaflet.marker(mapOptions.value.center)
-    .addTo(mapElement.value)
-    .bindPopup("Você está aqui")
-    .openPopup();
+function addMarker(markerInfo) {
+  var content = markerInfo.popup;
+
+  // const icon = Leaflet.icon({iconUrl:"/img/favicon/green/favicon-16x16.png"});
+  const latLng = new Leaflet.LatLng(markerInfo.lat, markerInfo.lng, markerInfo.label);
+  const marker = Leaflet.marker(latLng)
+    .addTo(toRaw(mapElement.value))
+    .bindPopup(content);
+
+  marker.on('click', centerOnMarkerClick);
 }
 
 function addMainMarker() {
-  centerMaker.value = Leaflet.marker(mapOptions.value.center, { draggable: 'true' })
-    .addTo(mapElement.value)
+  centerMaker.value = Leaflet.marker(mapOptions.value.center, { draggable: props.recenterable ? 'true' : 'false' })
+    .addTo(toRaw(mapElement.value))
     .bindPopup("Você está aqui")
     .openPopup();
 
-    centerMaker.value.on('dragend', function (event) {
-    const position = centerMaker.value.getLatLng();
+  centerMaker.value.on('click', centerOnMarkerClick);
+  
+  if (props.recenterable) {
+    centerMaker.value.on('dragend', onCenterMarkerDrag)
+    mapElement.value.on('click', onMapClick)
+  }
+}
 
-    recenterView(position.lat, position.lng);
+function onCenterMarkerDrag(event) {
+  const position = centerMaker.value.getLatLng();
+  recenterView(position.lat, position.lng);
+  emit('mainMarkerMoved', {lat: position.lat, lng: position.lng});
+}
 
-    emit('mainMarkerMoved', {lat: position.lat, lng: position.lng});
-  })
+function onMapClick(event) {
+  const position = event.latlng;
+  recenterView(position.lat, position.lng);
+  emit('mainMarkerMoved', {lat: position.lat, lng: position.lng});
+}
+
+function centerOnMarkerClick(event) {
+  const position = event.latlng;
+  recenterView(position.lat, position.lng);
 }
 
 function updateMapCenter(newLat, newLng) {
@@ -100,6 +131,44 @@ function updateMapCenter(newLat, newLng) {
 
 function recenterView (lat, lng) {
   mapElement.value.setView(new Leaflet.latLng(lat, lng));
+}
+
+function handleZoomEnd () {
+  setMaxDistance()
+}
+
+function handleMoveEnd(){
+  setMaxDistance()
+}
+
+function getCenter() {
+  const center  = mapElement.value.getCenter()
+
+  return {
+    lat: center.lat,
+    lng:center.lng
+  }
+}
+
+function setMaxDistance() {
+  const bounds = mapElement.value.getBounds()
+
+  const northWest = bounds.getNorthWest()
+  const northEast = bounds.getNorthEast()
+  const horizontalDistance = northWest.distanceTo(northEast) / 2;
+
+  const southWest = bounds.getSouthWest()
+  const verticalDistance = northWest.distanceTo(southWest) / 2;
+
+  var maxDistance = 0;
+  if(horizontalDistance > verticalDistance){
+    maxDistance = horizontalDistance
+  } else {
+    maxDistance = verticalDistance
+  }
+
+  const mapCenter = getCenter();
+  emit('maxDistanceUpdated', {maxDistance: maxDistance, unit: 'meters', from: {lat : mapCenter.lat, lng : mapCenter.lng }});
 }
 
 // function onMapClick(e) {
@@ -370,7 +439,7 @@ function recenterView (lat, lng) {
 </script>
 
 <style scoped>
-#mapContainer {
+.mapContainer {
   width: 100%;
   height: 70vh;
   min-height: 350px;
@@ -379,6 +448,6 @@ function recenterView (lat, lng) {
 </style>
 
 <template>
-  <div id="mapContainer"></div>
+  <div :id="mapIdentifier" class="mapContainer"></div>
 </template>
 

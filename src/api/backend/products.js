@@ -1,14 +1,9 @@
 import { sendGetRequest } from ".";
 
-async function search({lat, lng, search, page}) {
-  const ENDPOINT_PATH = "/products/search";
+async function list(filters) {
+  const ENDPOINT_PATH = "/products";
 
-  const result = await sendGetRequest(ENDPOINT_PATH, {
-    search: search ?? '',
-    lat,
-    lng,
-    page: page ?? 1
-  });
+  const result = await sendGetRequest(ENDPOINT_PATH, filters);
 
   return result;
 }
@@ -21,4 +16,4 @@ async function findById(id, query) {
   return result;
 }
 
-export { search, findById };
+export { list, findById };

@@ -59,7 +59,7 @@ function gotoNextStep () {
         <p class="text-center">Segure e arraste o marcador para definir o ponto de referência para sua busca</p>
       </section>
       <section id="search-map-map" class="map-container d-flex justify-content-center align-items-center">
-        <Map :center="mapCenter" v-if="!loadingLocation" @main-marker-moved="handleMainMarkerMoved" />
+        <Map :center="mapCenter" v-if="!loadingLocation" @main-marker-moved="handleMainMarkerMoved" :recenterable="true" />
 
         <div class="loading justify-content-center d-flex flex-column align-items-center"  v-if="loadingLocation">
           <LoadingLg />
