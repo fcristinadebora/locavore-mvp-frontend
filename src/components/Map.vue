@@ -10,6 +10,7 @@ const defaultMapCenter = {lat: -24.23224, lng: -50.022991};
 const mapElement = ref(null);
 const centerMaker = ref(null);
 const mapIdentifier = ref(getRandomIdentifier());
+const markerIds = ref([]);
 
 const mapCenter = computed(() => isValidCoordinate(props.center)  ? props.center : defaultMapCenter);
 
@@ -17,7 +18,15 @@ watch(
   () => props.center,
   (center) => {
     updateMapCenter(center.lat, center.lng);
-  })
+  }
+);
+
+watch(
+  () => props.markers,
+  (markers) => {
+    addMarkers(markers);
+  }
+);
 
 const mapOptions = ref({
   center: mapCenter.value,
@@ -67,29 +76,51 @@ function setupMap() {
   ).addTo(mapElement.value);
 
   addMainMarker();
+  addMarkers();
 
-  if (props.markers) {
-    props.markers.forEach((marker) => {
-      addMarker(marker)
-    });
-  }
   mapElement.value.on("zoomend", handleZoomEnd);
   mapElement.value.on("moveend", handleMoveEnd);
 
   setMaxDistance();
 }
 
+function addMarkers () {
+  if (!props.markers) {
+    return;
+  }
+
+  props.markers.forEach((marker) => {
+    addMarker(marker)
+  });
+}
+
 // Use this later on with the producers :)
 function addMarker(markerInfo) {
+  if (markerIds.value.includes(markerInfo.id)) {
+    return 'Marker already present, skip';
+  }
   var content = markerInfo.popup;
 
   // const icon = Leaflet.icon({iconUrl:"/img/favicon/green/favicon-16x16.png"});
   const latLng = new Leaflet.LatLng(markerInfo.lat, markerInfo.lng, markerInfo.label);
+
+  if(content.includes('{distanceWildcard}')) {
+    const centerLatLng = centerMaker.value.getLatLng();
+    const distanceInMeters = mapElement.value.distance(latLng, centerLatLng);
+    if (distanceInMeters < 1000) {
+      content = content.replace('{distanceWildcard}', `${distanceInMeters.toFixed(0)}m`);
+    } else{
+      const distanceInKm = distanceInMeters / 1000;
+      content = content.replace('{distanceWildcard}', `${distanceInKm.toFixed(1)}km`);
+    }
+  }
+
   const marker = Leaflet.marker(latLng)
     .addTo(toRaw(mapElement.value))
     .bindPopup(content);
 
   marker.on('click', centerOnMarkerClick);
+  markerIds.value.push(markerInfo.id);
 }
 
 function addMainMarker() {

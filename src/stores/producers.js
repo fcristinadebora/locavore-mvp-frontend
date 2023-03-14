@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
-import { search, findById } from "../api/backend/producers";
+import { list, findById } from "../api/backend/producers";
 import { useSearchStore } from "./search";
 
 export const useProducersStore = defineStore("producers", () => {
@@ -101,9 +101,9 @@ export const useProducersStore = defineStore("producers", () => {
     
   };
 
-  const searchProducers = async (filters) => {
+  const listProducers = async (filters) => {
     try {
-      const result = await search({
+      const result = await list({
         ...filters,
         include: [
           'address',
@@ -120,5 +120,5 @@ export const useProducersStore = defineStore("producers", () => {
     }
   };
 
-  return { allproducers, searchProducers, findProducer };
+  return { allproducers, listProducers, findProducer };
 });

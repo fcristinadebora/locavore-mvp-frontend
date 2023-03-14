@@ -47,6 +47,7 @@ function submitSearchString() {
       <input
         type="text"
         class="form-control border-radius-important"
+        readonly
         :placeholder="props.searchLocation ? `Próximo de ${props.searchLocation.name}` : 'Carregando...'"
       />
       <button

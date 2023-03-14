@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import Map from './Map.vue';
 import { PRODUCT, PRODUCER } from "../enum/general";
 import { fromMeterToKm } from "../helpers/measureUnits";
+import { debounce } from "../helpers/debounce";
 
 const props = defineProps(
     ['userLocation', 'items', 'itemType']
@@ -15,7 +16,7 @@ function handleMaxDistanceUpdated(eventData) {
 }
 
 const markers = computed(() => {
-    if (!props.items) {
+    if (!(props.items && props.items.length)) {
         return [];
     }
     
@@ -24,16 +25,20 @@ const markers = computed(() => {
             ? `/producer/${item.id}`
             : `/product/${item.id}`;
         
+        const imgUrl =  props.itemType == PRODUCER ? item.profile_picture : item.image;
+
+        const imgSrc = imgUrl ? `<img style="width:120px" class="border-radius" src="${imgUrl}" />
+            <br>` : '';
         const popup = `
-            <img style="width:100%" class="border-radius" src="${item.image}" />
-            <br>
+            ${imgSrc}
             <br>
             <center><strong>${item.name}</strong><br>
-                Distância: ${fromMeterToKm(item.address.distance)}km<br><br>
+                Distância: {distanceWildcard}<br><br>
                 <a href='${url}' style='text-center'>Ver Detalhes</a>
             </center>`;
         
         return {
+            id: item.id,
             popup,
             lat: item.address.location.coordinates[1],
             lng: item.address.location.coordinates[0],

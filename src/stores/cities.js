@@ -27,11 +27,9 @@ export const useCitiesStore = defineStore("cities", () => {
     try {
       const loadedCity = searchCityResult.length ? searchCityResult.filter((city) => city.id == id) : null;
       if (loadedCity) {
-        console.log('found it in already loaded items');
         return loadedCity;
       }
 
-      console.log('not found, gonna fetch from api');
       const result = await findById(id);
       return result.data;
 

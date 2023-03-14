@@ -45,7 +45,6 @@ async function loadLocation() {
   loadingLocation.value = true;
   searchLocation.value = await searchStore.getSearchLocation();
   searchCenterCoordinates.value = { lat: route.query.lat, lng: route.query.lng }
-  console.log(searchCenterCoordinates.value);
   setMapCenter(searchCenterCoordinates.value.lat, searchCenterCoordinates.value.lng);
   loadingLocation.value = false;
 }

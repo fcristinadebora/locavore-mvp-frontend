@@ -12,6 +12,7 @@ import { useRoute, useRouter } from "vue-router";
 import { ref, onMounted, computed } from "vue";
 import { useSearchStore, useProductsStore, useProducersStore } from "../stores";
 import { PRODUCT, PRODUCER, VIEW_MAP, VIEW_LIST } from "../enum/general";
+import { search } from "../api/backend/cities";
 
 const ITEMS_PER_PAGE = 20;
 const searchStore = useSearchStore();
@@ -29,12 +30,17 @@ const modalFilters = ref({
 });
 
 const loadingLocation = ref(true);
+const loadingMapResult = ref(false);
 const searchLocation = ref(null);
 const searchCoordinates = ref(null);
+const mapCenterCoordinates = ref(null);
+const mapMaxDistance = ref(0);
 const searchString = ref('');
 const currentPage = ref(1);
 const loadingResult = ref(true);
-const resultItems = ref(null);
+const resultItems = ref([]);
+const mapResultItems = ref([]);
+const mapKey = ref('');
 
 onMounted(async () => {
   await loadFilters();
@@ -46,7 +52,6 @@ function resetCurrentPage() {
 }
 
 function toggleView() {
-  console.log('toggleView')
   if (view.value == VIEW_LIST) {
     view.value = VIEW_MAP;
   } else if (view.value == VIEW_MAP) {
@@ -97,6 +102,7 @@ async function loadFilters() {
     lat: route.query.lat ?? searchLocation.value.location.coordinates[1],
     lng: route.query.lng ?? searchLocation.value.location.coordinates[0]
   }
+  mapCenterCoordinates.value = {...searchCoordinates.value}
 
   loadingLocation.value = false;
 }
@@ -117,6 +123,10 @@ const filters = computed(() => {
 })
 
 function applyFilters() {
+  mapKey.value = Math.random().toString(15);
+  mapResultItems.value = [];
+  mapCenterCoordinates.value = {...searchCoordinates.value}
+
   router.push({
     path: route.path,
     query: {
@@ -130,10 +140,25 @@ function applyFilters() {
 }
 
 async function getSearchResult() {
+  loadingResult.value = false;
   if (![PRODUCT, PRODUCER].includes(modalFilters.value.searchFor)) {
     return false;
   }
 
+  loadingResult.value = true;
+  if (view.value == VIEW_LIST) {
+    await getListSearchResult()
+  }
+  loadingResult.value = false;
+
+  if (view.value == VIEW_MAP) {
+    await getMapSearchResult()
+  }
+
+  loadingResult.value = false;
+}
+
+async function getListSearchResult () {
   loadingResult.value = true;
 
   var result = null;
@@ -141,7 +166,7 @@ async function getSearchResult() {
     result = await productsStore.listProducts({ ...filters.value, include: 'categories' });
   }
   if (modalFilters.value.searchFor == PRODUCER) {
-    result = await producersStore.searchProducers(filters.value);
+    result = await producersStore.listProducers(filters.value);
   }
   
   setPaginationFromResult(result.data)
@@ -162,7 +187,55 @@ function handlePageChange(newPage) {
 }
 
 function handleMaxDistanceUpdated(eventData) {
-  //todo call api
+  mapCenterCoordinates.value = {
+    lat: eventData.from.lat,
+    lng: eventData.from.lng
+  }
+  mapMaxDistance.value = eventData.maxDistance;
+  getMapSearchResult();
+}
+
+async function getMapSearchResult () {
+  if (loadingMapResult.value) {
+    //todo improve performance here :)
+    return;
+  }
+
+  loadingMapResult.value = true;
+  const mapFilters = {
+    ...filters.value,
+    paginate: 0,
+    limit: 30000, //very high limit to ensure all items in the range will be fetch
+    maxDistance: mapMaxDistance.value + 500,
+    lat: mapCenterCoordinates.value.lat,
+    lng: mapCenterCoordinates.value.lng,
+    excludeIds: mapResultItems.value.map(item => item.id)
+  }
+  delete mapFilters.perPage;
+  delete mapFilters.page;
+
+  if (Math.abs(mapFilters.lat) > 180) {
+    console.log('invalid lat, skipping');
+    return;
+  }
+  if (Math.abs(mapFilters.lng) > 90) {
+    console.log('invalid lng, skipping');
+    return;
+  }
+  
+  var result = null;
+  if (modalFilters.value.searchFor == PRODUCT) {
+    result = await productsStore.listProducts({ ...mapFilters, include: 'categories' });
+  }
+  if (modalFilters.value.searchFor == PRODUCER) {
+    result = await producersStore.listProducers(mapFilters);
+  }
+
+  result.data.forEach(item => {
+    mapResultItems.value.push(item)
+  })
+
+  loadingMapResult.value = false;
 }
 
 </script>
@@ -171,6 +244,8 @@ function handleMaxDistanceUpdated(eventData) {
   <section class="w-100 d-flex flex-column">
     <SearchHeader :search-location="searchLocation" :search="searchString"
       @apply-search-string="handleApplySearchString" />
+    <SearchFilterModal @apply-filters="handleApplyModalFilters" :filters="modalFilters" />
+    <SearchLocationModal @apply-location="handleApplyLocation" @apply-coordinates="handleApplyCoordinates" />
     <section id="search-products-title" class="mt-3">
       <h1 class="d-flex justify-content-between">
         <span class="fw-bold color-primary">Resultados em
@@ -192,7 +267,7 @@ function handleMaxDistanceUpdated(eventData) {
       <LoadingLg />
       Carregando resultados...
     </section>
-    <section class="d-flex flex-column align-items-center pt-3" v-if="!loadingResult && !resultItems.length">
+    <section class="d-flex flex-column align-items-center pt-3" v-if="!loadingResult && !resultItems.length && view == VIEW_LIST">
       <i class="bi bi-window icon-lg"></i>
       Nenhum resultado encontrado com esses filtros :(
     </section>
@@ -206,9 +281,7 @@ function handleMaxDistanceUpdated(eventData) {
       <Pagination :current-page="pagination.currentPage" :total-pages="pagination.totalPages"
         @page-change="handlePageChange" />
     </section>
-    <SearchResultMap v-if="view == VIEW_MAP && !loadingResult && resultItems.length" :items="resultItems"
+    <SearchResultMap v-if="view == VIEW_MAP && !loadingResult" :key="mapKey" :items="mapResultItems"
       :user-location="searchCoordinates" :item-type="modalFilters.searchFor" @max-distance-updated="handleMaxDistanceUpdated" />
-    <SearchFilterModal @apply-filters="handleApplyModalFilters" :filters="modalFilters" />
-    <SearchLocationModal @apply-location="handleApplyLocation" @apply-coordinates="handleApplyCoordinates" />
   </section>
 </template>

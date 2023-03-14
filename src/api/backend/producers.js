@@ -1,16 +1,9 @@
 import { sendGetRequest } from ".";
 
-async function search({lat, lng, search, page, include}) {
+async function list(filters) {
   const ENDPOINT_PATH = "/producers";
 
-  const result = await sendGetRequest(ENDPOINT_PATH, {
-    search: search ?? '',
-    lat,
-    lng,
-    page: page ?? 1,
-    include: Array.isArray(include) ? include.join(',') : include,
-    perPage: 20
-  });
+  const result = await sendGetRequest(ENDPOINT_PATH, filters);
 
   return result;
 }
@@ -23,4 +16,4 @@ async function findById(id, query) {
   return result;
 }
 
-export { search, findById };
+export { list, findById };

@@ -20,13 +20,11 @@ export const useSearchStore = defineStore("search", () => {
         }
 
         if (searchLocation.value) {
-            console.log('found on store');
             return searchLocation.value;
         }
         
         const locationFromStorage = localStorageHelper.getSearchSelectedLocation();
         if (locationFromStorage) {
-            console.log('found on localstorage');
             return locationFromStorage;
         }
         
@@ -41,7 +39,6 @@ export const useSearchStore = defineStore("search", () => {
 
         const locationFromStore = await citiesStore.findCity(id);
         if (locationFromStore) {
-            console.log('fetch from api');
             return locationFromStore;
         }
 
