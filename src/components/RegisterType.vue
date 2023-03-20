@@ -1,5 +1,10 @@
 <script setup>
 import { useRouter } from "vue-router";
+import {
+  TYPE_PRODUCER,
+  TYPE_CONSUMER,
+  TYPE_PRODUCER_AND_CONSUMER
+} from '../enum/userType';
 
 const router = useRouter();
 
@@ -21,19 +26,19 @@ function selectRegisterType(type) {
   <section id="login-form" class="text-center w-100">
     <button
       class="btn button-primary mb-2 w-100"
-      @click="selectRegisterType('producer')"
+      @click="selectRegisterType(TYPE_PRODUCER)"
     >
       Sou produtor
     </button>
     <button
       class="btn button-primary mb-2 w-100"
-      @click="selectRegisterType('grower')"
+      @click="selectRegisterType(TYPE_CONSUMER)"
     >
-      Sou consumidor de produtores locais
+      Sou consumidor de produtos locais
     </button>
     <button
       class="btn button-primary mb-2 w-100"
-      @click="selectRegisterType('both')"
+      @click="selectRegisterType(TYPE_PRODUCER_AND_CONSUMER)"
     >
       Produzo e consumo produtos locais
     </button>

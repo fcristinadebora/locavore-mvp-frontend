@@ -7,7 +7,6 @@ import { toMoney } from "../helpers/locale";
 import ProducerCard from "./ProducerCard.vue";
 import { fromMeterToKm } from "../helpers/measureUnits";
 import LoadingLg from "./LoadingLg.vue";
-import FloatingFooterButton from "./FloatingFooterButton.vue";
 import ContactProducerButton from "./ContactProducerButton.vue";
 
 const product = ref(null);
@@ -40,31 +39,28 @@ onMounted(async () => {
     </section>
 
     <section id="product-details-product">
-      <div class="product-details-img mb-3 mb-sm-0 d-flex justify-content-center bg-light border-radius align-items-center w-100 ratio-16-9 overflow-hidden">
+      <p class="color-secondary overflow-dots text-center" v-if="product.categories">
+        {{ product.categories.map((category) => category.name).join(', ') }}
+      </p>
+      <div class="product-details-img mb-sm-0 d-flex justify-content-center bg-light border-radius align-items-center w-100 ratio-16-9 overflow-hidden">
         <img class="w-100 img-fit border-radius" :src="product.image" alt="Imagem do produto" v-if="product.image" />
         <i class="bi bi-image icon-lg" v-if="!product.image"></i>
       </div>
 
-      <div class="w-100 d-flex justify-content-between my-3">
-        <span class="color-secondary overflow-dots" v-if="product.categories">
-          {{ product.categories.map((category) => category.name).join(', ') }}
-        </span>
+      <p class="w-100 mb-3 mt-3 color-default">{{ product.description }}</p>
 
-        <span class="color-primary">
-          {{ toMoney(product.price) || '' }}
-        </span>
-      </div>
-
-      <p class="w-100 mb-3 color-default">{{ product.description }}</p>
+      <p class="color-primary w-100">
+        {{ toMoney(product.price) || '' }}<span v-if="product.unit_of_price">/{{ product.unit_of_price }}</span>
+      </p>
       
       <div class="border-radius bg-light p-3">
         <p class="mb-3 color-default d-flex" v-if="product.address">
           <i class="bi bi-geo"></i>
           <span class="ps-2">
             <span class="color-secondary mb-0" v-if="product.address && product.address.distance != null">
-              {{ fromMeterToKm(product.address.distance) }} km de distância
-            </span><br />
-            {{ product.address.address }}<br />
+              {{ fromMeterToKm(product.address.distance) }} km de distância<br />
+            </span>
+            {{ product.address.address }}
           </span>
         </p>
         

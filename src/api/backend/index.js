@@ -1,4 +1,5 @@
 import { METHOD_DELETE, METHOD_GET, METHOD_POST } from "../../enum/http";
+import ApiException from "./exceptions/ApiException";
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000/api";
@@ -39,7 +40,8 @@ async function sendRequest(method, endpoint, query = {}, body = {}) {
     if (DEBUG_ENABLED) {
       console.error("Request failed", result);
     }
-    throw Error("Error performing request", result.statusText);
+    
+    throw new ApiException(responseBody.message, responseBody.code, result.status, responseBody.errors ?? [], result);
   }
 
   return responseBody;

@@ -25,37 +25,19 @@ export const useAuthStore = defineStore("auth", () => {
     }
   };
 
-  const executeRegister = async ({
-    name,
-    email,
-    password,
-    passwordConfirm,
-  }) => {
-    try {
-      const result = await register({ name, email, password, passwordConfirm });
+  const executeRegister = async (formData) => {
+    const result = await register({...formData});
 
-      console.log(result);
-      const { token } = result.data;
-      saveToken(token);
+    const { token } = result.data;
+    saveToken(token);
 
-      return true;
-    } catch (error) {
-      console.error("Register failed");
-      return false;
-    }
+    return true;
   };
 
   const executeLogin = async ({ email, password }) => {
-    try {
-      const result = await login({ email, password });
-      const { token } = result.data;
-      saveToken(token);
-
-      return true;
-    } catch (error) {
-      console.error("Login failed", error);
-      return false;
-    }
+    const result = await login({ email, password });
+    const { token } = result.data;
+    saveToken(token);
   };
 
   const fetchUser = async () => {

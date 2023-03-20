@@ -1,5 +1,12 @@
 <script setup>
 import { ref, onMounted } from "vue";
+import {
+    CONTACT_TYPE_WHATSAPP,
+    CONTACT_TYPE_PHONE,
+    CONTACT_TYPE_EMAIL,
+    CONTACT_TYPE_INSTAGRAM,
+    getContactHref
+} from '../helpers/contacts.js';
 import { useRoute } from "vue-router";
 import { useProducersStore, useProductsStore } from "../stores";
 import FavoriteButton from "./FavoriteButton.vue";
@@ -15,25 +22,6 @@ const producerId = route.params.id;
 
 const producersStore = useProducersStore();
 const productsStore = useProductsStore();
-
-const mockedContacts = ref([
-    {
-        type: 'instagram',
-        value: 'daorahein',
-    },
-    {
-        type: 'whatsapp',
-        value: '+351 915 273 486'
-    },
-    {
-        type: 'phone',
-        value: '+351 915 273 486'
-    },
-    {
-        type: 'email',
-        value: 'debora@debora.com'
-    }
-])
 
 onMounted(() => {
     fetchProducer();
@@ -56,13 +44,16 @@ async function fetchProducts () {
         Carregando produtor...
     </section>
     <section v-if="producer" id="producer-details" class="py-3 container d-flex flex-column flex-grow-1 h-100">
-        <section id="producer-details-header" class="d-flex w-100 justify-content-between align-items-center">
+        <section id="producer-details-header" class="d-flex w-100 justify-content-between align-items-top">
             <span></span>
-            <h1 class="justify-self-center">{{ producer.name }}</h1>
+            <h1 class="justify-self-center text-center">{{ producer.name }}</h1>
             <FavoriteButton :is-favorite="false" />
         </section>
 
-        <section id="producer-details-header" class="mt-3">
+        <section id="producer-details-header" class="mt-0">
+            <p class="color-secondary text-center mb-3" v-if="producer.categories">
+                {{ producer.categories.map((category) => category.name).join(', ') }}
+            </p>
             <div class="producer-details-img ratio-1-1 border-radius bg-light float-start me-3 mb-3">
                 <img v-if="producer.profile_picture" :src="producer.profile_picture" alt="Producer image" class="border-radius" />
             </div>
@@ -73,17 +64,13 @@ async function fetchProducts () {
                 <i class="bi bi-geo me-2"></i>
                 {{ fromMeterToKm(producer.address.distance) }} km de distância
             </p>
+
+            <span v-if="producer.longDescription">
+                <h4 class="text-normal">Sobre o produtor</h4>
+                <p class="w-100 color-default mb-3">{{ producer.longDescription }}</p>
+            </span>
         </section>
 
-        <section id="producer-details-body">
-            <h4 class="text-normal">Categorias</h4>
-            <p class="color-secondary mb-3" v-if="producer.categories">
-                {{ producer.categories.map((category) => category.name).join(', ') }}
-            </p>
-
-            <h4 class="text-normal">Sobre o produtor</h4>
-            <p class="w-100 color-default mb-3">{{ producer.longDescription }}</p>
-        </section>
         <section id="producer-details-contacts">
             <h4 class="text-normal">Endereço e contatos</h4>
             <div class="border-radius bg-light p-3 mt-3">
@@ -91,20 +78,18 @@ async function fetchProducts () {
                     <i class="bi bi-geo"></i>
                     {{ producer.address.address }}
                 </p>
-                <p class="mb-3 color-default" v-for="(contact, index) in mockedContacts" :key="index">
-                    <i class="bi bi-instagram" v-if="contact.type == 'instagram'"></i>
-                    <i class="bi bi-whatsapp" v-if="contact.type == 'whatsapp'"></i>
-                    <i class="bi bi-telephone" v-if="contact.type == 'phone'"></i>
-                    <i class="bi bi-envelope-at" v-if="contact.type == 'email'"></i>
-                    <a href="" class="color-secondary ms-2">{{ contact.value }}</a>
+                <p class="mb-3 color-default" v-for="(contact, index) in producer.contacts" :key="index">
+                    <i class="bi bi-instagram" v-if="contact.type == CONTACT_TYPE_INSTAGRAM"></i>
+                    <i class="bi bi-whatsapp" v-if="contact.type == CONTACT_TYPE_WHATSAPP"></i>
+                    <i class="bi bi-telephone" v-if="contact.type == CONTACT_TYPE_PHONE"></i>
+                    <i class="bi bi-envelope-at" v-if="contact.type == CONTACT_TYPE_EMAIL"></i>
+                    <a :href="getContactHref(contact.type, contact.value)" target="_blank" class="color-secondary ms-2">{{ contact.value }}</a>
                 </p>
             </div>
 
             <ContactProducerButton />
         </section>
         <section id="producer-details-products" v-if="products">
-            <!-- //find products from producer by id -->
-            <!-- add slider of products and link to see more -->
             <h4 class="mt-5">Produtos</h4>
             <ProductCardsCarousel :products="products" />
             <router-link to="/" class="btn button-secondary w-100 mt-3">Ver mais produtos</router-link>
@@ -137,6 +122,7 @@ async function fetchProducts () {
     }
 
     @media (max-width: 576px) {
+        max-width: 180px;
         width: 50%;
     }
 

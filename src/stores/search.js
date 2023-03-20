@@ -10,13 +10,20 @@ export const useSearchStore = defineStore("search", () => {
     const searchCoordinates = ref(null); //Search coordinates = the coordinates used as reference point for search and distance calculation, can be different from the searchLocation.coordinates
 
     const setSearchLocation = (newSearchLocation) => {
+        console.log('set search location', newSearchLocation);
         localStorageHelper.setSearchSelectedLocation(newSearchLocation);
         searchLocation.value = newSearchLocation;
     }
 
+    const setSearchCoordinates = ({ lat, lng }) => {
+        searchCoordinates.value = { lat, lng };
+        localStorageHelper.setSearchCoordinates(searchCoordinates.value);
+    }
+
     const getSearchLocation = async (id = 0) => {
         if (id) {
-            return await getSearchLocationFromId(id);
+            const searchLocationFromId = await getSearchLocationFromId(id);
+            searchLocation.value = searchLocationFromId;
         }
 
         if (searchLocation.value) {
@@ -25,6 +32,7 @@ export const useSearchStore = defineStore("search", () => {
         
         const locationFromStorage = localStorageHelper.getSearchSelectedLocation();
         if (locationFromStorage) {
+            searchLocation.value = locationFromStorage;
             return locationFromStorage;
         }
         
@@ -32,6 +40,10 @@ export const useSearchStore = defineStore("search", () => {
     }
 
     const getSearchLocationFromId = async (id) => {
+        if (searchLocation.value && searchLocation.value.id == id) {
+            return searchLocation.value;
+        }
+
         const city = await citiesStore.findCity(id);
         if (!city) {
             return city;
@@ -45,9 +57,33 @@ export const useSearchStore = defineStore("search", () => {
         return null;
     }
 
-    const setSearchCoordinates  = (lat, lng) => {
-        searchCoordinates.value = { lat, lng };
+    const getSearchCoordinates = async () => {
+        if (searchCoordinates.value) {
+            return searchCoordinates.value;
+        }
+        
+        const coordinatesFromStorage = localStorageHelper.getSearchCoordinates();
+        if (coordinatesFromStorage) {
+            console.log({coordinatesFromStorage})
+            return coordinatesFromStorage;
+        }
+
+        //fallback, not found, lets see if we get from the city
+        const location = await getSearchLocation();
+        console.log(location);
+        if (location){
+            console.log('setting from city ', {
+                lat: location.coordinates[1],
+                lng: location.coordinates[0],
+            });
+            setSearchCoordinates({
+                lat: location.coordinates[1],
+                lng: location.coordinates[0],
+            });
+        }
+        
+        return null;
     }
 
-    return {searchLocation, searchCoordinates, setSearchCoordinates, setSearchLocation, getSearchLocation };
+    return {searchLocation, searchCoordinates, setSearchCoordinates, getSearchCoordinates, setSearchLocation, getSearchLocation };
 });

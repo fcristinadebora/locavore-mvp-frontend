@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../pages/Home.vue";
 import Login from "../pages/Login.vue";
 import RegisterType from "../pages/RegisterType.vue";
+import RegisterSuccess from "../pages/RegisterSuccess.vue";
+import LoginSuccess from "../pages/LoginSuccess.vue";
 import RegisterSignupForm from "../pages/RegisterSignupForm.vue";
 import SearchLocation from "../pages/SearchLocation.vue";
 import SearchResult from "../pages/SearchResult.vue";
@@ -33,6 +35,11 @@ const router = createRouter({
       component: Login,
     },
     {
+      path: "/login/success",
+      name: "loginSuccess",
+      component: LoginSuccess,
+    },
+    {
       path: "/forgot-password",
       name: "forgotPassword",
       component: ForgotPassword,
@@ -46,6 +53,11 @@ const router = createRouter({
       path: "/register/signup",
       name: "registerSignup",
       component: RegisterSignupForm,
+    },
+    {
+      path: "/register/success", //todo multilanguage routes
+      name: "registersuccess",
+      component: RegisterSuccess,
     },
     {
       path: "/quiz",
@@ -89,7 +101,7 @@ const router = createRouter({
     },
     {
       path: "/quiz/success",
-      name: "quizSuccess",
+      name: "QuizSuccess",
       component: QuizSuccess,
     },
     {

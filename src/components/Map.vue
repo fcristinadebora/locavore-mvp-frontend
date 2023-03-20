@@ -34,10 +34,10 @@ const mapOptions = ref({
   maxDistance: 0,
   myIcon: null,
   icon: {
-    iconUrl: "@/img/map-marker.png",
+    iconUrl:"/img/pin-blue-white.png",
+    shadowUrl: "/img/marker-shadow.png",
     iconSize: [20, 30],
     popupAnchor: [0, -17],
-    // shadowUrl: require("@/assets/img/markerShadow.png"),
     shadowSize: [30, 35],
     shadowAnchor: [10, 20],
   },
@@ -101,7 +101,7 @@ function addMarker(markerInfo) {
   }
   var content = markerInfo.popup;
 
-  // const icon = Leaflet.icon({iconUrl:"/img/favicon/green/favicon-16x16.png"});
+  const icon = Leaflet.icon({iconUrl:"/img/pin-green.png", shadowUrl: "/img/marker-shadow.png"});
   const latLng = new Leaflet.LatLng(markerInfo.lat, markerInfo.lng, markerInfo.label);
 
   if(content.includes('{distanceWildcard}')) {
@@ -115,7 +115,7 @@ function addMarker(markerInfo) {
     }
   }
 
-  const marker = Leaflet.marker(latLng)
+  const marker = Leaflet.marker(latLng, { icon })
     .addTo(toRaw(mapElement.value))
     .bindPopup(content);
 
@@ -124,7 +124,8 @@ function addMarker(markerInfo) {
 }
 
 function addMainMarker() {
-  centerMaker.value = Leaflet.marker(mapOptions.value.center, { draggable: props.recenterable ? 'true' : 'false' })
+  const icon = Leaflet.icon({iconUrl:"/img/pin-blue-white.png", shadowUrl: "/img/marker-shadow.png"});
+  centerMaker.value = Leaflet.marker(mapOptions.value.center, { icon: icon, draggable: props.recenterable ? true : false })
     .addTo(toRaw(mapElement.value))
     .bindPopup("Você está aqui")
     .openPopup();
@@ -469,12 +470,23 @@ function setMaxDistance() {
 // };
 </script>
 
-<style scoped>
+<style>
 .mapContainer {
   width: 100%;
   height: 70vh;
   min-height: 350px;
   z-index: 98;
+}
+.leaflet-marker-icon{
+  width: 36px;
+  height: 36px;
+}
+.leaflet-marker-shadow {
+  margin-top: -3px;
+  margin-left: 2px;
+}
+.leaflet-popup {
+  margin-left: 15px;
 }
 </style>
 

@@ -27,7 +27,7 @@ const markers = computed(() => {
         
         const imgUrl =  props.itemType == PRODUCER ? item.profile_picture : item.image;
 
-        const imgSrc = imgUrl ? `<img style="width:120px" class="border-radius" src="${imgUrl}" />
+        const imgSrc = imgUrl ? `<img style="width:120px" class="border-radius ratio-16-9" src="${imgUrl}" />
             <br>` : '';
         const popup = `
             ${imgSrc}
@@ -50,3 +50,9 @@ const markers = computed(() => {
 <template>
     <Map :center="props.userLocation" :markers="markers" @max-distance-updated="handleMaxDistanceUpdated" />
 </template>
+
+<style lang="scss">
+.leaflet-popup-content {
+    max-width: 120px;
+}
+</style>

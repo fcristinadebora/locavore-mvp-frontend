@@ -119,10 +119,10 @@ export const useProductsStore = defineStore("products", () => {
     try {
       const includes = 'address,distance,availability,categories,producer.categories';
       const query = { include: includes }
-      const searchLocation = await searchStore.getSearchLocation();
-      if (searchLocation) {
-        query.lat = searchLocation.location.coordinates[1];
-        query.lng = searchLocation.location.coordinates[0];
+      const searchCoordinates = await searchStore.getSearchCoordinates();
+      if (searchCoordinates) {
+        query.lat = searchCoordinates.lat;
+        query.lng = searchCoordinates.lng;
       }
             
       const result = await findById(id, query);

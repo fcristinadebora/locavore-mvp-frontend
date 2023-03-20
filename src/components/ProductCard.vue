@@ -7,7 +7,7 @@ const props = defineProps(['product'])
 <template>
     <router-link class="card-link" :to="`/product/${props.product.id}`">
         <article class="search-product-item p-3 my-3 cursor-pointer d-flex flex-column flex-sm-row bg-light border-radius">
-            <div class="search-product-img mb-3 mb-sm-0 d-flex justify-content-center align-items-center search-item-image-placeholder">
+            <div class="search-product-img mb-3 mb-sm-0 d-flex justify-content-center align-items-top search-item-image-placeholder">
                 <img class="border-radius" :src="props.product.image" alt="Imagem do produto" v-if="props.product.image" />
                 <i class="bi bi-image icon-lg" v-if="!props.product.image"></i>
             </div>
@@ -19,7 +19,7 @@ const props = defineProps(['product'])
                     {{ props.product.categories.slice(0,3).map((category) => category.name).join(', ') }} {{ props.product.categories.length > 3 ? 'e mais' : '' }}
                 </p>
                 <p class="text-normal fw-bold mb-2">
-                {{ toMoney(props.product.price) }}<span class="text-normal"><span v-if="props.product.priceUnit">/{{ props.product.priceUnit }}</span></span>
+                {{ toMoney(props.product.price) }}<span class="text-normal"><span v-if="props.product.unit_of_price">/{{ props.product.unit_of_price }}</span></span>
                 </p>
                 <p class="color-secondary mb-0" v-if="props.product.address.distance != null">
                 {{ fromMeterToKm(props.product.address.distance) }} km de distância

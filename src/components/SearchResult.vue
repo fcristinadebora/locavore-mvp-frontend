@@ -98,10 +98,13 @@ async function loadFilters() {
   }
   loadingLocation.value = true;
   searchLocation.value = await searchStore.getSearchLocation(route.query.locationId);
-  searchCoordinates.value = {
-    lat: route.query.lat ?? searchLocation.value.location.coordinates[1],
-    lng: route.query.lng ?? searchLocation.value.location.coordinates[0]
+  if (route.query.lat && route.query.lng) {
+    await searchStore.setSearchCoordinates({
+      lat: route.query.lat,
+      lng: route.query.lng
+    });
   }
+  searchCoordinates.value = await searchStore.getSearchCoordinates();
   mapCenterCoordinates.value = {...searchCoordinates.value}
 
   loadingLocation.value = false;
@@ -126,6 +129,17 @@ function applyFilters() {
   mapKey.value = Math.random().toString(15);
   mapResultItems.value = [];
   mapCenterCoordinates.value = {...searchCoordinates.value}
+
+  if (filters.value.lat && filters.value.lng) {
+    searchStore.setSearchCoordinates({
+      lat: filters.value.lat,
+      lng: filters.value.lng
+    });
+  }
+  
+  if (filters.value.locationId) {
+    searchStore.getSearchLocation(filters.value.locationId);
+  }
 
   router.push({
     path: route.path,
@@ -152,6 +166,7 @@ async function getSearchResult() {
   loadingResult.value = false;
 
   if (view.value == VIEW_MAP) {
+    console.log('aa')
     await getMapSearchResult()
   }
 
@@ -206,7 +221,7 @@ async function getMapSearchResult () {
     ...filters.value,
     paginate: 0,
     limit: 30000, //very high limit to ensure all items in the range will be fetch
-    maxDistance: mapMaxDistance.value + 500,
+    maxDistance: mapMaxDistance.value ? (mapMaxDistance.value + 500) : 5000,
     lat: mapCenterCoordinates.value.lat,
     lng: mapCenterCoordinates.value.lng,
     excludeIds: mapResultItems.value.map(item => item.id)
@@ -215,11 +230,9 @@ async function getMapSearchResult () {
   delete mapFilters.page;
 
   if (Math.abs(mapFilters.lat) > 180) {
-    console.log('invalid lat, skipping');
     return;
   }
   if (Math.abs(mapFilters.lng) > 90) {
-    console.log('invalid lng, skipping');
     return;
   }
   

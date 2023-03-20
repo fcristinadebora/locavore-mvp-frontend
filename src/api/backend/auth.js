@@ -1,14 +1,9 @@
 import { sendPostRequest, sendGetRequest, sendDeleteRequest } from ".";
 
-async function register({ name, email, password, passwordConfirm }) {
+async function register(formData) {
   const ENDPOINT_PATH = "/register";
 
-  const result = await sendPostRequest(ENDPOINT_PATH, {
-    name,
-    email,
-    password,
-    password_confirm: passwordConfirm,
-  });
+  const result = await sendPostRequest(ENDPOINT_PATH, {...formData});
 
   return result;
 }

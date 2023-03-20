@@ -76,16 +76,13 @@ function logout() {
           ><i class="bi bi-box-arrow-left"></i>Sair</a
         >
       </li>
-      <li>
-        <a href="#"><i class="bi bi-chat"></i>Feedback</a>
-      </li>
     </ul>
     <ul class="list-unstyled sidebar_menu_footer">
       <li>
         <a href="">Sobre nós</a>
       </li>
       <li>
-        <a href="">Contato</a>
+        <a href="">Contato/Feedback</a>
       </li>
       <li>
         <a href="">Perguntas Frequentes</a>
