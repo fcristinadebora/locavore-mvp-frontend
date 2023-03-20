@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue';
 
 const emits = defineEmits(['applySearchString']);
-const props = defineProps(['search-location', 'search']);
+const props = defineProps(['search-location', 'search', 'loading-location']);
 const searchString = ref('');
 
 watch(
@@ -17,7 +17,7 @@ function submitSearchString() {
 }
 </script>
 <template>
-  <section id="search-result-header">
+  <section id="search-result-header" class="mb-3">
     <div class="input-group mb-3">
       <input
         type="text"
@@ -43,21 +43,25 @@ function submitSearchString() {
       </button>
     </div>
 
-    <div class="input-group mb-3">
+    <div class="input-group">
       <input
         type="text"
         class="form-control border-radius-important"
         readonly
-        :placeholder="props.searchLocation ? `Próximo de ${props.searchLocation.name}` : 'Carregando...'"
+        :placeholder="props.searchLocation ? `Próximo de ${props.searchLocation.name}` : 'Local não definido'"
       />
       <button
         class="btn button-secondary--light border-radius-important m-l-1-important"
         type="button"
+        id="toggleLocationModal"
         data-bs-toggle="modal"
         data-bs-target="#search-location-modal"
       >
         Alterar <i class="bi bi-geo"></i>
       </button>
     </div>
+    <label for="toggleLocationModal" class="color-primary mt-2" v-if="!props.searchLocation && !props.loadingLocation">
+      <i class="bi bi-exclamation-square"></i> Selecione um local para melhores resultados
+    </label>
   </section>
 </template>

@@ -111,16 +111,37 @@ async function loadFilters() {
 }
 
 const filters = computed(() => {
-  const filters = {
-    locationId: searchLocation.value?.id,
-    lat: searchCoordinates.value?.lat,
-    lng: searchCoordinates.value?.lng,
-    type: modalFilters.value.searchFor,
-    categories: modalFilters.value.categories.map(category => parseInt(category)),
-    search: searchString.value ?? null,
-    page: currentPage.value,
-    perPage: ITEMS_PER_PAGE,
-  };
+  const filters = {}
+
+  if (searchLocation.value?.id) {
+    filters.locationId = searchLocation.value?.id;
+  }
+    
+  if (searchCoordinates.value?.lat) {
+    filters.lat = searchCoordinates.value?.lat;
+  }
+
+  if (searchCoordinates.value?.lng) {
+    filters.lng = searchCoordinates.value?.lng;
+  }
+    
+  if (modalFilters.value.searchFor) {
+    filters.type = modalFilters.value.searchFor;
+  }
+  
+  if (modalFilters.value.categories) {
+    filters.categories = modalFilters.value.categories.map(category => parseInt(category));
+  }
+  
+  if (searchString.value) {
+    filters.search = searchString.value;
+  }
+  
+  if (currentPage.value) {
+    filters.page = currentPage.value;
+  }    
+  
+  filters.perPage = ITEMS_PER_PAGE;
 
   return filters;
 })
@@ -255,7 +276,7 @@ async function getMapSearchResult () {
 
 <template>
   <section class="w-100 d-flex flex-column">
-    <SearchHeader :search-location="searchLocation" :search="searchString"
+    <SearchHeader :search-location="searchLocation" :loading-location="loadingLocation" :search="searchString"
       @apply-search-string="handleApplySearchString" />
     <SearchFilterModal @apply-filters="handleApplyModalFilters" :filters="modalFilters" />
     <SearchLocationModal @apply-location="handleApplyLocation" @apply-coordinates="handleApplyCoordinates" />

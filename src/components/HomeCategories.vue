@@ -1,13 +1,8 @@
-<template>
-  <section id="categories-list" class="mb-5">
-    <div class="container px-2">
-      <CategoriesCarousel :breakpoints="getBreakpoints()" />
-    </div>
-  </section>
-</template>
-
 <script setup>
+import { useRouter } from "vue-router";
 import CategoriesCarousel from "./CategoriesCarousel.vue";
+
+const router = useRouter();
 
 function getBreakpoints() {
   var breakpoints = [];
@@ -20,7 +15,19 @@ function getBreakpoints() {
 
   return Object.assign({}, breakpoints);
 }
+
+function handleCategoryClicked (data) {
+  router.push(`/search/result?categories=${data.category.id}`)
+}
 </script>
+
+<template>
+  <section id="categories-list" class="mb-5">
+    <div class="container px-2">
+      <CategoriesCarousel :breakpoints="getBreakpoints()" @category-clicked="handleCategoryClicked" />
+    </div>
+  </section>
+</template>
 
 <style lang="scss">
 .categories-carousel__category {
