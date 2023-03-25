@@ -2,6 +2,7 @@
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useAuthStore } from "../stores/auth";
+import localStorage from "../helpers/localStorage";
 import {
   TYPE_PRODUCER,
   TYPE_CONSUMER,
@@ -64,6 +65,11 @@ async function handleSubmit() {
       return router.push('/quiz');
     }
 
+    const referrer = localStorage.getPageReferrer();
+    if (referrer) {
+      return router.push(referrer);
+    }
+    
     return router.push('/register/success')
   } catch (error) {
     if (error.errors) {

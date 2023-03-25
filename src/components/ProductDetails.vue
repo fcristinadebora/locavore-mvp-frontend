@@ -8,6 +8,7 @@ import ProducerCard from "./ProducerCard.vue";
 import { fromMeterToKm } from "../helpers/measureUnits";
 import LoadingLg from "./LoadingLg.vue";
 import ContactProducerButton from "./ContactProducerButton.vue";
+import { PRODUCT } from "../enum/general";
 
 const product = ref(null);
 const route = useRoute();
@@ -35,7 +36,7 @@ onMounted(async () => {
     >
       <span></span>
       <h1 class="justify-self-center">{{ product.name }}</h1>
-      <FavoriteButton />
+      <FavoriteButton :type="PRODUCT" :item-id="product.id" />
     </section>
 
     <section id="product-details-product">

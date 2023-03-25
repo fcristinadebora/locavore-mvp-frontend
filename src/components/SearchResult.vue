@@ -187,7 +187,6 @@ async function getSearchResult() {
   loadingResult.value = false;
 
   if (view.value == VIEW_MAP) {
-    console.log('aa')
     await getMapSearchResult()
   }
 

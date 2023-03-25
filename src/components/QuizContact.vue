@@ -2,6 +2,7 @@
 import StepsNavigation from "./QuizStepsNavigation.vue";
 import StepCounter from "./QuizStepCounter.vue";
 import { useRouter } from "vue-router";
+import localStorage from "../helpers/localStorage";
 
 const router = useRouter();
 
@@ -9,6 +10,11 @@ const props = defineProps(["currentStep"]);
 const currentStep = props.currentStep ?? 0;
 
 function nextStep() {
+  const referrer = localStorage.getPageReferrer();
+  if (referrer) {
+    return router.push(referrer);
+  }
+
   router.push("/quiz/success");
 }
 

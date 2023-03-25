@@ -1,44 +1,57 @@
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { ref, onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { useAuthStore } from "../stores";
 import LoadingSm from './LoadingSm.vue';
+import localStorage from "../helpers/localStorage";
 
 const authStore = useAuthStore();
 const router = useRouter();
+const route = useRoute();
 
-const formData = ref({
-  email: "",
-  password: "",
+const form = ref({
+  data: {
+    email: "",
+    password: "",
+  },
+  error: "",
+  showPassword: false,
+  loading: false
 });
-const error = ref("");
-const loading = ref(false);
-const showPassword = ref(false);
+
+onMounted(() => {
+  localStorage.setPageReferrer(route.query.referrer ?? null);
+})
 
 async function handleSubmit() {
-  error.value = "";
-  loading.value = true;
+  form.value.error = "";
+  form.value.loading = true;
   
   try {
-    const logged = await authStore.executeLogin({
-      email: formData.value.email,
-      password: formData.value.password,
-    }); 
+    await authStore.executeLogin({
+      email: form.value.data.email,
+      password: form.value.data.password,
+    });
     await authStore.setupAuth();
 
+    const referrer = localStorage.getPageReferrer();
+    if (referrer) {
+      return router.push(referrer)
+    }
+    
     router.push('/login/success');
   } catch (e) {
-    error.value = "Credenciais inválidas";
+    form.value.error = "Credenciais inválidas";
   } finally {
-    loading.value = false;
+    form.value.loading = false;
   }
 }
 </script>
 
 <template>
   <form class="mb-3" @submit.prevent="handleSubmit">
-    <label for="" class="text-danger w-100 ps-2" v-if="error">{{
-      error
+    <label for="" class="text-danger w-100 ps-2" v-if="form.error">{{
+      form.error
     }}</label>
     <div class="mb-2 w-100">
       <label for="email">Seu e-mail</label>
@@ -47,28 +60,28 @@ async function handleSubmit() {
         name="email"
         id="email"
         class="form-control"
-        v-model="formData.email"
+        v-model="form.data.email"
         required
       />
     </div>
     <div class="mb-2 w-100">
       <label for="password">Sua senha</label>
       <input
-        :type="showPassword ? 'text' : 'password'"
+        :type="form.showPassword ? 'text' : 'password'"
         name="password"
         id="password"
         class="form-control"
-        v-model="formData.password"
+        v-model="form.data.password"
         required
       />
     </div>
     <label for="show-password" class="w-100">
-      <input type="checkbox" name="showPassword" id="show-password" :value="true" v-model="showPassword" />
+      <input type="checkbox" name="showPassword" id="show-password" :value="true" v-model="form.showPassword" />
       Mostrar senha
     </label>
-    <button class="btn button-primary w-100 mt-3" :disabled="loading">
+    <button class="btn button-primary w-100 mt-3" :disabled="form.loading">
       Entrar
-      <LoadingSm v-if="loading" />
+      <LoadingSm v-if="form.loading" />
     </button>
   </form>
 </template>

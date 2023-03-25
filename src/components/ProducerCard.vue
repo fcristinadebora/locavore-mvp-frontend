@@ -1,18 +1,27 @@
 <script setup>
+import { PRODUCER } from '../enum/general';
 import { fromMeterToKm } from '../helpers/measureUnits';
+import FavoriteButton from './FavoriteButton.vue';
 
 const props = defineProps(['producer'])
 </script>
 <template>
     <section v-if="props.producer" class="search-producer-item p-3 my-3 cursor-pointer d-flex flex-column flex-sm-row bg-light border-radius color-text-default">
-        <div class="mb-3 mb-sm-0 d-flex justify-content-center align-items-center search-item-image-placeholder">
+      <router-link
+        class="card-link mb-3 mb-sm-0 d-flex justify-content-center align-items-center search-item-image-placeholder"
+        :to="`/producer/${props.producer.id}`"
+      >
           <img class="border-radius" :src="props.producer.profile_picture" alt="Imagem do produtor" v-if="props.producer.profile_picture" />
           <i class="bi bi-image icon-lg" v-if="!props.producer.profile_picture"></i>
-        </div>
-        <div class="search-producer-data ps-3">
-          <h3 class="text-normal color-primary text-bold w-100 mb-0">
-            {{ props.producer.name }}
+        </router-link>
+          <div class="search-producer-data ps-3 color-default">
+          <h3 class="w-100 mb-0 d-flex justify-content-between align-items-center">
+            <router-link class="card-link text-normal color-primary text-bold flex-grow-1" :to="`/producer/${props.producer.id}`">
+                  {{ props.producer.name }}
+              </router-link>
+              <FavoriteButton :type="PRODUCER" :item-id="props.producer.id" />
           </h3>
+          <router-link class="card-link" :to="`/producer/${props.producer.id}`">
           <p class="color-secondary mb-2" v-if="props.producer.categories">
             {{ props.producer.categories.slice(0,3).map((category) => category.name).join(', ') }} {{ props.producer.categories.length > 3 ? 'e mais' : '' }}
           </p>
@@ -26,6 +35,7 @@ const props = defineProps(['producer'])
             <i class="bi bi-geo"></i>
             {{ props.producer.address.address }}
           </p>
+        </router-link>
         </div>
     </section>
 </template>

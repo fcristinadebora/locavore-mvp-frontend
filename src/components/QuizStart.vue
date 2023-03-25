@@ -1,5 +1,6 @@
 <script setup>
 import { useRouter } from "vue-router";
+import localStorage from "../helpers/localStorage";
 
 const router = useRouter();
 
@@ -7,7 +8,12 @@ function nextStep() {
   router.push("/quiz/profile-picture");
 }
 function skip() {
-  router.push("/");
+  const referrer = localStorage.getPageReferrer();
+  if (referrer) {
+    return router.push(referrer);
+  }
+
+  router.push("/register/success");
 }
 </script>
 <template>

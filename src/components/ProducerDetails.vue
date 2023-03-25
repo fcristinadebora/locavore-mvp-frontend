@@ -7,6 +7,7 @@ import {
     CONTACT_TYPE_INSTAGRAM,
     getContactHref
 } from '../helpers/contacts.js';
+import { PRODUCER } from "../enum/general";
 import { useRoute } from "vue-router";
 import { useProducersStore, useProductsStore } from "../stores";
 import FavoriteButton from "./FavoriteButton.vue";
@@ -15,7 +16,7 @@ import { fromMeterToKm } from "../helpers/measureUnits";
 import ContactProducerButton from "./ContactProducerButton.vue";
 import ProductCardsCarousel from "./ProductCardsCarousel.vue";
 
-const producer = ref({});
+const producer = ref(null);
 const products = ref(null);
 const route = useRoute();
 const producerId = route.params.id;
@@ -47,7 +48,7 @@ async function fetchProducts () {
         <section id="producer-details-header" class="d-flex w-100 justify-content-between align-items-top">
             <span></span>
             <h1 class="justify-self-center text-center">{{ producer.name }}</h1>
-            <FavoriteButton :is-favorite="false" />
+            <FavoriteButton :type="PRODUCER" :item-id="producer.id" />
         </section>
 
         <section id="producer-details-header" class="mt-0">

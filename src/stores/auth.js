@@ -23,6 +23,8 @@ export const useAuthStore = defineStore("auth", () => {
     if (!token || !loggedUser.value) {
       return false;
     }
+
+    return true;
   };
 
   const executeRegister = async (formData) => {

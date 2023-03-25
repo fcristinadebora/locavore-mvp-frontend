@@ -1,10 +1,12 @@
 <script setup>
 import * as bootstrap from "bootstrap";
 import { onMounted, computed } from "vue";
+import { useRouter } from "vue-router";
 import { useAuthStore } from "../stores";
 
 const authStore = useAuthStore();
 
+const router = useRouter();
 const loggedUser = computed(() => authStore.loggedUser);
 
 onMounted(() => {
@@ -18,16 +20,18 @@ function hideSidebar() {
   let body = document.querySelector("body");
 
   bsOffcanvas.hide();
-  body.removeAttribute("style");
-  if (backdrops.length > 0) {
-    for (const backdropItem of backdrops) {
-      backdropItem.remove();
-    }
-  }
+  // todo this was transfered for ./components/helpers/mustLoginModal.js, improve this organization later 
+  // body.removeAttribute("style");
+  // if (backdrops.length > 0) {
+  //   for (const backdropItem of backdrops) {
+  //     backdropItem.remove();
+  //   }
+  // }
 }
 
-function logout() {
-  authStore.executeLogout();
+async function logout() {
+  await authStore.executeLogout();
+  router.go(0);
 }
 </script>
 

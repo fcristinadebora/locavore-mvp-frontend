@@ -11,12 +11,7 @@ const props = defineProps(['items', 'loading']);
       v-for="(producer, index) in props.items"
       :key="index"
     >
-      <router-link
-        class="card-link"
-        :to="`/producer/${producer.id}`"
-      >
-        <ProducerCard :producer="producer"/>
-      </router-link>
+      <ProducerCard :producer="producer"/>
     </div>
   </section>
 </template>

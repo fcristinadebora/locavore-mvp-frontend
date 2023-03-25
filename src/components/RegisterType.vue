@@ -1,5 +1,7 @@
 <script setup>
-import { useRouter } from "vue-router";
+import { onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import localStorage from "../helpers/localStorage";
 import {
   TYPE_PRODUCER,
   TYPE_CONSUMER,
@@ -7,6 +9,11 @@ import {
 } from '../enum/userType';
 
 const router = useRouter();
+const route = useRoute();
+
+onMounted(() => {
+  localStorage.setPageReferrer(route.query.referrer ?? null);
+})
 
 function selectRegisterType(type) {
   router.push(`/register/signup?type=${type}`);
