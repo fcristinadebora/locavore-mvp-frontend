@@ -20,9 +20,14 @@ watch(
   () => fetchIsFavorite()
 )
 
+watch(
+  () => props.isFavorite,
+  (isFavoriteProp) => isFavorite.value = isFavoriteProp
+)
+
 const isFavorite = ref(false);
 const isLoading = ref(true);
-const props = defineProps(['type', 'itemId']);
+const props = defineProps(['type', 'itemId', 'isFavorite']);
 
 const hover = ref(false);
 
@@ -31,7 +36,11 @@ onMounted(() => {
     throw new Error('Invalid value for type prop');
   }
 
-  fetchIsFavorite();
+  if (typeof props.isFavorite == 'undefined') {
+    fetchIsFavorite();
+  } else {
+    isLoading.value = false;
+  }
 })
 
 async function fetchIsFavorite() {

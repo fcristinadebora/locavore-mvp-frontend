@@ -10,19 +10,20 @@ import SearchResultMap from "./SearchResultMap.vue";
 
 import { useRoute, useRouter } from "vue-router";
 import { ref, onMounted, computed } from "vue";
-import { useSearchStore, useProductsStore, useProducersStore } from "../stores";
+import { useSearchStore, useProductsStore, useProducersStore, useFavoritesStore } from "../stores";
 import { PRODUCT, PRODUCER, VIEW_MAP, VIEW_LIST } from "../enum/general";
-import { search } from "../api/backend/cities";
 
 const ITEMS_PER_PAGE = 20;
 const searchStore = useSearchStore();
 const productsStore = useProductsStore();
 const producersStore = useProducersStore();
+const favoritesStore = useFavoritesStore();
 const route = useRoute();
 const router = useRouter();
 const view = ref(VIEW_LIST);
 
 const pagination = ref({});
+const favoriteIds = ref([]);
 
 const modalFilters = ref({
   searchFor: PRODUCT,
@@ -49,6 +50,10 @@ onMounted(async () => {
 
 function resetCurrentPage() {
   currentPage.value = 1;
+}
+
+function isFavorite(productId) {
+  return favoriteIds.value.includes(productId);
 }
 
 function toggleView() {
@@ -139,6 +144,10 @@ const filters = computed(() => {
   
   if (currentPage.value) {
     filters.page = currentPage.value;
+  }
+
+  if (modalFilters.value.onlyFavorites) {
+    filters.onlyFavorites = 1;
   }    
   
   filters.perPage = ITEMS_PER_PAGE;
@@ -204,9 +213,10 @@ async function getListSearchResult () {
     result = await producersStore.listProducers(filters.value);
   }
   
-  setPaginationFromResult(result.data)
+  setPaginationFromResult(result.data);
   resultItems.value = result.data.data
   loadingResult.value = false;
+  getFavorites();
 }
 
 function setPaginationFromResult(resultData) {
@@ -268,7 +278,47 @@ async function getMapSearchResult () {
     mapResultItems.value.push(item)
   })
 
+  getFavorites();
   loadingMapResult.value = false;
+}
+
+async function getFavorites() {
+  const itemIds = [];
+  if (view.value == VIEW_LIST) {
+    resultItems.value.forEach(item => {
+      itemIds.push(item.id)
+    });
+  }
+  
+  if (view.value == VIEW_MAP) {
+    mapResultItems.value.forEach(item => {
+      mapResultItems.push(item.id)
+    });
+  }
+
+  const result = await favoritesStore.getFavorites(modalFilters.value.searchFor, itemIds);
+  
+  favoriteIds.value = result.map((item) => {
+    return modalFilters.value.searchFor == PRODUCER ? item.producer_id : item.product_id;
+  });
+
+  if (view.value == VIEW_LIST) {
+    resultItems.value = resultItems.value.map(item => {
+      return {
+        ...item,
+        isFavorite: isFavorite(item.id)
+      }
+    });
+  }
+  
+  if (view.value == VIEW_MAP) {
+    mapResultItems.value = resultItems.value.map(item => {
+      return {
+        ...item,
+        isFavorite: isFavorite(item.id)
+      }
+    });
+  }
 }
 
 </script>

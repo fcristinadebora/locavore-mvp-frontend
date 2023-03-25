@@ -1,13 +1,16 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { PRODUCT, PRODUCER } from "../enum/general";
+import { useAuthStore } from "../stores";
 import CategoriesCarousel from "./CategoriesCarousel.vue";
 
 const emit = defineEmits(["applyFilters"]);
 const props = defineProps(['filters']);
+const authStore = useAuthStore();
 
 const filters = ref({
   searchFor: PRODUCT,
+  onlyFavorites: false,
   categories: [],
 });
 
@@ -17,6 +20,12 @@ const closeModal = ref(null);
 onMounted(() => {
   listenToModalShow();
 });
+
+const isLoggedIn = computed(
+  () => {
+    return authStore.isLoggedIn()
+  }
+);
 
 const selectedCategories = computed(() => filters.value.categories);
 
@@ -89,7 +98,6 @@ function applyFilters() {
             <div
               class="btn-group button-switch button-switch--secondary"
               role="group"
-              aria-label="Basic example"
             >
               <button
                 type="button"
@@ -108,6 +116,13 @@ function applyFilters() {
                 Produtores
               </button>
             </div>
+          </div>
+
+          <div class="form-group mb-2" v-if="isLoggedIn">
+            <label for="onlyFavorites" class="w-100">
+              <input type="checkbox" :value="true" v-model="filters.onlyFavorites" name="onlyFavorites" id="onlyFavorites">
+              Mostrar apenas favoritos
+            </label>
           </div>
 
           <div class="form-group mb-2">

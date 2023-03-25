@@ -19,7 +19,7 @@ const props = defineProps(['producer'])
             <router-link class="card-link text-normal color-primary text-bold flex-grow-1" :to="`/producer/${props.producer.id}`">
                   {{ props.producer.name }}
               </router-link>
-              <FavoriteButton :type="PRODUCER" :item-id="props.producer.id" />
+              <FavoriteButton :type="PRODUCER" :item-id="props.producer.id" :is-favorite="props.producer.isFavorite ?? false" />
           </h3>
           <router-link class="card-link" :to="`/producer/${props.producer.id}`">
           <p class="color-secondary mb-2" v-if="props.producer.categories">

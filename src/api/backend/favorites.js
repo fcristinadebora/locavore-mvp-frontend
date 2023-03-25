@@ -1,7 +1,7 @@
 import { sendGetRequest, sendPostRequest } from ".";
 
 async function toggleFavoriteProduct(productId) {
-  const ENDPOINT_PATH = `/favorites/product/${productId}`;
+  const ENDPOINT_PATH = `/favorites/products/${productId}`;
 
   const result = await sendPostRequest(ENDPOINT_PATH);
 
@@ -9,7 +9,18 @@ async function toggleFavoriteProduct(productId) {
 }
 
 async function isFavoriteProduct(productId) {
-  const ENDPOINT_PATH = `/favorites/product/${productId}`;
+  const ENDPOINT_PATH = `/favorites/products/${productId}`;
+
+  const result = await sendGetRequest(ENDPOINT_PATH);
+
+  return result;
+}
+
+async function getFavoriteProducts(productIds) {
+  if (Array.isArray(productIds)) {
+    productIds = productIds.join(',');
+  }
+  const ENDPOINT_PATH = `/favorites/products/?ids=${productIds}`;
 
   const result = await sendGetRequest(ENDPOINT_PATH);
 
@@ -17,7 +28,7 @@ async function isFavoriteProduct(productId) {
 }
 
 async function toggleFavoriteProducer(producerId) {
-  const ENDPOINT_PATH = `/favorites/producer/${producerId}`;
+  const ENDPOINT_PATH = `/favorites/producers/${producerId}`;
 
   const result = await sendPostRequest(ENDPOINT_PATH);
 
@@ -25,7 +36,18 @@ async function toggleFavoriteProducer(producerId) {
 }
 
 async function isFavoriteProducer(producerId) {
-  const ENDPOINT_PATH = `/favorites/producer/${producerId}`;
+  const ENDPOINT_PATH = `/favorites/producers/${producerId}`;
+
+  const result = await sendGetRequest(ENDPOINT_PATH);
+
+  return result;
+}
+
+async function getFavoriteProducers(producerIds) {
+  if (Array.isArray(producerIds)) {
+    producerIds = producerIds.join(',');
+  }
+  const ENDPOINT_PATH = `/favorites/producers/?ids=${producerIds}`;
 
   const result = await sendGetRequest(ENDPOINT_PATH);
 
@@ -37,4 +59,6 @@ export {
     isFavoriteProduct,
     toggleFavoriteProducer,
     isFavoriteProducer,
+    getFavoriteProducers,
+    getFavoriteProducts
 };

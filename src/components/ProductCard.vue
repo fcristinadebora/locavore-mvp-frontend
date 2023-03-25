@@ -4,6 +4,7 @@ import { toMoney } from "../helpers/locale";
 import { fromMeterToKm } from "../helpers/measureUnits";
 import FavoriteButton from "./FavoriteButton.vue";
 const props = defineProps(['product']);
+
 </script>
 <template>
         <article class="search-product-item p-3 my-3 cursor-pointer d-flex flex-column flex-sm-row bg-light border-radius">
@@ -16,7 +17,7 @@ const props = defineProps(['product']);
                     <router-link class="card-link text-normal color-primary text-bold flex-grow-1" :to="`/product/${props.product.id}`">
                         {{ props.product.name }}
                     </router-link>
-                    <FavoriteButton :type="PRODUCT" :item-id="props.product.id" />
+                    <FavoriteButton :type="PRODUCT" :item-id="props.product.id" :is-favorite="props.product.isFavorite ?? false" />
                 </h3>
                 <router-link class="card-link" :to="`/product/${props.product.id}`">
                 <p class="text-normal color-secondary mb-2" v-if="props.product.categories">
