@@ -39,6 +39,7 @@ function listenToModalShow() {
     filters.value = {
       searchFor: props.filters.searchFor ?? filters.value.searchFor,
       categories: props.filters.categories ?? [],
+      onlyFavorites: props.filters.onlyFavorites ?? false,
     }
   });
 }

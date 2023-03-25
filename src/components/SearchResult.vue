@@ -98,6 +98,7 @@ async function loadFilters() {
   searchString.value = route.query.search ?? '';
   modalFilters.value.searchFor = route.query.type ?? modalFilters.value.searchFor;
   modalFilters.value.categories = modalFilters.value.categories;
+  modalFilters.value.onlyFavorites = route.query.onlyFavorites ? true : false;
   if (route.query.categories) {
     modalFilters.value.categories = route.query.categories.split(',').map(category => parseInt(category));
   }
