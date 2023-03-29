@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
-import { list, findById } from "../api/backend/producers";
+import { list, findById, getBestRated } from "../api/backend/producers";
 import { useSearchStore } from "./search";
 
 export const useProducersStore = defineStore("producers", () => {
@@ -83,7 +83,7 @@ export const useProducersStore = defineStore("producers", () => {
 
   const findProducer = async (id) => {
     try {
-      const includes = 'address,distance,categories,longDescription,contacts';
+      const includes = 'address,distance,categories,longDescription,contacts,average_review';
       const query = { include: includes }
       const searchCoordinates = await searchStore.getSearchCoordinates();
       if (searchCoordinates) {
@@ -120,5 +120,22 @@ export const useProducersStore = defineStore("producers", () => {
     }
   };
 
-  return { allproducers, listProducers, findProducer };
+  const bestRated = async (filters) => {
+    try {
+      const result = await getBestRated({
+        ...filters,
+        include: 'average_review',
+        limit: 10
+      });
+
+      //todo cache data
+
+      return result;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  }
+
+  return { allproducers, listProducers, findProducer, bestRated };
 });

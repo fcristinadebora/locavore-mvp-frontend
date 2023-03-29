@@ -11,6 +11,16 @@ function openMustLoginModal() {
     })
   }
 
+function openModal(modalId) {
+    let modal = document.getElementById(modalId);
+    let bsModal = new bootstrap.Modal(modal);
+    
+    bsModal.show();
+    modal.addEventListener('hidde.bs.modal', function (event) {
+        closeBackdrops();
+    })
+}
+
 function closeModal() {
     let modal = document.getElementById("must-login-modal");
     let bsOffcanvas = new bootstrap.Modal(document.getElementById('myModal'), modal);
@@ -38,4 +48,4 @@ function closeBackdrops() {
     }
 }
 
-export { openMustLoginModal, closeModal, closeBackdrops };
+export { openMustLoginModal, closeModal, closeBackdrops, openModal };

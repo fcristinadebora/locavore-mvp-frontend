@@ -8,6 +8,14 @@ async function list(filters) {
   return result;
 }
 
+async function getBestRated(filters) {
+  const ENDPOINT_PATH = "/products/best-rated";
+
+  const result = await sendGetRequest(ENDPOINT_PATH, filters);
+
+  return result;
+}
+
 async function findById(id, query) {
   const ENDPOINT_PATH = `/products/${id}`;
 
@@ -16,4 +24,4 @@ async function findById(id, query) {
   return result;
 }
 
-export { list, findById };
+export { list, findById, getBestRated };

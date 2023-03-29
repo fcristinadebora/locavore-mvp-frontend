@@ -15,6 +15,7 @@ import LoadingLg from "./LoadingLg.vue";
 import { fromMeterToKm } from "../helpers/measureUnits";
 import ContactProducerButton from "./ContactProducerButton.vue";
 import ProductCardsCarousel from "./ProductCardsCarousel.vue";
+import ItemReviews from "./ItemReviews.vue";
 
 const producer = ref(null);
 const products = ref(null);
@@ -95,15 +96,8 @@ async function fetchProducts () {
             <ProductCardsCarousel :products="products" />
             <router-link to="/" class="btn button-secondary w-100 mt-3">Ver mais produtos</router-link>
         </section>
-        <section id="producer-ratings" v-if="false">
-            <h4 class="mt-5">Avaliações</h4>
-            <i class="bi bi-star-fill color-secondary"></i>
-            <i class="bi bi-star-fill color-secondary"></i>
-            <i class="bi bi-star-fill color-secondary"></i>
-            <i class="bi bi-star-fill color-secondary"></i>
-            <i class="bi bi-star-half color-secondary"></i>
-            <br />
-            <router-link to="/" class="btn button-secondary--light w-100">Ver todas</router-link>
+        <section id="producer-ratings">
+            <ItemReviews :average-rate="producer.average_review" :type="PRODUCER" :item-id="producer.id" />
         </section>
     </section>
 </template>

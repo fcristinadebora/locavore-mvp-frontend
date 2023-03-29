@@ -14,7 +14,7 @@ const props = defineProps(['producer'])
           <img class="border-radius" :src="props.producer.profile_picture" alt="Imagem do produtor" v-if="props.producer.profile_picture" />
           <i class="bi bi-image icon-lg" v-if="!props.producer.profile_picture"></i>
         </router-link>
-          <div class="search-producer-data ps-3 color-default">
+          <div class="search-producer-data ps-3 color-default flex-grow-1">
           <h3 class="w-100 mb-0 d-flex justify-content-between align-items-center">
             <router-link class="card-link text-normal color-primary text-bold flex-grow-1" :to="`/producer/${props.producer.id}`">
                   {{ props.producer.name }}

@@ -1,14 +1,24 @@
 <script setup>
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useProducersStore } from "../stores";
+import FiveStars from "./FiveStars.vue";
 
 const producers = ref([]);
 const breakpoints = ref([]);
 
-const { allproducers } = useProducersStore();
-producers.value = allproducers;
+const producersStore = useProducersStore();
 breakpoints.value = getBreakPoints();
+
+onMounted(() => {
+  fetchItems();
+})
+
+async function fetchItems () {
+  const data = await producersStore.bestRated();
+  
+  producers.value = data.data;
+}
 
 function getBreakPoints() {
   var breakpoints = [];
@@ -43,19 +53,28 @@ function getBreakPoints() {
           :key="index"
           class="producers__slide pb-3 px-1"
         >
+          <router-link :to="`/producer/${producer.id}`" class="card-link">
           <article
-            class="producers__item border-radius bg-white flex-column justify-content-start align-items-center p-2"
+            class="producers__item border-radius bg-white d-flex flex-column justify-content-between align-items-center py-2 px-3"
           >
             <img
-              class="producers__item__img border-radius my-2"
-              :src="producer.img"
+              class="producers__item__img border-radius my-2  ratio-16-9"
+              :src="producer.profile_picture"
+              v-if="producer.profile_picture"
               alt=""
             />
+            <div class="ratio-16-9 bg-light w-100 border-radius" v-if="!producer.profile_picture">
+              <i class="bi bi-image icon-lg"></i>
+            </div>
             <h3 class="text-normal text-center color-primary text-bold">
               {{ producer.name }}
             </h3>
-            <p class="text-sm">{{ producer.category }}</p>
+            
+            <p class="color-primary">
+              <FiveStars :rate="producer.average_review ?? 0" /> {{ producer.average_review ? producer.average_review.toFixed(1) : '' }}
+            </p>
           </article>
+        </router-link>
         </slide>
 
         <template #addons>
@@ -69,7 +88,7 @@ function getBreakPoints() {
       </carousel>
 
       <div class="px-1 mt-3">
-        <a href="#" class="btn button-primary col-12">Ver mais produtores</a>
+        <router-link to="/search/result?type=producer" href="#" class="btn button-primary col-12">Ver mais produtores</router-link>
       </div>
     </div>
   </section>

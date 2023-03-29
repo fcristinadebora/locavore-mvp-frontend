@@ -1,3 +1,4 @@
+import moment from "moment/moment";
 const locale = "pt-BR";
 const currency = "BRL";
 
@@ -10,4 +11,8 @@ function toMoney(value) {
   return moneyFormat.format(value);
 }
 
-export { toMoney };
+function toDate(value) {
+  return moment(value).format('DD/MM/YYYY')
+}
+
+export { toMoney, toDate };

@@ -12,7 +12,7 @@ const props = defineProps(['product']);
                 <img class="border-radius" :src="props.product.image" alt="Imagem do produto" v-if="props.product.image" />
                 <i class="bi bi-image icon-lg" v-if="!props.product.image"></i>
             </router-link>
-            <div class="search-product-data ps-3 color-default text-start">
+            <div class="search-product-data ps-3 color-default text-start flex-grow-1">
                 <h3 class=" w-100 mb-0 d-flex justify-content-between align-items-center">
                     <router-link class="card-link text-normal color-primary text-bold flex-grow-1" :to="`/product/${props.product.id}`">
                         {{ props.product.name }}

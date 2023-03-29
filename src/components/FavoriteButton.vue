@@ -75,5 +75,5 @@ const isHeartFilled = computed(() => isFavorite.value || hover.value);
       @mouseout="hover = false"
     ></i>
   </button>
-  <MustLoginModal></MustLoginModal>
+  <MustLoginModal />
 </template>

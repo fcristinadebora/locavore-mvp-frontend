@@ -9,6 +9,7 @@ import { fromMeterToKm } from "../helpers/measureUnits";
 import LoadingLg from "./LoadingLg.vue";
 import ContactProducerButton from "./ContactProducerButton.vue";
 import { PRODUCT } from "../enum/general";
+import ItemReviews from "./ItemReviews.vue";
 
 const product = ref(null);
 const route = useRoute();
@@ -81,6 +82,9 @@ onMounted(async () => {
         <ProducerCard :producer="product.producer" />
       </router-link>
       <ContactProducerButton />
+    </section>
+    <section id="product-reviews">
+      <ItemReviews :average-rate="product.average_review" :type="PRODUCT" :item-id="product.id" />
     </section>
   </section>
 </template>

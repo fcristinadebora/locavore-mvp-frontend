@@ -16,4 +16,12 @@ async function findById(id, query) {
   return result;
 }
 
-export { list, findById };
+async function getBestRated(filters) {
+  const ENDPOINT_PATH = "/producers/best-rated";
+
+  const result = await sendGetRequest(ENDPOINT_PATH, filters);
+
+  return result;
+}
+
+export { list, findById, getBestRated };
