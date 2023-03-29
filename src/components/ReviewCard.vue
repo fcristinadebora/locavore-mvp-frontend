@@ -6,7 +6,7 @@ const props = defineProps(['review']);
 </script>
 
 <template>
-    <article class="bg-light border-radius p-3 text-start w-100">
+    <article class="bg-light border-radius p-3 text-start w-100 d-flex flex-column justify-content-start">
         <p class="color-primary text-bold d-flex justify-content-between">
             {{ props.review.person.name }}
             <span>{{ toDate(props.review.created_at) }}</span>

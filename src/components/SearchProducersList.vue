@@ -7,7 +7,7 @@ const props = defineProps(['items', 'loading']);
 <template>
   <section id="search-producers-items" class="row" v-if="props.items">
     <div
-      class="search-item-wrapper col-lg-6"
+      class="search-item-wrapper col-lg-6 d-flex"
       v-for="(producer, index) in props.items"
       :key="index"
     >

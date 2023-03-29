@@ -5,6 +5,7 @@ import { openModal } from './helpers/mustLoginModal';
 import { useAuthStore, useReviewsStore } from '../stores';
 import { ref, onMounted } from 'vue';
 import FiveStars from './FiveStars.vue';
+import ReviewsListModal from './ReviewsListModal.vue';
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 import ReviewCard from './ReviewCard.vue';
 
@@ -32,6 +33,10 @@ function openReviewModal() {
   openModal('create-review-modal');
 }
 
+function opneListModal() {
+    openModal('reviews-list-modal');
+}
+
 async function getRecentReviews() {
     reviews.value.loading = true;
 
@@ -52,6 +57,12 @@ async function getRecentReviews() {
 async function getPersonReview () {
     try {
         const user = authStore.loggedUser;
+        
+        if (!user) {
+            alreadyReviewed.value = false;
+            return;
+        }
+        
         const filters = {
             limit: 5,
             personId: user.person.id
@@ -108,7 +119,8 @@ async function getPersonReview () {
     </template>
   </carousel>
 
-    <router-link v-if="reviews.items.length" to="/" class="btn button-secondary--light w-100 mt-3">Ver todas</router-link>
+    <button v-if="reviews.items.length" @click="opneListModal()" class="btn button-secondary--light w-100 mt-3">Ver todas</button>
     <MustLoginModal />
     <CreateReviewModal :type="props.type" :item-id="props.itemId" />
+    <ReviewsListModal  :type="props.type" :item-id="props.itemId" />
 </template>

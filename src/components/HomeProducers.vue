@@ -53,24 +53,26 @@ function getBreakPoints() {
           :key="index"
           class="producers__slide pb-3 px-1"
         >
-          <router-link :to="`/producer/${producer.id}`" class="card-link">
+          <router-link :to="`/producer/${producer.id}`" class="card-link d-flex flex-grow-1 w-100">
           <article
             class="producers__item border-radius bg-white d-flex flex-column justify-content-between align-items-center py-2 px-3"
           >
-            <img
-              class="producers__item__img border-radius my-2  ratio-16-9"
-              :src="producer.profile_picture"
-              v-if="producer.profile_picture"
-              alt=""
-            />
-            <div class="ratio-16-9 bg-light w-100 border-radius" v-if="!producer.profile_picture">
-              <i class="bi bi-image icon-lg"></i>
+            <div class="d-flex justify-content-start flex-column">
+              <img
+                class="producers__item__img border-radius my-2  ratio-16-9"
+                :src="producer.profile_picture"
+                v-if="producer.profile_picture"
+                alt=""
+              />
+              <div class="ratio-16-9 bg-light w-100 border-radius" v-if="!producer.profile_picture">
+                <i class="bi bi-image icon-lg"></i>
+              </div>
+              <h3 class="text-normal text-center color-primary text-bold">
+                {{ producer.name }}
+              </h3>
             </div>
-            <h3 class="text-normal text-center color-primary text-bold">
-              {{ producer.name }}
-            </h3>
             
-            <p class="color-primary">
+            <p class="color-primary d-flex">
               <FiveStars :rate="producer.average_review ?? 0" /> {{ producer.average_review ? producer.average_review.toFixed(1) : '' }}
             </p>
           </article>
@@ -88,7 +90,7 @@ function getBreakPoints() {
       </carousel>
 
       <div class="px-1 mt-3">
-        <router-link to="/search/result?type=producer" href="#" class="btn button-primary col-12">Ver mais produtores</router-link>
+        <router-link to="/search/result?type=producer" href="#" class="btn button-primary col-12">Encontrar produtores</router-link>
       </div>
     </div>
   </section>

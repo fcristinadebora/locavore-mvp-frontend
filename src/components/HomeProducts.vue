@@ -53,12 +53,13 @@ function getBreakPoints() {
         <slide
           v-for="(product, index) in products"
           :key="index"
-          class="products__slide pb-3 px-1"
+          class="products__slide pb-3 px-1 d-flex"
         >
           <router-link
             :to="`/product/${product.id}`"
-            class="card-link products__item border-radius d-flex flex-column justify-content-between align-items-center p-2 bg-light"
+            class="card-link products__item border-radius d-flex w-100 flex-column justify-content-between align-items-center p-2 bg-light d-flex flex-grow-1"
           >
+          <div class="d-flex justify-content-start flex-column">
             <img
               class="producers__item__img border-radius my-2  ratio-16-9"
               :src="product.image"
@@ -71,6 +72,8 @@ function getBreakPoints() {
             <h3 class="text-normal text-center color-primary text-bold">
               {{ product.name }}
             </h3>
+          </div>
+
 
             <p class="color-primary">
               <FiveStars :rate="product.average_review ?? 0" /> {{ product.average_review ? product.average_review.toFixed(1) : '' }}
@@ -89,7 +92,7 @@ function getBreakPoints() {
       </carousel>
 
       <div class="px-1 mt-3">
-        <router-link to="/search/result?type=product" href="#" class="btn button-secondary col-12">Ver mais produtos</router-link>
+        <router-link to="/search/result?type=product" href="#" class="btn button-secondary col-12">Encontrar produtos</router-link>
       </div>
     </div>
   </section>
