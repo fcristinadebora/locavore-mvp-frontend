@@ -71,6 +71,9 @@ async function logout() {
         <a href="#"><i class="bi bi-geo"></i>Endereço</a>
       </li>      
       <li>
+        <a href="#"><i class="bi bi-person-vcard"></i>Contatos</a>
+      </li>      
+      <li>
         <a href="#"><i class="bi bi-tags"></i>Produtos</a>
       </li>
       <li>
