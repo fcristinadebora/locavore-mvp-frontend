@@ -116,6 +116,7 @@ button:hover{
 .ratio-16-9 {
   aspect-ratio: 16 / 9;
   object-fit: cover;
+  object-position: center;
 }
 
 .ratio-1-1 {
@@ -129,4 +130,8 @@ button:hover{
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.max-w-100 {
+  max-width: 100%;
 }

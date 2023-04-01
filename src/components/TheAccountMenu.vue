@@ -14,7 +14,7 @@ onMounted(() => {
 });
 
 function hideSidebar() {
-  let offcanvas = document.getElementById("sidebar_menu");
+  let offcanvas = document.getElementById("account-menu");
   let bsOffcanvas = bootstrap.Offcanvas.getOrCreateInstance(offcanvas);
   bsOffcanvas.hide();
 }
@@ -27,21 +27,21 @@ async function logout() {
 
 <template>
   <nav
-    id="sidebar_menu"
-    ref="offCanvas"
-    class="offcanvas offcanvas-start bg-custom-primary sidebar-menu p-3"
+    id="account-menu"
+    class="offcanvas offcanvas-end bg-light sidebar-menu p-3"
+    v-if="authStore.isLoggedIn"
   >
     <ul class="list-unstyled sidebar-menu_content">
       <li class="d-flex justify-content-between sidebar-menu_content_header">
         <a
           href=""
           data-bs-toggle="offcanvas"
-          data-bs-target="#sidebar_menu"
-          aria-controls="sidebar_menu"
+          data-bs-target="#account-menu"
+          aria-controls="account-menu"
           aria-expanded="false"
           aria-label="Close navigation"
         >
-          <i class="bi bi-arrow-return-left"></i>Fechar menu</a
+          <i class="bi bi-arrow-return-right"></i>Fechar menu</a
         >
         <img
           src="@/assets/img/icon-outline-white.png"
@@ -50,45 +50,44 @@ async function logout() {
         />
       </li>
       <li>
-        <router-link to="/"> <i class="bi bi-house"></i>Home </router-link>
+        <router-link to="/"> <i class="bi bi-person-lock"></i>Perfil e segurança</router-link>
       </li>
       <li>
-        <router-link to="/search/result?type=product"><i class="bi bi-search"></i>Buscar</router-link>
+        <a href="#"><i class="bi bi-heart-fill"></i>Produtos Favoritos</a>
       </li>
-      <li v-if="!loggedUser">
-        <router-link to="/login">
-          <i class="bi bi-box-arrow-in-left"></i>Entrar
-        </router-link>
+      <li>
+        <a href="#"><i class="bi bi-heart"></i>Produtores Favoritos</a>
       </li>
-      <li v-if="!loggedUser">
-        <router-link to="/register">
-          <i class="bi bi-person"></i>Cadastrar
-        </router-link>
+      <li>
+        <hr>
+        <strong class="color-primary">
+            Produtor
+        </strong>
       </li>
-      <li v-if="loggedUser">
-        <a href="#" @click.prevent="logout"
-          ><i class="bi bi-box-arrow-left"></i>Sair</a
-        >
+      <li>
+        <a href="#"><i class="bi bi-basket"></i>Perfil</a>
       </li>
+      <li>
+        <a href="#"><i class="bi bi-geo"></i>Endereço</a>
+      </li>      
+      <li>
+        <a href="#"><i class="bi bi-tags"></i>Produtos</a>
+      </li>
+      <li>
+        <a href="#"><i class="bi bi-chat-text"></i>Questionários</a>
+      </li>      
     </ul>
     <ul class="list-unstyled sidebar_menu_footer">
-      <li>
-        <a href="">Sobre nós</a>
-      </li>
-      <li>
-        <a href="">Contato/Feedback</a>
-      </li>
-      <li>
-        <a href="">Perguntas Frequentes</a>
-      </li>
-      <li>
-        <a href="">Política de privacidade</a>
-      </li>
+        <li>
+            <a href="#" @click.prevent="logout"
+            ><i class="bi bi-box-arrow-left"></i>Sair</a
+            >
+        </li>
     </ul>
   </nav>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/scss/_variables";
 
 .sidebar-menu {
@@ -97,11 +96,11 @@ async function logout() {
   }
 
   a {
-    color: $color-white;
+    color: $color-brand-primary;
     text-decoration: none;
 
     &:hover {
-      color: $color-white;
+      color: $color-brand-primary;
     }
   }
 

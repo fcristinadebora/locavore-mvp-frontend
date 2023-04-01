@@ -16,6 +16,8 @@ import { fromMeterToKm } from "../helpers/measureUnits";
 import ContactProducerButton from "./ContactProducerButton.vue";
 import ProductCardsCarousel from "./ProductCardsCarousel.vue";
 import ItemReviews from "./ItemReviews.vue";
+import ProducerProductsModal from "./ProducerProductsModal.vue";
+import { openModal } from "./helpers/modal";
 
 const producer = ref(null);
 const products = ref(null);
@@ -35,7 +37,7 @@ async function fetchProducer () {
 }
 
 async function fetchProducts () {
-    const result = await productsStore.listProductsByProducer(producerId, 10, 0)
+    const result = await productsStore.listProductsByProducer(producerId, {limit: 10, paginate: 0, include: 'categories'} )
     products.value = result.data;
 }
 </script>
@@ -94,12 +96,13 @@ async function fetchProducts () {
         <section id="producer-details-products" v-if="products">
             <h4 class="mt-5">Produtos</h4>
             <ProductCardsCarousel :products="products" />
-            <router-link to="/" class="btn button-secondary w-100 mt-3">Ver mais produtos</router-link>
+            <button @click="openModal('producer-products-modal')" class="btn button-secondary w-100 mt-3">Ver mais produtos</button>
         </section>
         <section id="producer-ratings">
             <ItemReviews :average-rate="producer.average_review" :type="PRODUCER" :item-id="producer.id" />
         </section>
     </section>
+    <ProducerProductsModal :producer-id="producerId" v-if="producer" />
 </template>
 
 <style lang="scss">

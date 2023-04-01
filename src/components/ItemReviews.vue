@@ -1,7 +1,7 @@
 <script setup>
 import MustLoginModal from './MustLoginModal.vue';
 import CreateReviewModal from './CreateReviewModal.vue';
-import { openModal } from './helpers/mustLoginModal';
+import { openModal } from './helpers/modal';
 import { useAuthStore, useReviewsStore } from '../stores';
 import { ref, onMounted } from 'vue';
 import FiveStars from './FiveStars.vue';

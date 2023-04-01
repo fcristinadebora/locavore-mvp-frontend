@@ -2,7 +2,7 @@
 import { watch } from "vue";
 import { RouterView } from "vue-router";
 import { useRoute } from "vue-router";
-import { closeBackdrops } from "./components/helpers/mustLoginModal";
+import { closeBackdrops } from "./components/helpers/modal";
 
 const route = useRoute();
 

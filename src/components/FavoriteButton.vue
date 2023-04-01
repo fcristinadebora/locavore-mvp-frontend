@@ -2,7 +2,7 @@
 import { ref, computed, onMounted, watch } from "vue";
 import { useAuthStore, useFavoritesStore } from "../stores";
 import MustLoginModal from "./MustLoginModal.vue";
-import { openMustLoginModal } from './helpers/mustLoginModal';
+import { openModal } from './helpers/modal';
 import { PRODUCT, PRODUCER } from '../enum/general';
 import LoadingSm from "./LoadingSm.vue";
 
@@ -55,7 +55,7 @@ async function fetchIsFavorite() {
 
 function toggleFavorite() {
   if (!isLoggedIn.value) {
-    openMustLoginModal();
+    openModal('must-login-modal');
     return;
   }
   

@@ -42,8 +42,12 @@ const loggedUser = computed(() => authStore.loggedUser);
           <router-link to="/register" href="" class="btn btn-md button-primary" v-if="!loggedUser">
             Cadastrar</router-link
           >
-          <router-link to="/register" href="" class="btn btn-md button-primary--light" v-if="loggedUser">
-            Conta</router-link
+          <button href="" class="btn btn-md button-primary--light" v-if="loggedUser"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#account-menu"
+            aria-controls="account-menu"
+            aria-label="Toggle navigation">
+            Conta</button
           >
         </div>
       </div>

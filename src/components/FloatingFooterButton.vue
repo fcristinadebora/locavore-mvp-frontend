@@ -21,9 +21,7 @@ function isVisible(element) {
     const rect = element.getBoundingClientRect();
     const wrapperHeight = wrapper.value.getBoundingClientRect().height;
     return (
-        rect.top >= 0 &&
         rect.bottom + wrapperHeight <= (window.innerHeight || document.documentElement.clientHeight)
-
     );
 }
 

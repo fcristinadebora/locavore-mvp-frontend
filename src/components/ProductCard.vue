@@ -26,12 +26,12 @@ const props = defineProps(['product']);
                 <p class="text-normal fw-bold mb-2">
                     {{ toMoney(props.product.price) }}<span class="text-normal"><span v-if="props.product.unit_of_price">/{{ props.product.unit_of_price }}</span></span>
                 </p>
-                <p class="color-secondary mb-0" v-if="props.product.address.distance != null">
-                    {{ fromMeterToKm(props.product.address.distance) }} km de distância
+                <p class="color-secondary mb-0" v-if="props.product.address?.distance != null">
+                    {{ fromMeterToKm(props.product.address?.distance) }} km de distância
                 </p>
                 <p class="mb-0">
                     <i class="bi bi-geo"></i>
-                    {{ props.product.address.address }}<br />
+                    {{ props.product.address?.address }}<br />
                 </p>
                 </router-link>
             </div>

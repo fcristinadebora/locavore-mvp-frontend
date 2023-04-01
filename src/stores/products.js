@@ -148,9 +148,9 @@ export const useProductsStore = defineStore("products", () => {
     }
   };
 
-  const listProductsByProducer = async (producer, limit, paginate) => {
+  const listProductsByProducer = async (producerId, filters) => {
     try {
-      const result = await list({producer, limit, paginate, include: 'categories' });
+      const result = await list({producer: producerId, ...filters });
 
       //todo cache data
 

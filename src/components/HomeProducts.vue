@@ -59,7 +59,7 @@ function getBreakPoints() {
             :to="`/product/${product.id}`"
             class="card-link products__item border-radius d-flex w-100 flex-column justify-content-between align-items-center p-2 bg-light d-flex flex-grow-1"
           >
-          <div class="d-flex justify-content-start flex-column">
+          <div class="d-flex justify-content-start flex-column max-w-100">
             <img
               class="producers__item__img border-radius my-2  ratio-16-9"
               :src="product.image"

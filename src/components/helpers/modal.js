@@ -1,29 +1,28 @@
 import * as bootstrap from "bootstrap";
 //todo make it generic for any modal
 
-function openMustLoginModal() {
-    let modal = document.getElementById("must-login-modal");
-    let bsModal = new bootstrap.Modal(modal);
-    
-    bsModal.show();
-    modal.addEventListener('hidde.bs.modal', function (event) {
-        closeBackdrops();
-    })
-  }
-
 function openModal(modalId) {
+    const currentOpenModals = document.querySelectorAll('.modal.show') ?? [];
+    for (const openModal of currentOpenModals) {
+        const openModalId = openModal.getAttribute('id');
+        closeModal(openModalId);
+    }
+
     let modal = document.getElementById(modalId);
     let bsModal = new bootstrap.Modal(modal);
     
+    console.log('Opening', modalId);
     bsModal.show();
     modal.addEventListener('hidde.bs.modal', function (event) {
         closeBackdrops();
     })
 }
 
-function closeModal() {
-    let modal = document.getElementById("must-login-modal");
-    let bsOffcanvas = new bootstrap.Modal(document.getElementById('myModal'), modal);
+function closeModal(modalId) {
+    let bsModal = new bootstrap.Modal(`#${modalId}`);
+    
+    bsModal._isShown = true;
+    bsModal.hide();
 
     let backdrops = document.getElementsByClassName("modal-backdrop");
     let body = document.querySelector("body");
@@ -43,9 +42,9 @@ function closeBackdrops() {
     body.removeAttribute("style");
     if (backdrops.length > 0) {
         for (const backdropItem of backdrops) {
-        backdropItem.remove();
+            backdropItem.remove();
         }
     }
 }
 
-export { openMustLoginModal, closeModal, closeBackdrops, openModal };
+export { closeModal, closeBackdrops, openModal };

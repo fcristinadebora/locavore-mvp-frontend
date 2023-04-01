@@ -59,7 +59,7 @@ function getBreakPoints() {
           >
             <div class="d-flex justify-content-start flex-column">
               <img
-                class="producers__item__img border-radius my-2  ratio-16-9"
+                class="producers__item__img border-radius my-2  ratio-16-9 max-w-100"
                 :src="producer.profile_picture"
                 v-if="producer.profile_picture"
                 alt=""
