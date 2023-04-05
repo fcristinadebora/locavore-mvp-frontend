@@ -147,14 +147,14 @@ async function handleSubmit() {
         <label class="text-danger" v-if="errors.password_confirm">As senhas não coincidem</label>
       </div>
       <label
-        for="show-password"
+        for="showPassword"
         class="w-100 ps-2 mt-2 cursor-pointer"
       >
         <input
           type="checkbox"
           name="showPassword"
           :value="true"
-          id="show-password"
+          id="showPassword"
           v-model="showPassword"
         />
         {{ showPassword ? "Esconder senha" : "Mostrar senha" }}

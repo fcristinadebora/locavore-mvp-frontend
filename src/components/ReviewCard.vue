@@ -8,7 +8,7 @@ const props = defineProps(['review']);
 <template>
     <article class="bg-light border-radius p-3 text-start w-100 d-flex flex-column justify-content-start">
         <p class="color-primary text-bold d-flex justify-content-between">
-            {{ props.review.person.name }}
+            {{ props.review.person?.name ?? 'Usuário desativado'  }}
             <span>{{ toDate(props.review.created_at) }}</span>
         </p>
 

@@ -65,11 +65,49 @@ async function logout() {
           <i class="bi bi-person"></i>Cadastrar
         </router-link>
       </li>
-      <li v-if="loggedUser">
-        <a href="#" @click.prevent="logout"
-          ><i class="bi bi-box-arrow-left"></i>Sair</a
-        >
-      </li>
+      <span v-if="loggedUser">
+        <li>
+          <hr>
+          <strong class="color-white">
+              Conta
+          </strong>
+        </li>
+        <li>
+          <router-link to="/account/profile"> <i class="bi bi-person-lock"></i>Conta e segurança</router-link>
+        </li>
+        <li>
+          <router-link to="/account/favorites/products"><i class="bi bi-heart-fill"></i>Produtos Favoritos</router-link>
+        </li>
+        <li>
+          <router-link to="/account/favorites/producers"><i class="bi bi-heart"></i>Produtores Favoritos</router-link>
+        </li>
+        <li v-if="loggedUser">
+          <a href="#" @click.prevent="logout"
+            ><i class="bi bi-box-arrow-left"></i>Sair</a
+          >
+        </li>
+        <li>
+          <hr>
+          <strong class="color-white">
+              Produtor
+          </strong>
+        </li>
+        <li>
+          <router-link to="/account/producer-profile"><i class="bi bi-basket"></i>Perfil</router-link>
+        </li>
+        <li>
+          <router-link to="/"><i class="bi bi-geo"></i>Endereço</router-link>
+        </li>      
+        <li>
+          <router-link to="/"><i class="bi bi-person-vcard"></i>Contatos</router-link>
+        </li>      
+        <li>
+          <router-link to="/"><i class="bi bi-tags"></i>Produtos</router-link>
+        </li>
+        <li>
+          <router-link to="/"><i class="bi bi-chat-text"></i>Questionários</router-link>
+        </li>   
+      </span>
     </ul>
     <ul class="list-unstyled sidebar_menu_footer">
       <li>

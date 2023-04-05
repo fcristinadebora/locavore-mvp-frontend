@@ -6,3 +6,4 @@ export { useCitiesStore } from "./cities";
 export { useSearchStore } from "./search";
 export { useFavoritesStore } from "./favorites";
 export { useReviewsStore } from "./reviews";
+export { useAccountStore } from "./account";

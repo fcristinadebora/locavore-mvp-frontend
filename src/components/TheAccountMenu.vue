@@ -50,13 +50,13 @@ async function logout() {
         />
       </li>
       <li>
-        <router-link to="/"> <i class="bi bi-person-lock"></i>Perfil e segurança</router-link>
+        <router-link to="/account/profile"> <i class="bi bi-person-lock"></i>Conta e segurança</router-link>
       </li>
       <li>
-        <a href="#"><i class="bi bi-heart-fill"></i>Produtos Favoritos</a>
+        <router-link to="/account/favorites/products"><i class="bi bi-heart-fill"></i>Produtos Favoritos</router-link>
       </li>
       <li>
-        <a href="#"><i class="bi bi-heart"></i>Produtores Favoritos</a>
+        <router-link to="/account/favorites/producers"><i class="bi bi-heart"></i>Produtores Favoritos</router-link>
       </li>
       <li>
         <hr>
@@ -65,19 +65,19 @@ async function logout() {
         </strong>
       </li>
       <li>
-        <a href="#"><i class="bi bi-basket"></i>Perfil</a>
+        <router-link to="/account/producer-profile"><i class="bi bi-basket"></i>Perfil</router-link>
       </li>
       <li>
-        <a href="#"><i class="bi bi-geo"></i>Endereço</a>
+        <router-link to="/"><i class="bi bi-geo"></i>Endereço</router-link>
       </li>      
       <li>
-        <a href="#"><i class="bi bi-person-vcard"></i>Contatos</a>
+        <router-link to="/"><i class="bi bi-person-vcard"></i>Contatos</router-link>
       </li>      
       <li>
-        <a href="#"><i class="bi bi-tags"></i>Produtos</a>
+        <router-link to="/"><i class="bi bi-tags"></i>Produtos</router-link>
       </li>
       <li>
-        <a href="#"><i class="bi bi-chat-text"></i>Questionários</a>
+        <router-link to="/"><i class="bi bi-chat-text"></i>Questionários</router-link>
       </li>      
     </ul>
     <ul class="list-unstyled sidebar_menu_footer">

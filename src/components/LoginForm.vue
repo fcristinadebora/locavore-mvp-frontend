@@ -75,8 +75,8 @@ async function handleSubmit() {
         required
       />
     </div>
-    <label for="show-password" class="w-100">
-      <input type="checkbox" name="showPassword" id="show-password" :value="true" v-model="form.showPassword" />
+    <label for="showPassword" class="w-100">
+      <input type="checkbox" name="showPassword" id="showPassword" :value="true" v-model="form.showPassword" />
       Mostrar senha
     </label>
     <button class="btn button-primary w-100 mt-3" :disabled="form.loading">

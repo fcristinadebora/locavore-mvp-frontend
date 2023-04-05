@@ -1,7 +1,7 @@
 import * as bootstrap from "bootstrap";
 //todo make it generic for any modal
 
-function openModal(modalId) {
+function openModal (modalId) {
     const currentOpenModals = document.querySelectorAll('.modal.show') ?? [];
     for (const openModal of currentOpenModals) {
         const openModalId = openModal.getAttribute('id');
@@ -18,7 +18,7 @@ function openModal(modalId) {
     })
 }
 
-function closeModal(modalId) {
+function closeModal (modalId) {
     let bsModal = new bootstrap.Modal(`#${modalId}`);
     
     bsModal._isShown = true;
@@ -30,12 +30,12 @@ function closeModal(modalId) {
     body.removeAttribute("style");
     if (backdrops.length > 0) {
         for (const backdropItem of backdrops) {
-        backdropItem.remove();
+            backdropItem.remove();
         }
     }
 }
 
-function closeBackdrops() {
+function closeBackdrops () {
     let backdrops = document.querySelectorAll(".modal-backdrop, .offcanvas-backdrop");
     let body = document.querySelector("body");
 

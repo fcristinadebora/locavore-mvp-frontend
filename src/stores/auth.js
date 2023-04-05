@@ -15,12 +15,13 @@ export const useAuthStore = defineStore("auth", () => {
       return;
     }
 
-    fetchUser();
+    await fetchUser();
   };
 
   const isLoggedIn = () => {
     const token = getToken();
     if (!token || !loggedUser.value) {
+      console.log('no token');
       return false;
     }
 
@@ -44,15 +45,21 @@ export const useAuthStore = defineStore("auth", () => {
 
   const fetchUser = async () => {
     try {
-      if (loading.value) {
+      if (!getToken()) {
         return;
       }
 
+      if (loading.value) {
+        return;
+      }
+  
       loading.value = true;
+
       const result = await getUser();
 
+      
       loggedUser.value = result.data;
-      return loggedUser;
+      return loggedUser.value;
     } catch (error) {
       console.error(error);
       return false;
@@ -81,11 +88,24 @@ export const useAuthStore = defineStore("auth", () => {
     }
   };
 
+  const afterDeleteAccount = async () => {
+    loggedUser.value = null;
+    unsetToken();
+  }
+
   const saveToken = (token) => {
     try {
       window.sessionStorage.setItem("userToken", token); //pleaseeeee remove this and do it in a secure method
     } catch (error) {
       console.error("Failed storing token", error);
+    }
+  };
+
+  const unsetToken = (token) => {
+    try {
+      window.sessionStorage.removeItem("userToken");
+    } catch (error) {
+      console.error("Failed unseting token", error);
     }
   };
 
@@ -101,5 +121,6 @@ export const useAuthStore = defineStore("auth", () => {
     executeLogout,
     fetchUser,
     setupAuth,
+    afterDeleteAccount
   };
 });

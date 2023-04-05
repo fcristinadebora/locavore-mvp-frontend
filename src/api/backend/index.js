@@ -1,4 +1,4 @@
-import { METHOD_DELETE, METHOD_GET, METHOD_POST } from "../../enum/http";
+import { METHOD_DELETE, METHOD_GET, METHOD_POST, METHOD_PUT } from "../../enum/http";
 import ApiException from "./exceptions/ApiException";
 
 const API_BASE_URL =
@@ -51,12 +51,16 @@ async function sendPostRequest(endpoint, body = {}, query = {}) {
   return await sendRequest(METHOD_POST, endpoint, query, body);
 }
 
+async function sendPutRequest(endpoint, body = {}, query = {}) {
+  return await sendRequest(METHOD_PUT, endpoint, query, body);
+}
+
 async function sendGetRequest(endpoint, query = {}) {
   return await sendRequest(METHOD_GET, endpoint, query);
 }
 
-async function sendDeleteRequest(endpoint, query = {}) {
-  return await sendRequest(METHOD_DELETE, endpoint, query);
+async function sendDeleteRequest(endpoint, body = {}, query = {}) {
+  return await sendRequest(METHOD_DELETE, endpoint, query, body);
 }
 
-export { sendPostRequest, sendGetRequest, sendDeleteRequest };
+export { sendPostRequest, sendGetRequest, sendDeleteRequest, sendPutRequest };

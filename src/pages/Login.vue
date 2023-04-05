@@ -1,6 +1,6 @@
 <template>
   <TheLayout>
-    <section id="login" class="py-5 container col-md-8 col-lg-4 col-xl-3">
+    <section id="login" class="py-5 container col-md-8 col-lg-6 col-xl-4">
       <section id="login-header text-center">
         <h1 class="color-primary fw-bold text-center">Bem-vindo de volta!</h1>
         <p class="text-lg text-center mb-5">

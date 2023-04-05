@@ -20,6 +20,10 @@ import QuizSuccess from "../pages/QuizSuccess.vue";
 import ProductDetails from "../pages/ProductDetails.vue";
 import ProducerDetails from "../pages/ProducerDetails.vue";
 import ForgotPassword from "../pages/ForgotPassword.vue";
+import ProfileAndSecurity from "../pages/ProfileAndSecurity.vue";
+import MyFavorites from "../pages/MyFavorites.vue";
+import ProducerProfile from "../pages/ProducerProfile.vue";
+import AccountDeletionSuccess from "../pages/AccountDeletionSuccess.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -124,11 +128,32 @@ const router = createRouter({
       name: "producerDetails",
       component: ProducerDetails,
     },
+    {
+      path: "/account/profile",
+      name: "profileAndSecurity",
+      component: ProfileAndSecurity
+    },
+    {
+      path: "/account/favorites/:type",
+      name: "myFavorites",
+      component: MyFavorites
+    },
+    {
+      path: "/account/producer-profile",
+      name: "producerProfile",
+      component: ProducerProfile
+    },
+    {
+      path: "/goodbye",
+      name: "goodbye",
+      component: AccountDeletionSuccess
+    }
   ],
 });
 
-router.beforeEach(() => {
-  // todo scroll smoothly (animation)
+router.beforeEach(async (from, to) => {
+  console.log('redirect')
+
   window.scrollTo(0, 0);
 });
 
