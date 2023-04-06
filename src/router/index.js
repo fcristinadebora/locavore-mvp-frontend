@@ -24,6 +24,7 @@ import ProfileAndSecurity from "../pages/ProfileAndSecurity.vue";
 import MyFavorites from "../pages/MyFavorites.vue";
 import ProducerProfile from "../pages/ProducerProfile.vue";
 import AccountDeletionSuccess from "../pages/AccountDeletionSuccess.vue";
+import QuizProducerName from "../pages/QuizProducerName.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -67,6 +68,11 @@ const router = createRouter({
       path: "/quiz",
       name: "quizStart",
       component: QuizStart,
+    },
+    {
+      path: "/quiz/name",
+      name: "quizProducerName",
+      component: QuizProducerName,
     },
     {
       path: "/quiz/profile-picture",

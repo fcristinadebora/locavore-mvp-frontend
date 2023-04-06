@@ -6,7 +6,7 @@ const API_BASE_URL =
 const API_KEY = import.meta.env.VITE_API_KEY ?? "";
 const DEBUG_ENABLED = !!import.meta.env.VITE_APP_DEBUG ?? false;
 
-async function sendRequest(method, endpoint, query = {}, body = {}) {
+async function sendRequest(method, endpoint, query = {}, body = {}, isFileUpload = false) {
   const queryString = Object.keys(query).length
     ? `?${new URLSearchParams(query)}`
     : "";
@@ -17,12 +17,15 @@ async function sendRequest(method, endpoint, query = {}, body = {}) {
   const options = {
     method: method,
     headers: {
-      "Content-Type": "application/json",
       "X-Authorization": API_KEY,
       Accept: "application/json",
     },
-    body: JSON.stringify(body),
+    body: isFileUpload ? body : JSON.stringify(body),
   };
+
+  if (!isFileUpload) {
+    options.headers["Content-Type"] = "application/json";
+  }
 
   if (token) {
     options.headers["Authorization"] = `Bearer ${token}`;
@@ -63,4 +66,8 @@ async function sendDeleteRequest(endpoint, body = {}, query = {}) {
   return await sendRequest(METHOD_DELETE, endpoint, query, body);
 }
 
-export { sendPostRequest, sendGetRequest, sendDeleteRequest, sendPutRequest };
+async function sendPostFileRequest(endpoint, body = {}, query = {}) {
+  return await sendRequest(METHOD_POST, endpoint, query, body, true);
+}
+
+export { sendPostRequest, sendGetRequest, sendDeleteRequest, sendPutRequest, sendPostFileRequest };

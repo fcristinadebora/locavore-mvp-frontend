@@ -1,4 +1,4 @@
-import { sendDeleteRequest, sendGetRequest, sendPostRequest, sendPutRequest } from ".";
+import { sendDeleteRequest, sendGetRequest, sendPutRequest, sendPostFileRequest } from ".";
 
 async function updateProfile (data) {
     const ENDPOINT_PATH = `/account/profile`;
@@ -24,7 +24,7 @@ async function deleteAccount (data) {
     return result;
 }
 
-async function updateProducerProfile () {
+async function updateProducerProfile (data) {
     const ENDPOINT_PATH = `/account/producer`;
 
     const result = await sendPutRequest(ENDPOINT_PATH, data);
@@ -40,14 +40,22 @@ async function updateProducerAddress () {
     return result;
 }
 
-async function updateProducerProfilePicture () {
-    const ENDPOINT_PATH = `/account/profile-picture`;
+async function updateProducerProfilePicture (data) {
+    const ENDPOINT_PATH = `/account/producer/profile-picture`;
 
     // do this one later, because the upload has a different content-type
-    const result = await sendPostRequest(ENDPOINT_PATH, data);
+    const result = await sendPostFileRequest(ENDPOINT_PATH, data);
 
     return result;
 }
+
+async function getCurrentProducer(query) {
+    const ENDPOINT_PATH = `/account/producer`;
+  
+    const result = await sendGetRequest(ENDPOINT_PATH, { ...query });
+  
+    return result;
+  }
 
 export {
     updateProfile,
@@ -55,7 +63,8 @@ export {
     deleteAccount,
     updateProducerProfile,
     updateProducerAddress,
-    updateProducerProfilePicture
+    updateProducerProfilePicture,
+    getCurrentProducer
 };
 
 export default {
@@ -64,5 +73,6 @@ export default {
     deleteAccount,
     updateProducerProfile,
     updateProducerAddress,
-    updateProducerProfilePicture
+    updateProducerProfilePicture,
+    getCurrentProducer
 };

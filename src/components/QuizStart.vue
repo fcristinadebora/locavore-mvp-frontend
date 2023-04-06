@@ -5,7 +5,7 @@ import localStorage from "../helpers/localStorage";
 const router = useRouter();
 
 function nextStep() {
-  router.push("/quiz/profile-picture");
+  router.push("/quiz/name");
 }
 function skip() {
   const referrer = localStorage.getPageReferrer();

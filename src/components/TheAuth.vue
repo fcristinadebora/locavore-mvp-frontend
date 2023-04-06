@@ -16,12 +16,11 @@ onMounted(() => {
 async function checkRouteAndRedirect () {
     await authStore.setupAuth();
 
-    if (route.path.startsWith('/account') && !authStore.isLoggedIn()) {
+    if ((route.path.startsWith('/account') || route.path.startsWith('/quiz')) && !authStore.isLoggedIn()) {
         router.push('/');
     }
 
-    console.log(route.path.startsWith('/login') , route.path.startsWith('/register') , route.path.startsWith('/quiz'), authStore.isLoggedIn());
-    if ((route.path.startsWith('/login') || route.path.startsWith('/signup') || route.path.startsWith('/quiz')) && authStore.isLoggedIn()) {
+    if ((route.path.startsWith('/login') || route.path.startsWith('/signup')) && authStore.isLoggedIn()) {
         router.push('/');
     }
 }
