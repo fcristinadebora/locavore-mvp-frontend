@@ -28,5 +28,9 @@ export const useAccountStore = defineStore("account", () => {
     return await account.updateProducerProfile(data)
   }
 
-  return { updateProfile, updatePassword, deleteAccount, getCurrentProducer, updateProfilePicture, updateProducer };
+  const updateProducerAddress = async (data) => {
+    return await account.updateProducerAddress(data)
+  }
+
+  return { updateProfile, updatePassword, deleteAccount, getCurrentProducer, updateProfilePicture, updateProducer, updateProducerAddress };
 });

@@ -14,7 +14,6 @@ import QuizCategories from "../pages/QuizCategories.vue";
 import QuizShortDescription from "../pages/QuizShortDescription.vue";
 import QuizLongDescription from "../pages/QuizLongDescription.vue";
 import QuizAddress from "../pages/QuizAddress.vue";
-import QuizLocation from "../pages/QuizLocation.vue";
 import QuizContact from "../pages/QuizContact.vue";
 import QuizSuccess from "../pages/QuizSuccess.vue";
 import ProductDetails from "../pages/ProductDetails.vue";
@@ -98,11 +97,6 @@ const router = createRouter({
       path: "/quiz/address",
       name: "quizAddress",
       component: QuizAddress,
-    },
-    {
-      path: "/quiz/location",
-      name: "quizLocation",
-      component: QuizLocation,
     },
     {
       path: "/quiz/contact",

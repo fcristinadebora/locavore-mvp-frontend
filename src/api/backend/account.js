@@ -32,8 +32,8 @@ async function updateProducerProfile (data) {
     return result;
 }
 
-async function updateProducerAddress () {
-    const ENDPOINT_PATH = `/account/address`;
+async function updateProducerAddress (data) {
+    const ENDPOINT_PATH = `/account/producer/address`;
 
     const result = await sendPutRequest(ENDPOINT_PATH, data);
 

@@ -1,59 +1,152 @@
 <script setup>
+import InputSearchLocation from "./InputSearchLocation.vue";
 import StepsNavigation from "./QuizStepsNavigation.vue";
 import { useRouter } from "vue-router";
+import FormSubmitButton from "./FormSubmitButton.vue";
+import { ref, onMounted, watch } from "vue";
+import { useAccountStore, useAuthStore, useCitiesStore } from "../stores";
+import Map from "./Map.vue";
 
 const router = useRouter();
 const props = defineProps(["currentStep"]);
-const currentStep = props.currentStep ?? 0;
+const authStore = useAuthStore();
+const accountStore = useAccountStore();
+const citiesStore = useCitiesStore();
+const selectedLocation = ref(null);
+const selectedCoordinates = ref(null);
 
 function nextStep() {
-  router.push("/quiz/location");
+  router.push("/quiz/contact");
 }
 
 function prevStep() {
   router.push("/quiz/long-description");
 }
+
+const form = ref({
+  loading: false,
+  errors: {},
+  data: {
+    enabled: true,
+    city_id: null,
+    lat: null,
+    lng: null,
+    address: null
+  }
+});
+
+onMounted(() => {
+    fetchCurrentData();
+})
+
+watch(() => authStore.loggedUser,
+    () => fetchCurrentData()
+)
+
+async function fetchCurrentData() {
+    const producer = await accountStore.getCurrentProducer({include: 'address'});
+    
+    if (producer.data?.address) {
+      form.value.data.address = producer.data?.address?.address;
+      form.value.data.city_id = producer.data?.address?.city_id;
+      form.value.data.lat = producer.data?.address?.location?.coordinates[1];
+      form.value.data.lng = producer.data?.address?.location?.coordinates[0];
+      selectedLocation.value = await citiesStore.findCity(form.value.data.city_id)
+      selectedCoordinates.value = {
+        lat: form.value.data.lat,
+        lng: form.value.data.lng
+      }
+    }
+}
+
+async function handleSubmit() {
+  const hasError = false;
+  if (!selectedCoordinates.value) {
+    form.value.errors.location = true;
+    hasError = true;
+  }
+  if (!selectedLocation.value) {
+    form.value.errors.city = true;
+    hasError = true;
+  }
+  if (!form.value.data.address) {
+    form.value.errors.address = true;
+    hasError = true;
+  }
+
+  if (hasError) {
+    return;
+  }
+
+  form.value.loading = true;
+  
+  try {
+    await accountStore.updateProducerAddress({...form.value.data});
+    nextStep();
+  } catch (e) {
+    console.error(e)
+  } finally {
+    form.value.loading = false;
+  }
+}
+
+function handleOnSelectLocation (location) {
+  selectedLocation.value = location;
+  selectedCoordinates.value = {
+    lat: location.location.coordinates[1],
+    lng: location.location.coordinates[0]
+  }
+
+  form.value.data.city_id = location.id;
+  form.value.data.lat = selectedCoordinates.value.lat;
+  form.value.data.lng = selectedCoordinates.value.lng;
+}
+
+function handleMainMarkerMoved (newPosition) {
+  selectedCoordinates.value = { ...newPosition };
+  form.value.data.lat = selectedCoordinates.value.lat;
+  form.value.data.lng = selectedCoordinates.value.lng;
+}
 </script>
 
 <template>
   <section class="w-100 d-flex flex-column justify-content-between">
+    <form @submit.prevent="handleSubmit">
     <section id="quiz-long-description">
       <section>
         <p class="w-100 text-muted text-center mb-3">
-          Está na etapa {{ currentStep }} de 6
+          Está na etapa 7 de 6
         </p>
         <h1 class="color-primary fw-bold text-center">Endereço</h1>
       </section>
       <section id="quiz-long-description-form" class="my-3">
-        <div class="row">
-          <div class="col-md-6">
-            <input type="text" class="form-control my-2" placeholder="CEP" />
-          </div>
-          <div class="col-md-6">
-            <input type="text" class="form-control my-2" placeholder="Cidade" />
-          </div>
-          <div class="col-md-8">
-            <input type="text" class="form-control my-2" placeholder="Rua" />
-          </div>
-          <div class="col-md-4">
-            <input type="text" class="form-control my-2" placeholder="Número" />
-          </div>
-          <div class="col-md-6">
-            <input type="text" class="form-control my-2" placeholder="Bairro" />
-          </div>
-          <div class="col-md-6">
-            <input
-              type="text"
-              class="form-control my-2"
-              placeholder="Complemento"
-            />
-          </div>
+        <div class="mb-2">
+          <label class="w-100 text-bold">Cidade:</label>
+          <InputSearchLocation  @location-selected="handleOnSelectLocation" :selected-location="selectedLocation" />
+          <label v-if="form.errors.location" class="text-danger">Preenchimento obrigatório</label>
+        </div>
+        <div class="mb-2">
+          <label class="w-100 text-bold">Endreço completo:</label>
+          <textarea
+            v-model="form.data.address"
+            id="short-description"
+            class="form-control w-100 resize-none"
+            rows="3"
+            maxlength="100"
+            placeholder="Digite aqui"
+          ></textarea>
+          <label v-if="form.errors.address" class="text-danger">Preenchimento obrigatório</label>
+        </div>
+        <div class="form-group mb-2" v-if="selectedCoordinates">
+          <label class="w-100 text-bold">Confirmar localização: </label>
+            <p class="text-sm">Segure e arraste o marcador ou clique em um ponto para definir o ponto de referência para as buscas</p>
+            <Map class="search-modal-map-container" :center="selectedCoordinates" :recenterable="true" @main-marker-moved="handleMainMarkerMoved" />
+            <label v-if="form.errors.coordinates" class="text-danger">Preenchimento obrigatório</label>
         </div>
       </section>
-      <button class="btn button-primary mt-3 mb-5 w-100" @click="nextStep">
-        Continuar
-      </button>
+      <FormSubmitButton class="button-primary mt-3 mb-5 w-100" :disabled="form.loading" label="Salvar e continuar" />
     </section>
+    </form>
     <StepsNavigation @next-step="nextStep" @prev-step="prevStep" />
   </section>
 </template>

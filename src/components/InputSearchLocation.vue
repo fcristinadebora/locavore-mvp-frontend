@@ -1,6 +1,5 @@
 <script setup>
 import Autocomplete from "./lib/autocomplete/Autocomplete.vue";
-
 import { ref, computed } from "vue";
 import { useCitiesStore, useSearchStore } from '../stores';
 
