@@ -7,3 +7,5 @@ export { useSearchStore } from "./search";
 export { useFavoritesStore } from "./favorites";
 export { useReviewsStore } from "./reviews";
 export { useAccountStore } from "./account";
+export { useAccountProductStore } from "./accountProduct";
+export { useQuizesStore } from "./quizes";

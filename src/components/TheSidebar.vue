@@ -102,7 +102,7 @@ async function logout() {
           <router-link to="/"><i class="bi bi-person-vcard"></i>Contatos</router-link>
         </li>      
         <li>
-          <router-link to="/"><i class="bi bi-tags"></i>Produtos</router-link>
+          <router-link to="/account/products"><i class="bi bi-tags"></i>Produtos</router-link>
         </li>
         <li>
           <router-link to="/"><i class="bi bi-chat-text"></i>Questionários</router-link>

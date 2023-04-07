@@ -66,8 +66,8 @@ async function sendDeleteRequest(endpoint, body = {}, query = {}) {
   return await sendRequest(METHOD_DELETE, endpoint, query, body);
 }
 
-async function sendPostFileRequest(endpoint, body = {}, query = {}) {
+async function sendMultiPartFormRequest(endpoint, body = {}, query = {}) {
   return await sendRequest(METHOD_POST, endpoint, query, body, true);
 }
 
-export { sendPostRequest, sendGetRequest, sendDeleteRequest, sendPutRequest, sendPostFileRequest };
+export { sendPostRequest, sendGetRequest, sendDeleteRequest, sendPutRequest, sendMultiPartFormRequest };

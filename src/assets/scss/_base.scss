@@ -135,3 +135,9 @@ button:hover{
 .max-w-100 {
   max-width: 100%;
 }
+
+.checklist-scroll {
+  height: 150px;
+  overflow-y: scroll;
+  border: 1px solid #ced4da;;
+}

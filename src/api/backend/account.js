@@ -1,4 +1,4 @@
-import { sendDeleteRequest, sendGetRequest, sendPutRequest, sendPostFileRequest, sendPostRequest } from ".";
+import { sendDeleteRequest, sendGetRequest, sendPutRequest, sendMultiPartFormRequest, sendPostRequest } from ".";
 
 async function updateProfile (data) {
     const ENDPOINT_PATH = `/account/profile`;
@@ -52,7 +52,7 @@ async function updateProducerProfilePicture (data) {
     const ENDPOINT_PATH = `/account/producer/profile-picture`;
 
     // do this one later, because the upload has a different content-type
-    const result = await sendPostFileRequest(ENDPOINT_PATH, data);
+    const result = await sendMultiPartFormRequest(ENDPOINT_PATH, data);
 
     return result;
 }

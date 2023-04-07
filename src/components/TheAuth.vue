@@ -25,3 +25,5 @@ async function checkRouteAndRedirect () {
     }
 }
 </script>
+
+<template></template>

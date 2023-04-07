@@ -27,7 +27,6 @@ const form = ref({
   loading: false,
   errors: {},
   data: {
-    enabled: true,
     city_id: null,
     lat: null,
     lng: null,

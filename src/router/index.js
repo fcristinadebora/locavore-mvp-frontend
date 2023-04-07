@@ -24,6 +24,9 @@ import MyFavorites from "../pages/MyFavorites.vue";
 import ProducerProfile from "../pages/ProducerProfile.vue";
 import AccountDeletionSuccess from "../pages/AccountDeletionSuccess.vue";
 import QuizProducerName from "../pages/QuizProducerName.vue";
+import AccountProductsList from "../pages/AccountProductsList.vue";
+import AccountProductForm from "../pages/AccountProductForm.vue";
+import QuizesList from "../pages/QuizesList.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -142,6 +145,26 @@ const router = createRouter({
       path: "/account/producer-profile",
       name: "producerProfile",
       component: ProducerProfile
+    },
+    {
+      path: "/account/products",
+      name: "accountProducts",
+      component: AccountProductsList
+    },
+    {
+      path: "/account/products/new",
+      name: "accountProductCreate",
+      component: AccountProductForm
+    },
+    {
+      path: "/account/products/:id",
+      name: "accountProductUpdate",
+      component: AccountProductForm
+    },
+    {
+      path: "/account/quizes",
+      name: "quizesList",
+      component: QuizesList
     },
     {
       path: "/goodbye",

@@ -23,8 +23,7 @@ function prevStep() {
 const form = ref({
     loading: false,
     data: {
-        enabled: false,
-        name: ''
+      name: ''
     }
 })
 
