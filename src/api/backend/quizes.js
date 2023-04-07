@@ -1,4 +1,4 @@
-import { sendDeleteRequest, sendGetRequest, sendMultiPartFormRequest } from ".";
+import { sendDeleteRequest, sendGetRequest, sendPutRequest, sendPostRequest } from ".";
 
 async function list(filters) {
   const ENDPOINT_PATH = "/account/producer/quizes";

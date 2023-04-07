@@ -184,3 +184,33 @@
 		transform: translateX(0);
 	}
 }
+
+.btn-group--vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+
+  & > .btn {
+    min-width: 50px;
+  }
+  & > .btn:first-child {
+    border-top-right-radius: $border-radius !important;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    
+  }
+  & > .btn:first-child:last-child {
+    border-top-left-radius: $border-radius !important;
+    border-top-right-radius: $border-radius !important;
+    border-bottom-right-radius: $border-radius !important;
+    border-bottom-left-radius: $border-radius !important;
+    
+  }
+  & > .btn:last-child {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: $border-radius !important;
+    border-bottom-left-radius: $border-radius !important;
+    
+  }
+}

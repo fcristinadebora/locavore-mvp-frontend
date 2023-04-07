@@ -1,4 +1,4 @@
-input.form-control, textarea.form-control{
+input.form-control, textarea.form-control, select.form-control{
   border-radius: 20px;
 
   &:focus{
@@ -13,5 +13,13 @@ input.form-control, textarea.form-control{
       box-shadow: none;
       border-color: $color-brand-primary;
     }
+  }
+}
+
+.form-group {
+  margin-bottom: 1rem;
+  
+  & label {
+    margin-bottom: 0.25rem;
   }
 }

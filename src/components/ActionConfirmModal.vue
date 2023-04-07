@@ -51,8 +51,8 @@ async function handleSubmit() {
             {{ props.text }}
         </div>
         <div class="modal-footer">
-          <button class="btn button-primary w-100 mb-2" @click="props.onConfirm">{{ props.confirmLabel ?? 'Confirmar' }}</button>
-          <button class="btn button-primary--light w-100 mb-2" data-bs-dismiss="modal">{{ props.cancelLabel ?? 'Cancelar' }}</button>
+          <button class="btn button-primary w-100 mb-2" type="button" @click="props.onConfirm">{{ props.confirmLabel ?? 'Confirmar' }}</button>
+          <button class="btn button-primary--light w-100 mb-2" type="button" data-bs-dismiss="modal">{{ props.cancelLabel ?? 'Cancelar' }}</button>
         </div>
     </form>
     </div>

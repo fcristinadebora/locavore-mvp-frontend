@@ -75,7 +75,7 @@ function askDeleteItem(id) {
 }
 
 async function deleteItem() {
-  await quizesStore.deleteQuiz(itemToDelete.value);
+  await quizesStore.deleteById(itemToDelete.value);
   closeModal('confirm-delete-quiz');
   toaster.success('Quiz excluído');
   resetItemsData();

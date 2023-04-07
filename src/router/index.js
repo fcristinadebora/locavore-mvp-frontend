@@ -27,6 +27,7 @@ import QuizProducerName from "../pages/QuizProducerName.vue";
 import AccountProductsList from "../pages/AccountProductsList.vue";
 import AccountProductForm from "../pages/AccountProductForm.vue";
 import QuizesList from "../pages/QuizesList.vue";
+import QuizForm from "../pages/QuizForm.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -165,6 +166,16 @@ const router = createRouter({
       path: "/account/quizes",
       name: "quizesList",
       component: QuizesList
+    },
+    {
+      path: "/account/quizes/new",
+      name: "quizCreate",
+      component: QuizForm
+    },
+    {
+      path: "/account/quizes/:id",
+      name: "quizUpdate",
+      component: QuizForm
     },
     {
       path: "/goodbye",
