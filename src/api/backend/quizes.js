@@ -9,7 +9,7 @@ async function list(filters) {
 }
 
 async function findById(id, query) {
-  const ENDPOINT_PATH = `/account/producer/quizes/${id}`;
+  const ENDPOINT_PATH = `/quizes/${id}`;
 
   const result = await sendGetRequest(ENDPOINT_PATH, { ...query });
 

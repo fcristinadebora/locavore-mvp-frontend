@@ -67,11 +67,18 @@ async function handleSubmit() {
   
   try {
     form.value.data.is_active = form.value.is_active ? 1 : 0;
-    if (!route.params.id) {
-        form.value.data.questions = form.value.data.questions.map((question, index) => {
+    form.value.data.questions = form.value.data.questions
+        .filter(question => {
+            return question.question && question.type
+        })
+        .map((question, index) => {
             question.order = index;
+            question.options = question.options.filter(option => option)
             return question;
         })
+    
+    if (!route.params.id) {
+
         await quizesStore.create({...form.value.data});
         toaster.success('Produto criado com sucesso');
     } else {
@@ -178,7 +185,7 @@ function sendNext(currentIndex) {
                         </div>
                         <div class="form-group w-100  mb-2">
                             <label for="question">Tipo:</label>
-                            <select v-model="form.data.questions[index].type" id="type" class="form-control" :required="`${(index < (form.data.questions.length) - 1) ? 'required' : ''}`">
+                            <select v-model="form.data.questions[index].type" id="type" class="form-control" :required="`${(index < (form.data.questions.length) - 1) ? 'true' : 'false'}`">
                                 <option :value="null">Selecione uma opção</option>
                                 <option v-for="(type, index) in typeOptions" :key="index" :value="type.value">{{ type.label }}</option>
                             </select>
