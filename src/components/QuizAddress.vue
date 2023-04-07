@@ -60,7 +60,7 @@ async function fetchCurrentData() {
 }
 
 async function handleSubmit() {
-  const hasError = false;
+  let hasError = false;
   if (!selectedCoordinates.value) {
     form.value.errors.location = true;
     hasError = true;

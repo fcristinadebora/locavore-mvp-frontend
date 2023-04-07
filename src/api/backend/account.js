@@ -1,4 +1,4 @@
-import { sendDeleteRequest, sendGetRequest, sendPutRequest, sendPostFileRequest } from ".";
+import { sendDeleteRequest, sendGetRequest, sendPutRequest, sendPostFileRequest, sendPostRequest } from ".";
 
 async function updateProfile (data) {
     const ENDPOINT_PATH = `/account/profile`;
@@ -40,6 +40,14 @@ async function updateProducerAddress (data) {
     return result;
 }
 
+async function replaceProducerContacts (data) {
+    const ENDPOINT_PATH = `/account/producer/contacts/replace`;
+
+    const result = await sendPostRequest(ENDPOINT_PATH, data);
+
+    return result;
+}
+
 async function updateProducerProfilePicture (data) {
     const ENDPOINT_PATH = `/account/producer/profile-picture`;
 
@@ -64,7 +72,8 @@ export {
     updateProducerProfile,
     updateProducerAddress,
     updateProducerProfilePicture,
-    getCurrentProducer
+    getCurrentProducer,
+    replaceProducerContacts
 };
 
 export default {
@@ -74,5 +83,6 @@ export default {
     updateProducerProfile,
     updateProducerAddress,
     updateProducerProfilePicture,
-    getCurrentProducer
+    getCurrentProducer,
+    replaceProducerContacts
 };
