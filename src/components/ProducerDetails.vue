@@ -91,7 +91,7 @@ async function fetchProducts () {
                 </p>
             </div>
 
-            <ContactProducerButton />
+            <ContactProducerButton v-if="producer?.contacts?.some(contact => contact.type == 'whatsapp')" :producer="producer" :quiz-id="producer.quiz_id"/>
         </section>
         <section id="producer-details-products" v-if="products">
             <h4 class="mt-5">Produtos</h4>

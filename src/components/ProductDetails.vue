@@ -81,7 +81,10 @@ onMounted(async () => {
       >
         <ProducerCard :producer="product.producer" />
       </router-link>
-      <ContactProducerButton />
+      <ContactProducerButton v-if="product.producer?.contacts?.some(contact => contact.type == 'whatsapp')"
+        :producer="product.producer"
+        :quiz-id="product.quiz_id"
+        :previous-message="`Olá! Gostaria de mais informações sobre o produto *${product.name}* que vi no Locavore`" />
     </section>
     <section id="product-reviews">
       <ItemReviews :average-rate="product.average_review" :type="PRODUCT" :item-id="product.id" />

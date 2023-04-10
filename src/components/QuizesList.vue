@@ -19,6 +19,7 @@ const quizes = ref({
 const pagination = ref({});
 const producerId = ref(null);
 const itemToDelete = ref(null);
+const hasWhatsapp = ref(false);
 
 async function getPageItems () {
   quizes.value.loading = true;
@@ -56,6 +57,7 @@ async function fetchCurrentProducer() {
     const producer = await accountStore.getCurrentProducer({include: 'contacts'});
     
     producerId.value = producer.data.id;
+    hasWhatsapp.value = producer.data?.contacts?.some((contact) => contact.type == 'whatsapp' && contact.value >= 9)
 
     getPageItems();
 }
@@ -84,6 +86,9 @@ async function deleteItem() {
 
 <template>
   <section id="profile-and-security" class="w-100">
+    <div class="alert alert-warning" v-if="!hasWhatsapp">
+      <i class="bi bi-info-circle"></i> Necessário preencher o campo <strong>Whatsapp</strong> na área de <router-link to="/account/address">contatos</router-link> para ativar a funcionalidade copletamente.
+    </div>
     <section id="login-header" class="text-center">
       <h1 class="color-primary fw-bold text-center">Gerenciar Questionários</h1>
     </section>
@@ -108,15 +113,15 @@ async function deleteItem() {
             <router-link to="/account/quizes/new" class="btn button-primary">Novo <i class="bi bi-plus"></i></router-link>
         </div>
           <article class="bg-light border-radius px-3 py-2 mb-3 text-start w-100 d-flex justify-content-between align-items-center color-default" v-for="(item,index) in quizes.items" :key="index">
-                  <span><strong class="me-2">#{{ item.id }}</strong> {{ item.name }}</span>
-                  <span>
-                    <router-link :to="`/account/quizes/${item.id}`" class="btn btn-sm button-primary">
-                      <i class="bi bi-pencil-square"></i>
-                    </router-link>
-                    <button class="btn btn-sm btn-danger ms-2" @click="askDeleteItem(item.id)">
-                      <i class="bi bi-trash"></i>
-                    </button>
-                  </span>
+                <span :class="item.is_active ? '' : 'text-decoration-line-through'"><strong class="me-2">#{{ item.id }}</strong> {{ item.name }}</span>
+                <span>
+                  <router-link :to="`/account/quizes/${item.id}`" class="btn btn-sm button-primary">
+                    <i class="bi bi-pencil-square"></i>
+                  </router-link>
+                  <button class="btn btn-sm btn-danger ms-2" @click="askDeleteItem(item.id)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </span>
           </article>
     </section>
     <section class="d-flex justify-content-center">

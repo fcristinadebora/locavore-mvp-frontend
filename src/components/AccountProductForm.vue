@@ -6,6 +6,7 @@ import { useAccountProductStore, useCategoriesStore } from "../stores";
 import { vMaska } from "maska"
 import FormSubmitButton from "./FormSubmitButton.vue";
 import toaster from "../helpers/toaster";
+import QuizesSelectInput from "./QuizesSelectInput.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -22,6 +23,7 @@ const form = ref({
         price: null,
         unit_of_price: null,
         image: null,
+        quiz_id: null,
         categories: [],
     }
 })
@@ -44,6 +46,7 @@ async function fetchCurrentData() {
     form.value.data.price = product.data?.price?.replace('.', ',') ?? null;
     form.value.data.unit_of_price = product.data?.unit_of_price ?? null;
     form.value.data.image = product.data?.imageUrl ?? null;
+    form.value.data.quiz_id = product.data?.quiz_id ?? null;
     form.value.data.categories = product.data?.categories ? product.data?.categories.map(category => parseInt(category.id)) : [];
 }
 
@@ -53,10 +56,11 @@ async function handleSubmit() {
   try {
     formData.value.append('delete_image', form.value.data.delete_image ? 1 : 0);
     formData.value.append('is_active', form.value.data.is_active ? 1 : 0);
-    formData.value.append('name', form.value.data.name);
-    formData.value.append('description', form.value.data.description);
-    formData.value.append('price', form.value.data.price.replace(',', '.'));
-    formData.value.append('unit_of_price', form.value.data.unit_of_price);
+    form.value.data.name && formData.value.append('name', form.value.data.name);
+    form.value.data.description && formData.value.append('description', form.value.data.description);
+    form.value.data.price && formData.value.append('price', form.value.data.price?.replace(',', '.'));
+    form.value.data.quiz_id && formData.value.append('quiz_id', form.value.data.quiz_id);
+    form.value.data.unit_of_price && formData.value.append('unit_of_price', form.value.data.unit_of_price);
     form.value.data.categories.forEach(category => {
         formData.value.append('categories[]', parseInt(category));
     })
@@ -154,6 +158,11 @@ function handleFileSelect(event) {
                     <input type="checkbox" v-model="form.data.categories" :value="parseInt(category.id)"> {{ category.name }}
                 </label>
             </div>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="">Questionário</label>
+            <QuizesSelectInput v-model="form.data.quiz_id" />
         </div>
 
         <div class="form-group mt-5">

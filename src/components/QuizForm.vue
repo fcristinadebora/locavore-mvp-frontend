@@ -66,7 +66,7 @@ async function handleSubmit() {
   form.value.loading = true;
   
   try {
-    form.value.data.is_active = form.value.is_active ? 1 : 0;
+    form.value.data.is_active = form.value.data.is_active ? 1 : 0;
     form.value.data.questions = form.value.data.questions
         .filter(question => {
             return question.question && question.type
@@ -151,7 +151,7 @@ function sendNext(currentIndex) {
             </div>
         </div>
         <div class="form-group mb-3">
-            <label for="title">Titulo:</label>
+            <label for="title">Nome (apenas para identificação):</label>
             <input type="text" id="title" class="form-control" v-model="form.data.name" placeholder="Digite aqui" required>
         </div>
 

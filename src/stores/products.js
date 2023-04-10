@@ -117,7 +117,7 @@ export const useProductsStore = defineStore("products", () => {
 
   const findProduct = async (id) => {
     try {
-      const includes = 'address,distance,availability,categories,producer.categories,average_review';
+      const includes = 'address,distance,availability,categories,producer.categories,producer.contacts,average_review';
       const query = { include: includes }
       const searchCoordinates = await searchStore.getSearchCoordinates();
       if (searchCoordinates) {
