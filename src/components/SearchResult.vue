@@ -1,5 +1,5 @@
 <script setup>
-import searchProductsList from "./searchProductsList.vue";
+import SearchProductsList from "./SearchProductsList.vue";
 import SearchProducersList from "./SearchProducersList.vue";
 import SearchFilterModal from "./SearchFilterModal.vue";
 import SearchLocationModal from "./SearchLocationModal.vue";
@@ -355,7 +355,7 @@ async function getFavorites() {
       <i class="bi bi-window icon-lg"></i>
       Nenhum resultado encontrado com esses filtros :(
     </section>
-    <searchProductsList
+    <SearchProductsList
       v-if="modalFilters.searchFor == PRODUCT && view == VIEW_LIST && !loadingResult && resultItems.length"
       :items="resultItems" />
     <SearchProducersList
