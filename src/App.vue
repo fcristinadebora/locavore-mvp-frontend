@@ -10,6 +10,7 @@ watch(
   () => route.path,
   () => closeBackdrops()
 );
+
 </script>
 
 <template>
