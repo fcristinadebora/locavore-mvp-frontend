@@ -6,7 +6,7 @@
     <div class="container">
       <h1 class="text-xl">Bem-vindo ao Locavore</h1>
       <p>A plataforma para conexão de produtores e consumidores locais</p>
-      <button class="btn button-secondary hero_btn-start px-4">Iniciar</button>
+      <router-link to="/search/result?type=product" class="btn button-secondary hero_btn-start px-4">Começar</router-link>
     </div>
   </section>
 </template>

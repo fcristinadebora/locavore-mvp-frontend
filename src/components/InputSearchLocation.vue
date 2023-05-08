@@ -40,7 +40,7 @@ function selectLocation(city) {
         @input="getCities"
         @onSelect="selectLocation"
         :results="cities"
-        :debounce="150"
+        :debounce="1000"
         :display-item="getCityName"
         :max="maxCities"
         :input-class="['form-control','text-center','mb-1']"
