@@ -130,6 +130,8 @@ async function logout() {
 @import "@/assets/scss/_variables";
 
 .sidebar-menu {
+  overflow-y: scroll;
+  
   li {
     margin-bottom: 0.25rem;
   }
