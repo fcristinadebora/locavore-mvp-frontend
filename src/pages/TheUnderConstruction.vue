@@ -11,7 +11,7 @@ import TheLayout from "../layouts/TheLayout.vue";
       </div>
       <div class="w-100 text-center">
           <h1 class="mb-3 text-brand-primary">Em construção</h1>
-          <p class="mb-3">A página que você acessou ainda sendo construída por nosso time de especialistas e estará disponível em breve. <br />Experimente voltar aqui em alguns dias.</p>
+          <p class="mb-3">A página que você acessou está sendo construída por nosso time de especialistas e estará disponível em breve. <br />Experimente voltar aqui em alguns dias.</p>
           <router-link to="/" class="btn button-primary">Continuar navegando</router-link>
       </div>
     </div>

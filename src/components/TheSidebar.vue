@@ -109,7 +109,7 @@ async function logout() {
         </li>   
       </span>
     </ul>
-    <ul class="list-unstyled sidebar_menu_footer">
+    <ul class="list-unstyled sidebar_menu_footer mt-5">
       <li>
         <router-link to="/under-construction">Sobre nós</router-link>
       </li>

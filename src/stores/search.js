@@ -10,7 +10,6 @@ export const useSearchStore = defineStore("search", () => {
     const searchCoordinates = ref(null); //Search coordinates = the coordinates used as reference point for search and distance calculation, can be different from the searchLocation.coordinates
 
     const setSearchLocation = (newSearchLocation) => {
-        console.log('set search location', newSearchLocation);
         localStorageHelper.setSearchSelectedLocation(newSearchLocation);
         searchLocation.value = newSearchLocation;
     }
@@ -64,18 +63,12 @@ export const useSearchStore = defineStore("search", () => {
         
         const coordinatesFromStorage = localStorageHelper.getSearchCoordinates();
         if (coordinatesFromStorage) {
-            console.log({coordinatesFromStorage})
             return coordinatesFromStorage;
         }
 
         //fallback, not found, lets see if we get from the city
         const location = await getSearchLocation();
-        console.log(location);
         if (location){
-            console.log('setting from city ', {
-                lat: location.coordinates[1],
-                lng: location.coordinates[0],
-            });
             setSearchCoordinates({
                 lat: location.coordinates[1],
                 lng: location.coordinates[0],

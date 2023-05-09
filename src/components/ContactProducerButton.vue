@@ -37,8 +37,8 @@ const whatsappReadyNumber = computed(() => {
 const whatsappUrl = computed(() => {
     const previousMessage = props.previousMessage ? encodeURI(props.previousMessage) : '';
 
-    // return whatsappReadyNumber ? `https://wa.me/55${whatsappReadyNumber.value}?text=${previousMessage}` : ''
-    return whatsappReadyNumber ? `https://wa.me/351915320497?text=${previousMessage}` : ''
+    return whatsappReadyNumber ? `https://wa.me/55${whatsappReadyNumber.value}?text=${previousMessage}` : ''
+    // return whatsappReadyNumber ? `https://wa.me/351915320497?text=${previousMessage}` : ''
 });
 
 async function contactProducer() {
@@ -63,9 +63,7 @@ async function fetchQuiz () {
         return null;
     }
 
-    console.log('aaaa');
     const result = await quizesStore.findById(props.quizId);
-    console.log(result.quiz);
     return result.quiz;
 }
 

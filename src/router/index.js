@@ -192,8 +192,6 @@ const router = createRouter({
 });
 
 router.beforeEach(async (from, to) => {
-  console.log('redirect')
-
   window.scrollTo(0, 0);
 });
 

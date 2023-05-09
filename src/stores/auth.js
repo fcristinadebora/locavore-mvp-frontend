@@ -21,7 +21,6 @@ export const useAuthStore = defineStore("auth", () => {
   const isLoggedIn = () => {
     const token = getToken();
     if (!token || !loggedUser.value) {
-      console.log('no token');
       return false;
     }
 
