@@ -51,6 +51,8 @@ async function contactProducer() {
         return window.open(whatsappUrl.value, '_blank');
     }
 
+    quiz.value = itemQuiz;
+    
     if (quiz.value && !quiz.value.is_active) {
         return window.open(whatsappUrl.value, '_blank');
     }
