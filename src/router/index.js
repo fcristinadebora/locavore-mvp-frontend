@@ -28,10 +28,16 @@ import AccountProductsList from "../pages/AccountProductsList.vue";
 import AccountProductForm from "../pages/AccountProductForm.vue";
 import QuizesList from "../pages/QuizesList.vue";
 import QuizForm from "../pages/QuizForm.vue";
+import TheUnderConstruction from "../pages/TheUnderConstruction.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: "/under-construction",
+      name: "under-construction",
+      component: TheUnderConstruction
+    },
     {
       path: "/",
       name: "home",

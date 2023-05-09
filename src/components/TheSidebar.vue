@@ -93,34 +93,34 @@ async function logout() {
           </strong>
         </li>
         <li>
-          <router-link to="/account/producer-profile"><i class="bi bi-basket"></i>Perfil</router-link>
+          <router-link  to="/under-construction"><i class="bi bi-basket"></i>Perfil</router-link>
         </li>
         <li>
-          <router-link to="/"><i class="bi bi-geo"></i>Endereço</router-link>
+          <router-link to="/under-construction"><i class="bi bi-geo"></i>Endereço</router-link>
         </li>      
         <li>
-          <router-link to="/"><i class="bi bi-person-vcard"></i>Contatos</router-link>
+          <router-link to="/under-construction"><i class="bi bi-person-vcard"></i>Contatos</router-link>
         </li>      
         <li>
           <router-link to="/account/products"><i class="bi bi-tags"></i>Produtos</router-link>
         </li>
         <li>
-          <router-link to="/"><i class="bi bi-chat-text"></i>Questionários</router-link>
+          <router-link to="/account/quizes"><i class="bi bi-chat-text"></i>Questionários</router-link>
         </li>   
       </span>
     </ul>
     <ul class="list-unstyled sidebar_menu_footer">
       <li>
-        <a href="">Sobre nós</a>
+        <router-link to="/under-construction">Sobre nós</router-link>
       </li>
       <li>
-        <a href="">Contato/Feedback</a>
+        <router-link to="/under-construction">Contato/Feedback</router-link>
       </li>
       <li>
-        <a href="">Perguntas Frequentes</a>
+        <router-link to="/under-construction">Perguntas Frequentes</router-link>
       </li>
       <li>
-        <a href="">Política de privacidade</a>
+        <router-link to="/under-construction">Política de privacidade</router-link>
       </li>
     </ul>
   </nav>

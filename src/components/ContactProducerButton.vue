@@ -41,17 +41,18 @@ const whatsappUrl = computed(() => {
     return whatsappReadyNumber ? `https://wa.me/351915320497?text=${previousMessage}` : ''
 });
 
-function contactProducer() {
+async function contactProducer() {
     if (!whatsappReadyNumber.value) {
         return;
     }
 
-    if (!quiz.value) {
-        window.open(whatsappUrl.value, '_blank');
+    const itemQuiz = await fetchQuiz();
+    if (!itemQuiz) {
+        return window.open(whatsappUrl.value, '_blank');
     }
 
     if (quiz.value && !quiz.value.is_active) {
-        window.open(whatsappUrl.value, '_blank');
+        return window.open(whatsappUrl.value, '_blank');
     }
 
     openModal('contact-quiz');
@@ -59,11 +60,13 @@ function contactProducer() {
 
 async function fetchQuiz () {
     if (!props.quizId) {
-        return;
+        return null;
     }
 
+    console.log('aaaa');
     const result = await quizesStore.findById(props.quizId);
-    quiz.value = result.quiz;
+    console.log(result.quiz);
+    return result.quiz;
 }
 
 </script>

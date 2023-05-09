@@ -31,16 +31,16 @@
             class="color-secondary footer_detail_nav justify-content-between p-0"
           >
             <li class="d-inline-flex d-md-block px-3">
-              <a href="">Sobre nós</a>
+              <router-link to="/under-construction">Sobre nós</router-link>
             </li>
             <li class="d-inline-flex d-md-block px-3">
-              <a href="">Contato</a>
+              <router-link to="/under-construction">Contato</router-link>
             </li>
             <li class="d-inline-flex d-md-block px-3">
-              <a href="">Perguntas frequentes</a>
+              <router-link to="/under-construction">Perguntas frequentes</router-link>
             </li>
             <li class="d-inline-flex d-md-block px-3">
-              <a href="">Política de privacidade</a>
+              <router-link to="/under-construction">Política de privacidade</router-link>
             </li>
           </ul>
         </nav>
@@ -85,9 +85,10 @@ const currentYear = ref(new Date().getFullYear());
   a {
     color: $color-brand-secondary;
     text-decoration: none;
+    font-weight: 800;
 
     &:hover {
-      color: $color-brand-secondary;
+      color: $color-brand-secondary-dark;
     }
   }
 }
