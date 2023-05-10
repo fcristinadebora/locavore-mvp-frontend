@@ -19,7 +19,6 @@ export const useReviewsStore = defineStore("reviews", () => {
         await createProductReview(itemId, data);
     }
     if (type == PRODUCER) {
-      console.log(itemId, data)
         await createProducerReview(itemId, data);
     }
 

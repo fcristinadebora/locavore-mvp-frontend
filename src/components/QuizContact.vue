@@ -89,6 +89,7 @@ async function handleSubmit() {
     ];
 
     await accountStore.replaceProducerContacts({'contacts': contacts.filter((contact) => !!contact.value)});
+    await accountStore.updateProducer({is_enabled: true});
     nextStep();
   } catch (e) {
     console.error(e)
