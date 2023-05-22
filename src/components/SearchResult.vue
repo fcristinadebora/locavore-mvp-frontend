@@ -293,7 +293,7 @@ async function getFavorites() {
   
   if (view.value == VIEW_MAP) {
     mapResultItems.value.forEach(item => {
-      mapResultItems.push(item.id)
+      mapResultItems.value.push(item.id)
     });
   }
 

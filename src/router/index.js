@@ -29,6 +29,7 @@ import AccountProductForm from "../pages/AccountProductForm.vue";
 import QuizesList from "../pages/QuizesList.vue";
 import QuizForm from "../pages/QuizForm.vue";
 import TheUnderConstruction from "../pages/TheUnderConstruction.vue";
+import The404 from "../pages/The404.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -187,6 +188,11 @@ const router = createRouter({
       path: "/goodbye",
       name: "goodbye",
       component: AccountDeletionSuccess
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: 'notFound',
+      component: The404
     }
   ],
 });

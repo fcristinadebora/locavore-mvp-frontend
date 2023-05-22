@@ -3,6 +3,8 @@ import * as bootstrap from "bootstrap";
 import { onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "../stores";
+import { hideSidebar } from "./helpers/sidebar";
+import TheSidebarLink from "./TheSidebarLink.vue";
 
 const authStore = useAuthStore();
 
@@ -10,14 +12,8 @@ const router = useRouter();
 const loggedUser = computed(() => authStore.loggedUser);
 
 onMounted(() => {
-  hideSidebar();
+  hideSidebar("sidebar_menu");
 });
-
-function hideSidebar() {
-  let offcanvas = document.getElementById("sidebar_menu");
-  let bsOffcanvas = bootstrap.Offcanvas.getOrCreateInstance(offcanvas);
-  bsOffcanvas.hide();
-}
 
 async function logout() {
   await authStore.executeLogout();
@@ -50,20 +46,20 @@ async function logout() {
         />
       </li>
       <li>
-        <router-link to="/"> <i class="bi bi-house"></i>Home </router-link>
+        <TheSidebarLink to="/"> <i class="bi bi-house"></i>Home </TheSidebarLink>
       </li>
       <li>
-        <router-link to="/search/result?type=product"><i class="bi bi-search"></i>Buscar</router-link>
+        <TheSidebarLink to="/search/result?type=product"><i class="bi bi-search"></i>Buscar</TheSidebarLink>
       </li>
       <li v-if="!loggedUser">
-        <router-link to="/login">
+        <TheSidebarLink to="/login">
           <i class="bi bi-box-arrow-in-left"></i>Entrar
-        </router-link>
+        </TheSidebarLink>
       </li>
       <li v-if="!loggedUser">
-        <router-link to="/register">
+        <TheSidebarLink to="/register">
           <i class="bi bi-person"></i>Cadastrar
-        </router-link>
+        </TheSidebarLink>
       </li>
       <span v-if="loggedUser">
         <li>
@@ -73,13 +69,13 @@ async function logout() {
           </strong>
         </li>
         <li>
-          <router-link to="/account/profile"> <i class="bi bi-person-lock"></i>Conta e segurança</router-link>
+          <TheSidebarLink to="/account/profile"> <i class="bi bi-person-lock"></i>Conta e segurança</TheSidebarLink>
         </li>
         <li>
-          <router-link to="/account/favorites/products"><i class="bi bi-heart-fill"></i>Produtos Favoritos</router-link>
+          <TheSidebarLink to="/account/favorites/products"><i class="bi bi-heart-fill"></i>Produtos Favoritos</TheSidebarLink>
         </li>
         <li>
-          <router-link to="/account/favorites/producers"><i class="bi bi-heart"></i>Produtores Favoritos</router-link>
+          <TheSidebarLink to="/account/favorites/producers"><i class="bi bi-heart"></i>Produtores Favoritos</TheSidebarLink>
         </li>
         <li v-if="loggedUser">
           <a href="#" @click.prevent="logout"
@@ -93,34 +89,34 @@ async function logout() {
           </strong>
         </li>
         <li>
-          <router-link  to="/under-construction"><i class="bi bi-basket"></i>Perfil</router-link>
+          <TheSidebarLink  to="/under-construction"><i class="bi bi-basket"></i>Perfil</TheSidebarLink>
         </li>
         <li>
-          <router-link to="/under-construction"><i class="bi bi-geo"></i>Endereço</router-link>
+          <TheSidebarLink to="/under-construction"><i class="bi bi-geo"></i>Endereço</TheSidebarLink>
         </li>      
         <li>
-          <router-link to="/under-construction"><i class="bi bi-person-vcard"></i>Contatos</router-link>
+          <TheSidebarLink to="/under-construction"><i class="bi bi-person-vcard"></i>Contatos</TheSidebarLink>
         </li>      
         <li>
-          <router-link to="/account/products"><i class="bi bi-tags"></i>Produtos</router-link>
+          <TheSidebarLink to="/account/products"><i class="bi bi-tags"></i>Produtos</TheSidebarLink>
         </li>
         <li>
-          <router-link to="/account/quizes"><i class="bi bi-chat-text"></i>Questionários</router-link>
+          <TheSidebarLink to="/account/quizes"><i class="bi bi-chat-text"></i>Questionários</TheSidebarLink>
         </li>   
       </span>
     </ul>
     <ul class="list-unstyled sidebar_menu_footer mt-5">
       <li>
-        <router-link to="/under-construction">Sobre nós</router-link>
+        <TheSidebarLink to="/under-construction">Sobre nós</TheSidebarLink>
       </li>
       <li>
-        <router-link to="/under-construction">Contato/Feedback</router-link>
+        <TheSidebarLink to="/under-construction">Contato/Feedback</TheSidebarLink>
       </li>
       <li>
-        <router-link to="/under-construction">Perguntas Frequentes</router-link>
+        <TheSidebarLink to="/under-construction">Perguntas Frequentes</TheSidebarLink>
       </li>
       <li>
-        <router-link to="/under-construction">Política de privacidade</router-link>
+        <TheSidebarLink to="/under-construction">Política de privacidade</TheSidebarLink>
       </li>
     </ul>
   </nav>

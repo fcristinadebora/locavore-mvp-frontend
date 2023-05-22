@@ -21,6 +21,10 @@ const markers = computed(() => {
     }
     
     return props.items.map(item => {
+        if (!item.address) {
+            return null;
+        }
+
         const url = props.itemType == PRODUCER
             ? `/producer/${item.id}`
             : `/product/${item.id}`;
@@ -43,7 +47,7 @@ const markers = computed(() => {
             lat: item.address.location.coordinates[1],
             lng: item.address.location.coordinates[0],
         }
-    });
+    }).filter(item => item !== null);
 })
 </script>
 

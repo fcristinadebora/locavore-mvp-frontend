@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from "vue";
 import { useAuthStore } from "../stores";
+import TheSidebarLink from "./TheSidebarLink.vue";
 
 const authStore = useAuthStore();
 
@@ -24,23 +25,23 @@ const loggedUser = computed(() => authStore.loggedUser);
           >
             <i class="bi bi-list"></i>
           </button>
-          <router-link
+          <the-sidebar-link
             class="navbar-brand menu-logo p-0 ms-2 d-flex align-items-center"
             to="/"
           >
             <img src="@/assets/img/logo_green.png" alt="" />
-          </router-link>
+          </the-sidebar-link>
         </div>
         <div class="menu-content-left justify-content-end">
-          <router-link
+          <the-sidebar-link
             to="/login"
             class="btn btn-md button-primary button-primary--light me-2"
             v-if="!loggedUser"
           >
             Entrar
-          </router-link>
-          <router-link to="/register" href="" class="btn btn-md button-primary" v-if="!loggedUser">
-            Cadastrar</router-link
+          </the-sidebar-link>
+          <the-sidebar-link to="/register" class="btn btn-md button-primary" v-if="!loggedUser">
+            Cadastrar</the-sidebar-link
           >
           <button href="" class="btn btn-md button-primary--light" v-if="loggedUser"
             data-bs-toggle="offcanvas"
@@ -60,7 +61,7 @@ const loggedUser = computed(() => authStore.loggedUser);
 
 .menu-logo {
   img {
-    width: 175px;
+    width: 162px;
   }
 }
 
@@ -74,6 +75,9 @@ const loggedUser = computed(() => authStore.loggedUser);
 
 .menu-toggler {
   border: none;
+  padding-left: 0px;
+  margin-left: -3px;
+
   &:focus {
     background-color: transparent;
   }
