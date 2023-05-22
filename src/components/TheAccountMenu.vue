@@ -68,7 +68,7 @@ async function logout() {
         <router-link to="/under-construction"><i class="bi bi-basket"></i>Perfil</router-link>
       </li>
       <li>
-        <router-link to="/under-construction"><i class="bi bi-geo"></i>Endereço</router-link>
+        <router-link to="/account/producer-address"><i class="bi bi-geo"></i>Endereço</router-link>
       </li>      
       <li>
         <router-link to="/under-construction"><i class="bi bi-person-vcard"></i>Contatos</router-link>

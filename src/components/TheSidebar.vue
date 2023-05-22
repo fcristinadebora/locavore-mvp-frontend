@@ -92,7 +92,7 @@ async function logout() {
           <TheSidebarLink  to="/under-construction"><i class="bi bi-basket"></i>Perfil</TheSidebarLink>
         </li>
         <li>
-          <TheSidebarLink to="/under-construction"><i class="bi bi-geo"></i>Endereço</TheSidebarLink>
+          <TheSidebarLink to="/account/producer-address"><i class="bi bi-geo"></i>Endereço</TheSidebarLink>
         </li>      
         <li>
           <TheSidebarLink to="/under-construction"><i class="bi bi-person-vcard"></i>Contatos</TheSidebarLink>

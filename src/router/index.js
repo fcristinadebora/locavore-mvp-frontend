@@ -26,6 +26,7 @@ import AccountDeletionSuccess from "../pages/AccountDeletionSuccess.vue";
 import QuizProducerName from "../pages/QuizProducerName.vue";
 import AccountProductsList from "../pages/AccountProductsList.vue";
 import AccountProductForm from "../pages/AccountProductForm.vue";
+import AccountProducerAddress from "../pages/AccountProducerAddress.vue";
 import QuizesList from "../pages/QuizesList.vue";
 import QuizForm from "../pages/QuizForm.vue";
 import TheUnderConstruction from "../pages/TheUnderConstruction.vue";
@@ -168,6 +169,11 @@ const router = createRouter({
       path: "/account/products/:id",
       name: "accountProductUpdate",
       component: AccountProductForm
+    },
+    {
+      path: "/account/producer-address",
+      name: "accountProducerAddress",
+      component: AccountProducerAddress
     },
     {
       path: "/account/quizes",
