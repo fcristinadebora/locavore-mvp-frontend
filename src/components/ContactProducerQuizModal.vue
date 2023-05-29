@@ -17,7 +17,6 @@ function getMessageText () {
 
 function openWhatsapp () {
   const url = `${props.whatsappUrl}${getMessageText()}`;
-  console.log(url);
   window.open(url, '_blank');
 }
 

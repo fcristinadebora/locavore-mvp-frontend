@@ -7,7 +7,7 @@ const props = defineProps(['product']);
 
 </script>
 <template>
-        <article class="search-product-item p-3 my-3 cursor-pointer d-flex flex-column flex-sm-row bg-light border-radius">
+        <article class="w-100 search-product-item p-3 my-3 cursor-pointer d-flex flex-column flex-sm-row bg-light border-radius">
             <router-link class="card-link search-product-img mb-3 mb-sm-0 d-flex justify-content-center align-items-top search-item-image-placeholder" :to="`/product/${props.product.id}`">
                 <img class="border-radius" :src="props.product.image" alt="Imagem do produto" v-if="props.product.image" />
                 <i class="bi bi-image icon-lg" v-if="!props.product.image"></i>

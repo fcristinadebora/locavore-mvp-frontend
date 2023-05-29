@@ -6,7 +6,7 @@ import FavoriteButton from './FavoriteButton.vue';
 const props = defineProps(['producer'])
 </script>
 <template>
-    <section v-if="props.producer" class="search-producer-item p-3 my-3 cursor-pointer d-flex flex-column flex-sm-row bg-light border-radius color-text-default">
+    <section v-if="props.producer" class="w-100 search-producer-item p-3 my-3 cursor-pointer d-flex flex-column flex-sm-row bg-light border-radius color-text-default">
       <router-link
         class="card-link mb-3 mb-sm-0 d-flex justify-content-center align-items-center search-item-image-placeholder"
         :to="`/producer/${props.producer.id}`"

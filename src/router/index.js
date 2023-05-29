@@ -27,6 +27,7 @@ import QuizProducerName from "../pages/QuizProducerName.vue";
 import AccountProductsList from "../pages/AccountProductsList.vue";
 import AccountProductForm from "../pages/AccountProductForm.vue";
 import AccountProducerAddress from "../pages/AccountProducerAddress.vue";
+import AccountProducerContact from "../pages/AccountProducerContact.vue";
 import QuizesList from "../pages/QuizesList.vue";
 import QuizForm from "../pages/QuizForm.vue";
 import TheUnderConstruction from "../pages/TheUnderConstruction.vue";
@@ -174,6 +175,11 @@ const router = createRouter({
       path: "/account/producer-address",
       name: "accountProducerAddress",
       component: AccountProducerAddress
+    },
+    {
+      path: "/account/producer-contact",
+      name: "accountProducerContact",
+      component: AccountProducerContact
     },
     {
       path: "/account/quizes",

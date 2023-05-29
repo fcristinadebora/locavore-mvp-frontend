@@ -4,6 +4,7 @@ import FormSubmitButton from "./FormSubmitButton.vue";
 import { ref, onMounted, watch } from "vue";
 import { useAccountStore, useAuthStore, useCitiesStore } from "../stores";
 import Map from "./Map.vue";
+import toaster from "../helpers/toaster";
 
 const emits = defineEmits(['success']);
 const props = defineProps(['submitButtonText'])
@@ -72,6 +73,7 @@ async function handleSubmit() {
 
     try {
         await accountStore.updateProducerAddress({ ...form.value.data });
+        toaster.success('Dados atualizados com sucesso');
         emits('success');
     } catch (e) {
         console.error(e)
@@ -100,12 +102,9 @@ function handleMainMarkerMoved(newPosition) {
 </script>
 
 <template>
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="handleSubmit" class="w-100">
         <section id="quiz-long-description">
             <section>
-                <p class="w-100 text-muted text-center mb-3">
-                    Está na etapa 7 de 6
-                </p>
                 <h1 class="color-primary fw-bold text-center">Endereço</h1>
             </section>
             <section id="quiz-long-description-form" class="my-3">
@@ -118,7 +117,7 @@ function handleMainMarkerMoved(newPosition) {
                 <div class="mb-2">
                     <label class="w-100 text-bold">Endreço completo:</label>
                     <textarea v-model="form.data.address" id="short-description" class="form-control w-100 resize-none"
-                        rows="3" maxlength="100" placeholder="Digite aqui"></textarea>
+                        rows="3" maxlength="100" placeholder="Digite aqui" required></textarea>
                     <label v-if="form.errors.address" class="text-danger">Preenchimento obrigatório</label>
                 </div>
                 <div class="form-group mb-2" v-if="selectedCoordinates">

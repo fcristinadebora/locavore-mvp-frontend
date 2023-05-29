@@ -3,6 +3,7 @@ import StepsNavigation from "./QuizStepsNavigation.vue";
 import { useRouter } from "vue-router";
 import Map from "./Map.vue";
 import AddressForm from "./AddressForm.vue";
+import QuizStepCounter from "./QuizStepCounter.vue";
 
 const router = useRouter();
 const props = defineProps(["currentStep"]);
@@ -19,6 +20,7 @@ function prevStep() {
 
 <template>
   <section class="w-100 d-flex flex-column justify-content-between">
+    <QuizStepCounter current-step="6" />
     <AddressForm @success="nextStep" submit-button-text="Salvar e continuar" />
     <StepsNavigation @next-step="nextStep" @prev-step="prevStep" />
   </section>

@@ -5,6 +5,6 @@ const props = defineProps(["currentStep"]);
 
 <template>
   <p class="w-100 text-muted text-center mb-3">
-    Está na etapa {{ props.currentStep }} de 6
+    Está na etapa {{ props.currentStep }} de 7
   </p>
 </template>

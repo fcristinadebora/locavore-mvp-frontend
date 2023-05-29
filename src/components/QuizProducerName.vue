@@ -7,6 +7,7 @@ import FormSubmitButton from './FormSubmitButton.vue';
 import { computed } from "@vue/reactivity";
 import { watch } from "vue";
 import { getCurrentProducer } from "../api/backend/account";
+import QuizStepCounter from "./QuizStepCounter.vue";
 
 const router = useRouter();
 const props = defineProps(["currentStep"]);
@@ -61,9 +62,7 @@ async function handleSubmit() {
     class="w-100 d-flex flex-column justify-content-between"
   >
     <section>
-      <p class="w-100 text-muted text-center mb-3">
-        Está na etapa 1 de 6
-      </p>
+      <QuizStepCounter current-step="1" />
       <h1 class="color-primary fw-bold text-center">Nome</h1>
     </section>
     <section>

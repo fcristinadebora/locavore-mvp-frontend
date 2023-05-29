@@ -57,7 +57,7 @@ async function fetchCurrentProducer() {
     const producer = await accountStore.getCurrentProducer({include: 'contacts'});
     
     producerId.value = producer.data.id;
-    hasWhatsapp.value = producer.data?.contacts?.some((contact) => contact.type == 'whatsapp' && contact.value >= 9)
+    hasWhatsapp.value = producer.data?.contacts?.some((contact) => contact.type == 'whatsapp' && contact.value.length >= 9)
 
     getPageItems();
 }
@@ -87,7 +87,7 @@ async function deleteItem() {
 <template>
   <section id="profile-and-security" class="w-100">
     <div class="alert alert-warning" v-if="!hasWhatsapp">
-      <i class="bi bi-info-circle"></i> Necessário preencher o campo <strong>Whatsapp</strong> na área de <router-link to="/account/address">contatos</router-link> para ativar a funcionalidade copletamente.
+      <i class="bi bi-info-circle"></i> Necessário preencher o campo <strong>Whatsapp</strong> na área de <router-link to="/account/producer-contact">contatos</router-link> para ativar a funcionalidade copletamente.
     </div>
     <section id="login-header" class="text-center">
       <h1 class="color-primary fw-bold text-center">Gerenciar Questionários</h1>

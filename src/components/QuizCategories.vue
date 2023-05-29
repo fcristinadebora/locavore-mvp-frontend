@@ -4,6 +4,7 @@ import { useAccountStore, useAuthStore, useCategoriesStore } from "../stores";
 import StepsNavigation from "./QuizStepsNavigation.vue";
 import { useRouter } from "vue-router";
 import FormSubmitButton from "./FormSubmitButton.vue";
+import QuizStepCounter from "./QuizStepCounter.vue";
 
 const router = useRouter();
 const props = defineProps(["currentStep"]);
@@ -79,9 +80,7 @@ async function handleSubmit() {
   <section class="d-flex flex-column justify-content-between">
     <section id="quiz-production-categories">
       <section id="quiz-production-categories">
-        <p class="w-100 text-muted text-center mb-3">
-          Está na etapa 3 de 6
-        </p>
+        <QuizStepCounter current-step="3" />
         <h1 class="color-primary fw-bold text-center">Tipo de produção</h1>
         <p class="text-lg text-center">
           Clique para selecionar as categorias de produtos que você produz.<br />

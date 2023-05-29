@@ -12,15 +12,16 @@ const router = useRouter();
 const selectedLocation = ref(null);
 
 function handleOnSelectLocation(event) {
+  if (!event) return;
+
   selectedLocation.value = event;
 }
 
 function handleSearchSubmit(event) {
   if (!selectedLocation.value) {
+    document.getElementById('location-input').focus();
     return;
   }
-
-  searchStore.setSearchLocation(selectedLocation.value);
 
   router.push({
     path: "/search/location",
@@ -37,7 +38,7 @@ function handleSearchSubmit(event) {
   >
     <div class="container">
       <form @submit.prevent="handleSearchSubmit">
-        <InputSearchLocation @location-selected="handleOnSelectLocation" />
+        <InputSearchLocation :required="true" id="location-input" @location-selected="handleOnSelectLocation" />
         <button class="btn button-primary w-100 mt-1">Buscar</button>
       </form>
     </div>

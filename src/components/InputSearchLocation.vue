@@ -4,7 +4,7 @@ import { ref, computed } from "vue";
 import { useCitiesStore, useSearchStore } from '../stores';
 
 const emit = defineEmits(['locationSelected']);
-const props = defineProps(['selected-location'])
+const props = defineProps(['selected-location', 'id'])
 const maxCities = ref(10);
 const cities = ref([]);
 const citiesStore = useCitiesStore();
@@ -26,7 +26,7 @@ async function getCities(searchString) {
 }
 
 function getCityName(city) {
-  return city.name;
+  return city?.name ?? '';
 }
 
 function selectLocation(city) {
@@ -37,6 +37,7 @@ function selectLocation(city) {
 
 <template>
     <Autocomplete
+        :id="props.id ?? 'location-input'"
         @input="getCities"
         @onSelect="selectLocation"
         :results="cities"
@@ -48,6 +49,7 @@ function selectLocation(city) {
         :results-container-class="['results-container', 'border-radius', 'w-100']"
         :results-item-class="['result-item','my-2']"
         :current-value="selectedLocationText"
+        :required="props.required ?? false"
      />
 </template>
 

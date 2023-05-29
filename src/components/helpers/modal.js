@@ -10,8 +10,6 @@ function openModal (modalId) {
 
     let modal = document.getElementById(modalId);
     let bsModal = new bootstrap.Modal(modal);
-    
-    console.log('Opening', modalId);
     bsModal.show();
     modal.addEventListener('hidde.bs.modal', function (event) {
         closeBackdrops();

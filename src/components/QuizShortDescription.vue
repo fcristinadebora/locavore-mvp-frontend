@@ -4,6 +4,7 @@ import FormSubmitButton from "./FormSubmitButton.vue";
 import StepsNavigation from "./QuizStepsNavigation.vue";
 import { useRouter } from "vue-router";
 import { useAccountStore, useAuthStore } from "../stores";
+import QuizStepCounter from "./QuizStepCounter.vue";
 
 const router = useRouter();
 const props = defineProps(["currentStep"]);
@@ -59,9 +60,7 @@ async function handleSubmit() {
     <form @submit.prevent="handleSubmit">
     <section id="quiz-short-description">
       <section>
-        <p class="w-100 text-muted text-center mb-3">
-          Está na etapa 4 de 6
-        </p>
+        <QuizStepCounter current-step="4" />
         <h1 class="color-primary fw-bold text-center">Descrição curta</h1>
         <p class="text-lg text-center">
           Apresente seu negócio de forma resumida

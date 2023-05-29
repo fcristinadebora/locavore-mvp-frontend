@@ -4,6 +4,7 @@ import StepsNavigation from "./QuizStepsNavigation.vue";
 import { useRouter } from "vue-router";
 import { useAccountStore } from "../stores";
 import FormSubmitButton from './FormSubmitButton.vue';
+import QuizStepCounter from "./QuizStepCounter.vue";
 
 const router = useRouter();
 const props = defineProps(["currentStep"]);
@@ -61,9 +62,7 @@ function handleFileSelect(event) {
     class="w-100 d-flex flex-column justify-content-between"
   >
     <section>
-      <p class="w-100 text-muted text-center mb-3">
-        Está na etapa 2 de 6
-      </p>
+      <QuizStepCounter current-step="2" />
       <h1 class="color-primary fw-bold text-center">Foto de perfil</h1>
     </section>
     <section>

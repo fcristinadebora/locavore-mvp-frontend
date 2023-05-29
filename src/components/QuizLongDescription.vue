@@ -4,6 +4,7 @@ import { useRouter } from "vue-router";
 import { ref, onMounted, watch } from "vue";
 import { useAccountStore, useAuthStore } from "../stores";
 import FormSubmitButton from "./FormSubmitButton.vue";
+import QuizStepCounter from "./QuizStepCounter.vue";
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -59,9 +60,7 @@ async function handleSubmit() {
     <form @submit.prevent="handleSubmit">
     <section id="quiz-long-description">
       <section>
-        <p class="w-100 text-muted text-center mb-3">
-          Está na etapa 5 de 6
-        </p>
+        <QuizStepCounter current-step="5" />
         <h1 class="color-primary fw-bold text-center">Descrição Longa</h1>
         <p class="text-lg text-center">
           Conte aos consumidores um pouco mais sobre seu negócio e sua produção
