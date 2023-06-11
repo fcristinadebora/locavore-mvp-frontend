@@ -80,10 +80,10 @@ async function handleSubmit() {
     if (!route.params.id) {
 
         await quizesStore.create({...form.value.data});
-        toaster.success('Produto criado com sucesso');
+        toaster.success('Questionário criado com sucesso');
     } else {
         await quizesStore.update(route.params.id, {...form.value.data});
-        toaster.success('Produto atualizado com sucesso');
+        toaster.success('Questionário atualizado com sucesso');
     }
     router.push('/account/quizes');
   } catch (e) {

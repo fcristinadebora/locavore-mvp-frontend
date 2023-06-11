@@ -93,7 +93,7 @@ async function fetchProducts () {
 
             <ContactProducerButton v-if="producer?.contacts?.some(contact => contact.type == 'whatsapp')" :producer="producer" :quiz-id="producer.quiz_id"/>
         </section>
-        <section id="producer-details-products" v-if="products">
+        <section id="producer-details-products" v-if="products && products.length">
             <h4 class="mt-5">Produtos</h4>
             <ProductCardsCarousel :products="products" />
             <button @click="openModal('producer-products-modal')" class="btn button-secondary w-100 mt-3">Ver mais produtos</button>
@@ -102,7 +102,7 @@ async function fetchProducts () {
             <ItemReviews :average-rate="producer.average_review" :type="PRODUCER" :item-id="producer.id" />
         </section>
     </section>
-    <ProducerProductsModal :producer-id="producerId" v-if="producer" />
+    <ProducerProductsModal :producer-id="producerId" v-if="products && products.length" />
 </template>
 
 <style lang="scss">
