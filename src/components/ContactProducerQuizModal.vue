@@ -10,7 +10,7 @@ const props = defineProps(['modalId', 'quiz', 'whatsappUrl']);
 const currentQuestionIndex = ref(0);
 
 function getMessageText () {
-  const answers = props.quiz.questions.map(question => encodeURI(`*${question.question}* ${question.answer}`));
+  const answers = props.quiz.questions.map(question => encodeURI(`*${question.question}* ${question.answer ?? ''}`));
 
   return `%0A%0A${encodeURI('Resposta do questionário: ')}%0A${answers.join('%0A')}`;  
 }
