@@ -23,6 +23,8 @@ function handleSearchSubmit(event) {
     return;
   }
 
+  searchStore.setSearchLocation(selectedLocation.value);
+
   router.push({
     path: "/search/location",
     query: {
