@@ -27,7 +27,6 @@ const form = ref({
 });
 
 onMounted(() => {
-    fetchCurrentData();
 })
 
 watch(() => authStore.loggedUser,

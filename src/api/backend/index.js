@@ -1,5 +1,6 @@
 import { METHOD_DELETE, METHOD_GET, METHOD_POST, METHOD_PUT } from "../../enum/http";
 import ApiException from "./exceptions/ApiException";
+import Cookies from 'js-cookie';
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000/api";
@@ -12,7 +13,7 @@ async function sendRequest(method, endpoint, query = {}, body = {}, isFileUpload
     : "";
 
   const requestUrl = `${API_BASE_URL}${endpoint}${queryString}`;
-  const token = sessionStorage.getItem("userToken");
+  const token = Cookies.get("userToken");
 
   const options = {
     method: method,

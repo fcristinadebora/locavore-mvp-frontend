@@ -3,7 +3,7 @@ import { useRouter } from "vue-router";
 import localStorage from "../helpers/localStorage";
 import { useAccountStore, useAuthStore } from "../stores";
 import FormSubmitButton from "./FormSubmitButton.vue";
-import { ref, onMounted } from "vue";
+import { ref, watch } from "vue";
 import toaster from '../helpers/toaster';
 import UpdatePasswordModal from "./UpdatePasswordModal.vue";
 import { openModal } from "./helpers/modal";
@@ -23,9 +23,9 @@ const form = ref({
 })
 const originalData = ref({});
 
-onMounted(() => {
-  fetchCurrentData();
-})
+watch(() => authStore.loggedUser,
+    () => fetchCurrentData()
+)
 
 async function handleSubmit() {
   form.value.loading = true;

@@ -1,6 +1,7 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import { login, register, getUser, logout } from "../api/backend/auth";
+import Cookies from 'js-cookie';
 
 export const useAuthStore = defineStore("auth", () => {
   const loggedUser = ref(null);
@@ -51,7 +52,7 @@ export const useAuthStore = defineStore("auth", () => {
       if (loading.value) {
         return;
       }
-  
+
       loading.value = true;
 
       const result = await getUser();
@@ -94,7 +95,7 @@ export const useAuthStore = defineStore("auth", () => {
 
   const saveToken = (token) => {
     try {
-      window.sessionStorage.setItem("userToken", token); //pleaseeeee remove this and do it in a secure method
+      Cookies.set('userToken', token, { expires: 30, domain: window.location.hostname, secure: true, httpOnly: true });
     } catch (error) {
       console.error("Failed storing token", error);
     }
@@ -102,14 +103,14 @@ export const useAuthStore = defineStore("auth", () => {
 
   const unsetToken = (token) => {
     try {
-      window.sessionStorage.removeItem("userToken");
+      Cookies.remove('userToken');
     } catch (error) {
       console.error("Failed unseting token", error);
     }
   };
 
   const getToken = () => {
-    return window.sessionStorage.getItem("userToken");
+    return Cookies.get('userToken');
   };
 
   return {
