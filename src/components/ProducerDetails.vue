@@ -71,7 +71,7 @@ async function fetchProducts () {
 
             <span v-if="producer.longDescription">
                 <h4 class="text-normal">Sobre o produtor</h4>
-                <p class="w-100 color-default mb-3">{{ producer.longDescription }}</p>
+                <p class="w-100 color-default mb-3" v-html="producer.longDescription.replaceAll('\n', '<br>')"></p>
             </span>
         </section>
 
