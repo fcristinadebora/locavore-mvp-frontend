@@ -17,7 +17,7 @@ import HomeNewsletter from "../components/HomeNewsletter.vue";
     <HomeProducers />
     <HomeProducts />
     <HomeTestimonials />
-    <HomeNewsletter />
+    <!-- <HomeNewsletter /> -->
   </TheLayout>
 </template>
 
