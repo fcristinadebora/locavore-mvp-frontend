@@ -95,7 +95,7 @@ export const useAuthStore = defineStore("auth", () => {
 
   const saveToken = (token) => {
     try {
-      Cookies.set('userToken', token, { expires: 30, domain: window.location.hostname, secure: true, httpOnly: true });
+      Cookies.set('userToken', token, { expires: 30, domain: window.location.hostname, secure: true });
     } catch (error) {
       console.error("Failed storing token", error);
     }
